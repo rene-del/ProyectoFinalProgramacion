@@ -1,1 +1,1 @@
-Proyecto Final de Programación (M03)
+Proyecto Final de Programación SDL2 (M03)
