@@ -26,20 +26,8 @@ Video::~Video()
 {
 }
 
-void Video::renderGraphic(int img, int posXStart, int posYStart, int posX, int posY, int width, int height)
+void Video::renderGraphic(int img, SDL_Rect src, SDL_Rect dst)
 {
-	SDL_Rect src, dst;
-
-	src.w = width;
-	src.h = height;
-	src.x = posXStart;
-	src.y = posYStart;
-
-	dst.w = width;
-	dst.h = height;
-	dst.x = posX;
-	dst.y = posY;
-
 	SDL_Texture* tex = RESOURCE_MANAGER->getGraphicByID(img);
 
 	if (SDL_RenderCopy(_gRenderer, tex, &src, &dst) < 0)

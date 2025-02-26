@@ -1,8 +1,8 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
-#define SCREEN_WIDTH 500
-#define SCREEN_HEIGHT 500
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 700
 
 #include "SDL.h"
 
@@ -16,7 +16,7 @@ private:
 public:	
 	~Video();
 
-	void renderGraphic(int img, int posXStart, int posYStart, int posX, int posY, int width, int height);
+	void renderGraphic(int img, SDL_Rect src, SDL_Rect dst);
 	void clearScreen();
 	void updateScreen();
 	void close();

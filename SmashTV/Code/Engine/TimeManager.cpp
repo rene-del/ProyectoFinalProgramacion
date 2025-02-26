@@ -9,8 +9,6 @@ TimeManager::TimeManager()
 	_currentTime = 0;
 	_deltaTime = 0;
 	_msFrame = 1 / (_fps / 1000.0f);
-	_elapsedTime = 0;
-	_spriteChangeTime = 0;
 }
 
 TimeManager::~TimeManager()
@@ -33,11 +31,6 @@ void TimeManager::timeControl()
 	}
 
 	_lastTime = _currentTime;
-
-	_elapsedTime += 10;
-	_spriteChangeTime += 10;
-
-	std::cout << _elapsedTime << std::endl;
 }
 
 TimeManager* TimeManager::getInstance()

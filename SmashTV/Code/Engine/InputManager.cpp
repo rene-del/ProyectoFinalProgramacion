@@ -1,7 +1,8 @@
 #include "InputManager.h"
-#include "Charger.h"
 
-extern Charger PLAYER;
+#include "../Game/Player.h"
+
+extern Player PLAYER;
 
 InputManager* InputManager::_pInstance = nullptr;
 
@@ -26,30 +27,6 @@ void InputManager::manageInputs()
 		case SDL_KEYDOWN:
 			switch (_testEvent.key.keysym.sym)
 			{
-			case SDLK_ESCAPE:
-				_endGame = true;
-				break;
-			case SDLK_m:
-				if (PLAYER.getState() == ST_ATTACK)
-				{
-					_mKey = true;
-				}
-
-				break;
-			case SDLK_SPACE:
-				if ((PLAYER.getState() == ST_PATROL_RIGHT) || (PLAYER.getState() == ST_PATROL_LEFT))
-				{
-					_spaceKey = true;
-				}
-
-				break;
-			case SDLK_RETURN:
-				if (PLAYER.getState() == ST_ATTACK)
-				{
-					_enterKey = true;
-				}
-
-				break;
 			default:
 				break;
 			}

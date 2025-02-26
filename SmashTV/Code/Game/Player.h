@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "SDL.h"
+
 enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACK };
 
 enum DIRECTION { DIR_RIGHT, DIR_LEFT, DIR_DOWN, DIR_UP };
@@ -10,28 +12,27 @@ class Player
 private:
 	int _img;
 
-	int _startX;
-	int _startY;
+	SDL_Rect _src;
+	SDL_Rect _dst;
 
-	int _w;
-	int _h;
-	int _x;
-	int _y;
+	Uint32 _spriteMaxTime;
+	Uint32 _nextSpriteCount;
 
 	STATES _actualState;
 	DIRECTION _actualDir;
 
 public:
-	Charger();
-	~Charger();
+	Player();
+	~Player();
 
 	void init();
 	void update();
 	void render();
 
-	STATES getState() { return _actualState; };
-
 	void setImg(int id) { _img = id; };
+	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
+
+	STATES getState() { return _actualState; };
 };
 
 #endif

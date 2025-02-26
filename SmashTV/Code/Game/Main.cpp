@@ -1,21 +1,20 @@
-#include "ResourceManager.h"
-#include "Video.h"
-#include "InputManager.h"
-#include "TimeManager.h"
-#include "Charger.h"
+#include "../../Code/Engine/ResourceManager.h"
+#include "../../Code/Engine/Video.h"
+#include "../../Code/Engine/InputManager.h"
+#include "../../Code/Engine/TimeManager.h"
+
+#include "../../Code/Game/Player.h"
 
 ResourceManager* RESOURCE_MANAGER = ResourceManager::getInstance();
 Video* VIDEO = Video::getInstance();
 InputManager* INPUT_MANAGER = InputManager::getInstance();
 TimeManager* TIME_MANAGER = TimeManager::getInstance();
-Charger PLAYER;
+
+Player* PLAYER = new Player();
 
 int main(int argc, char* args[])
 {
-	PLAYER.init();
-
-	int charger = RESOURCE_MANAGER->loadAndGetGraphicID("charger.png");
-	PLAYER.setImg(charger);
+	PLAYER->init();
 
 	while (!INPUT_MANAGER->getEndGame())
 	{
@@ -23,8 +22,8 @@ int main(int argc, char* args[])
 
 		VIDEO->clearScreen();
 
-		PLAYER.update();
-		PLAYER.render();
+		PLAYER->update();
+		PLAYER->render();
 
 		VIDEO->updateScreen();
 

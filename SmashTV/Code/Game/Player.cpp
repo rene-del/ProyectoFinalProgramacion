@@ -1,42 +1,67 @@
 #include "Player.h"
-#include "Video.h"
-#include "InputManager.h"
-#include "TimeManager.h"
 
+#include "../Engine/ResourceManager.h"
+#include "../Engine/Video.h"
+#include "../Engine/InputManager.h"
+#include "../Engine/TimeManager.h"
+
+extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 extern TimeManager* TIME_MANAGER;
 
-Charger::Charger()
-{
-}
-
-Charger::~Charger()
-{
-}
-
-void Charger::init()
+Player::Player()
 {
 	_img = 0;
 
-	_startX = 0;
-	_startY = 0;
+	_src.x = 0;
+	_src.y = 0;
+	_src.w = 0;
+	_src.h = 0;
 
-	_w = 96;
-	_h = 96;
-	_x = (SCREEN_WIDTH / 2) - (_w / 2);
-	_y = (SCREEN_HEIGHT / 2) - (_h / 2);
+	_dst.w = 0;
+	_dst.y = 0;
+	_dst.x = 0;
+	_dst.y = 0;
+
+	_spriteMaxTime = 0;
+	_nextSpriteCount = 0;
 
 	_actualState = ST_STILL;
 	_actualDir = DIR_DOWN;
 }
 
-void Charger::update()
+Player::~Player()
+{
+}
+
+void Player::init()
+{
+	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/PlayerTileset.png");
+
+	_dst.w = 60;
+	_dst.h = 60;
+	_dst.x = (SCREEN_WIDTH / 2) - (_dst.w / 2);
+	_dst.y = (SCREEN_HEIGHT / 2) - (_dst.h / 2);
+
+	_src.w = 26;
+	_src.h = 26;
+	_src.x = 0;
+	_src.y = _src.h;
+
+	_spriteMaxTime = 150;
+	_nextSpriteCount = 0;
+
+	_actualState = ST_STILL;
+	_actualDir = DIR_DOWN;
+}
+
+void Player::update()
 {
 	
 }
 
-void Charger::render()
+void Player::render()
 {
-	VIDEO->renderGraphic(_img, _startX, _startY, _x, _y, _w, _h);
+	VIDEO->renderGraphic(_img, _src, _dst);
 }
