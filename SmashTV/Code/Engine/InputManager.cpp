@@ -1,17 +1,15 @@
 #include "InputManager.h"
 
-#include "../Game/Player.h"
-
-extern Player PLAYER;
-
 InputManager* InputManager::_pInstance = nullptr;
 
 InputManager::InputManager()
 {
 	_endGame = false;
-	_mKey = false;
-	_spaceKey = false;
-	_enterKey = false;
+
+	for (size_t i = 0; i < SDL_NUM_SCANCODES; i++)
+	{
+		keyStates[i] = false;
+	}
 }
 
 InputManager::~InputManager()
@@ -25,12 +23,10 @@ void InputManager::manageInputs()
 		switch (_testEvent.type)
 		{
 		case SDL_KEYDOWN:
-			switch (_testEvent.key.keysym.sym)
-			{
-			default:
-				break;
-			}
-
+			keyStates[_testEvent.key.keysym.scancode] = true;
+			break;
+		case SDL_KEYUP:
+			keyStates[_testEvent.key.keysym.scancode] = false;
 			break;
 		case SDL_QUIT:
 			_endGame = true;

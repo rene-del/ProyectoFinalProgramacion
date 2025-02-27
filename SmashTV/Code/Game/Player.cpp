@@ -3,12 +3,10 @@
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
 #include "../Engine/InputManager.h"
-#include "../Engine/TimeManager.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
-extern TimeManager* TIME_MANAGER;
 
 Player::Player()
 {
@@ -27,7 +25,8 @@ Player::Player()
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
 
-	_actualState = ST_STILL;
+	_actualMovementState = ST_STILL;
+	_actualAttackingState = ST_NOT_ATTACKING;
 	_actualDir = DIR_DOWN;
 }
 
@@ -49,16 +48,44 @@ void Player::init()
 	_src.x = 0;
 	_src.y = _src.h;
 
-	_spriteMaxTime = 150;
+	_spriteMaxTime = 200;
 	_nextSpriteCount = 0;
-
-	_actualState = ST_STILL;
-	_actualDir = DIR_DOWN;
 }
 
 void Player::update()
 {
-	
+	// CONTROL KEYS
+
+
+	// CONTROL SPRITES
+	if (_actualDir == DIR_DOWN)
+	{
+		if (_actualMovementState == ST_STILL)
+		{
+			if (_actualAttackingState == ST_NOT_ATTACKING)
+			{
+				_src.x = 0;
+				_src.y = _src.h;
+			}
+			else if (_actualAttackingState == ST_ATTACKING)
+			{
+				_src.x = _src.w;
+				_src.y = _src.h;
+			}
+		}
+	}
+	else if (_actualDir == DIR_UP)
+	{
+
+	}
+	else if (_actualDir == DIR_RIGHT)
+	{
+
+	}
+	else if (_actualDir == DIR_LEFT)
+	{
+
+	}
 }
 
 void Player::render()

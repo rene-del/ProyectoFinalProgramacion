@@ -8,10 +8,8 @@ class InputManager
 private:
 	static InputManager* _pInstance;
 
+	bool keyStates[SDL_NUM_SCANCODES];
 	bool _endGame;
-	bool _mKey;
-	bool _spaceKey;
-	bool _enterKey;
 
 protected:
 	InputManager();
@@ -22,13 +20,7 @@ public:
 	void manageInputs();
 
 	bool getEndGame() { return _endGame; };
-	bool getMKey() { return _mKey; };
-	bool getSpaceKey() { return _spaceKey; };
-	bool getEnterKey() { return _enterKey; };
-
-	void setMKey(bool m) { _mKey = m; };
-	void setSpaceKey(bool space) { _spaceKey = space; };
-	void setEnterKey(bool enter) { _enterKey = enter; };
+	bool getKeyState(SDL_Scancode key) { return keyStates[key]; };
 
 	static InputManager* getInstance();
 

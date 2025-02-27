@@ -1,6 +1,10 @@
 #include "TimeManager.h"
 
+#include "../Game/Player.h"
+
 TimeManager* TimeManager::_pInstance = nullptr;
+
+extern Player* PLAYER;
 
 TimeManager::TimeManager()
 {
@@ -31,6 +35,8 @@ void TimeManager::timeControl()
 	}
 
 	_lastTime = _currentTime;
+
+	PLAYER->setNextSpriteCount(PLAYER->getNextSpriteCount() + 10);
 }
 
 TimeManager* TimeManager::getInstance()

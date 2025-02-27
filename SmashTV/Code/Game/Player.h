@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 
-enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACK };
+enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING };
 
 enum DIRECTION { DIR_RIGHT, DIR_LEFT, DIR_DOWN, DIR_UP };
 
@@ -18,7 +18,8 @@ private:
 	Uint32 _spriteMaxTime;
 	Uint32 _nextSpriteCount;
 
-	STATES _actualState;
+	STATES _actualMovementState;
+	STATES _actualAttackingState;
 	DIRECTION _actualDir;
 
 public:
@@ -32,7 +33,10 @@ public:
 	void setImg(int id) { _img = id; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
 
-	STATES getState() { return _actualState; };
+	Uint32 getNextSpriteCount() { return _nextSpriteCount; };
+
+	STATES getMovementState() { return _actualMovementState; };
+	STATES getAttackingState() { return _actualAttackingState; };
 };
 
 #endif
