@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 
-enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING };
+enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
 
 enum DIRECTION { DIR_RIGHT, DIR_LEFT, DIR_DOWN, DIR_UP };
 
@@ -11,6 +11,7 @@ class Player
 {
 private:
 	int _img;
+	int _currSprite;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -29,6 +30,8 @@ public:
 	void init();
 	void update();
 	void render();
+
+	void checkMapLimits();
 
 	void setImg(int id) { _img = id; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
