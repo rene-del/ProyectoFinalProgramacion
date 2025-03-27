@@ -69,7 +69,7 @@ void Player::update()
 		// UP
 		if (up && !down)
 		{
-			if (_actualMovementState != ST_MOVING)
+			if (_actualDir != DIR_UP || _actualMovementState != ST_MOVING)
 			{
 				_actualMovementState = ST_MOVING;
 				_actualDir = DIR_UP;
@@ -79,11 +79,15 @@ void Player::update()
 
 			_dst.y -= 2;
 		}
+		else if (up && down)
+		{
+			_actualMovementState = ST_STILL;
+		}
 
 		// DOWN
-		else if (down && !up)
+		if (down && !up)
 		{
-			if (_actualMovementState != ST_MOVING)
+			if (_actualDir != DIR_DOWN || _actualMovementState != ST_MOVING)
 			{
 				_actualMovementState = ST_MOVING;
 				_actualDir = DIR_DOWN;
@@ -93,11 +97,15 @@ void Player::update()
 
 			_dst.y += 2;
 		}
+		else if (down && up)
+		{
+			_actualMovementState = ST_STILL;
+		}
 
 		// LEFT
-		else if (left && !right)
+		if (left && !right)
 		{
-			if (_actualMovementState != ST_MOVING)
+			if (_actualDir != DIR_LEFT || _actualMovementState != ST_MOVING)
 			{
 				_actualMovementState = ST_MOVING;
 				_actualDir = DIR_LEFT;
@@ -107,11 +115,15 @@ void Player::update()
 
 			_dst.x -= 2;
 		}
+		else if (left && right)
+		{
+			_actualMovementState = ST_STILL;
+		}
 
 		// RIGHT
-		else if (right && !left)
+		if (right && !left)
 		{
-			if (_actualMovementState != ST_MOVING)
+			if (_actualDir != DIR_RIGHT || _actualMovementState != ST_MOVING)
 			{
 				_actualMovementState = ST_MOVING;
 				_actualDir = DIR_RIGHT;
@@ -121,9 +133,7 @@ void Player::update()
 
 			_dst.x += 2;
 		}
-
-		// STILL
-		else
+		else if (right && left)
 		{
 			_actualMovementState = ST_STILL;
 		}
