@@ -24,14 +24,18 @@
     <ClCompile Include="Code\Engine\TimeManager.cpp" />
     <ClCompile Include="Code\Engine\Video.cpp" />
     <ClCompile Include="Code\Game\Main.cpp" />
+    <ClCompile Include="Code\Game\Map.cpp" />
     <ClCompile Include="Code\Game\Player.cpp" />
+    <ClCompile Include="Code\Game\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Engine\InputManager.h" />
     <ClInclude Include="Code\Engine\ResourceManager.h" />
     <ClInclude Include="Code\Engine\TimeManager.h" />
     <ClInclude Include="Code\Engine\Video.h" />
+    <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Player.h" />
+    <ClInclude Include="Code\Game\tinyxml2.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
