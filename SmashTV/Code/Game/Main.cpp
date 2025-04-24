@@ -5,6 +5,7 @@
 
 #include "../../Code/Game/Player.h"
 #include "../../Code/Game/Map.h"
+#include "../../Code/Game/"
 
 ResourceManager* RESOURCE_MANAGER = ResourceManager::getInstance();
 Video* VIDEO = Video::getInstance();
@@ -13,6 +14,7 @@ TimeManager* TIME_MANAGER = TimeManager::getInstance();
 
 Player* PLAYER = new Player();
 Map* MAP = new Map();
+
 
 int main(int argc, char* args[])
 {

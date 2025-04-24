@@ -517,6 +517,7 @@ void Player::update()
 		}
 	}
 
+
 	checkMapLimits();
 }
 
