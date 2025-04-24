@@ -8,6 +8,11 @@ private:
 	int _img;
 	int _x;
 	int _y;
+	int _velocity;
+
+	int _direction;
+	bool _travel;
+
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -22,6 +27,8 @@ public:
 	void render();
 
 	void setImg(int id) { _img = id; };
+
+	
 
 };
 
