@@ -5,7 +5,7 @@
 
 #include "../../Code/Game/Player.h"
 #include "../../Code/Game/Map.h"
-#include "../../Code/Game/"
+#include "../../Code/Game/Bullet.h"
 
 ResourceManager* RESOURCE_MANAGER = ResourceManager::getInstance();
 Video* VIDEO = Video::getInstance();
