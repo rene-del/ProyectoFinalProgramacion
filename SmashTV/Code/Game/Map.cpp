@@ -12,7 +12,6 @@ Map::Map()
 
     _tileWidth = 0;
     _tileHeight = 0;
-    _tileSpace = 0;
 
     _mapWidth = 0;
     _mapHeight = 0;
@@ -55,11 +54,11 @@ void Map::render()
 
                 if (id >= 0)
                 {
-                    int cellX = id % 15;
-                    int cellY = id / 15;
+                    int cellX = id % 11;
+                    int cellY = id / 11;
 
-                    source.x = cellX * _tileWidth + _tileSpace * cellX;
-                    source.y = cellY * _tileHeight + _tileSpace * cellY;
+                    source.x = cellX * _tileWidth;
+                    source.y = cellY * _tileHeight;
                     source.w = _tileWidth;
                     source.h = _tileHeight;
 
@@ -88,14 +87,13 @@ int Map::loadMap(const char* filename)
     _height = stoi(map->Attribute("height"));
     _tileWidth = stoi(map->Attribute("tilewidth"));
     _tileHeight = stoi(map->Attribute("tileheight"));
-    _tileSpace = 1;
 
     _mapWidth = _width * _tileWidth;
     _mapHeight = _height * _tileHeight;
 
     XMLElement* tileset = map->FirstChildElement("tileset");
 
-    _mapId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/mapTileset.png");
+    _mapId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/MapTileset.png");
     _firstGId = stoi(tileset->Attribute("firstgid"));
 
     XMLElement* layer = map->FirstChildElement("layer");

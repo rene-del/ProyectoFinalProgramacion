@@ -1,6 +1,6 @@
 #pragma once
 
-#define NUM_CAPAS 2
+#define NUM_CAPAS 3
 
 using namespace std;
 
@@ -18,7 +18,6 @@ private:
 
 	int _tileWidth;
 	int _tileHeight;
-	int _tileSpace;
 
 	int _mapWidth;
 	int _mapHeight;
