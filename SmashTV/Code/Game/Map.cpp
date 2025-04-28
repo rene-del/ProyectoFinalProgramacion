@@ -31,7 +31,7 @@ Map::~Map()
 
 void Map::init()
 {
-    loadMap("Assets/Map.tmx");
+    loadMap("Assets/Map/Map.tmx");
 }
 
 void Map::render()
@@ -93,7 +93,7 @@ int Map::loadMap(const char* filename)
 
     XMLElement* tileset = map->FirstChildElement("tileset");
 
-    _mapId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/MapTileset.png");
+    _mapId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Map/MapTileset.png");
     _firstGId = stoi(tileset->Attribute("firstgid"));
 
     XMLElement* layer = map->FirstChildElement("layer");

@@ -37,7 +37,7 @@ Player::~Player()
 
 void Player::init()
 {
-	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/PlayerTileset.png");
+	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Player/PlayerTileset.png");
 
 	_dst.w = 80;
 	_dst.h = 80;
