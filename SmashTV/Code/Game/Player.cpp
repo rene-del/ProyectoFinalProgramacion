@@ -12,6 +12,7 @@ Player::Player()
 {
 	_img = 0;
 	_currSprite = 0;
+	_speed = 0;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -28,7 +29,6 @@ Player::Player()
 
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
-	_actualDir = DIR_DOWN;
 }
 
 Player::~Player()
@@ -38,6 +38,7 @@ Player::~Player()
 void Player::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Player/PlayerTileset.png");
+	_speed = 2;
 
 	_dst.w = 80;
 	_dst.h = 80;
@@ -55,91 +56,104 @@ void Player::init()
 
 void Player::update()
 {
+	// CURRENT DIRECTION
+	InputManager::DIRECTION actualDir = INPUT_MANAGER->getCurrentDirection();
+
 	// CONTROL KEYS
-	bool up = INPUT_MANAGER->getKeyState(SDL_SCANCODE_UP);
-	bool down = INPUT_MANAGER->getKeyState(SDL_SCANCODE_DOWN);
-	bool left = INPUT_MANAGER->getKeyState(SDL_SCANCODE_LEFT);
-	bool right = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RIGHT);
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)
 	{
-		// UP
-		if (up && !down)
+		// MOVEMENT STATE
+		if (actualDir != InputManager::DIR_NONE)
 		{
-			if (_actualDir != DIR_UP || _actualMovementState != ST_MOVING)
+			_actualMovementState = ST_MOVING;
+
+			// MOVE TO LAST SAVED DIRECTION
+			switch (actualDir)
 			{
-				_actualMovementState = ST_MOVING;
-				_actualDir = DIR_UP;
-				_nextSpriteCount = _spriteMaxTime;
-				_currSprite = 3;
+			// RIGHT
+			case InputManager::DIR_RIGHT:
+				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_LEFT)
+				{
+					_dst.x += _speed;
+				}
+				break;
+
+			// LEFT
+			case InputManager::DIR_LEFT:
+				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_RIGHT)
+				{
+					_dst.x -= _speed;
+				}
+				break;
+
+			// DOWN
+			case InputManager::DIR_DOWN:
+				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_UP)
+				{
+					_dst.y += _speed;
+				}
+				break;
+
+			// UP
+			case InputManager::DIR_UP:
+				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_DOWN)
+				{
+					_dst.y -= _speed;
+				}
+				break;
+			default:
+				break;
 			}
 
-			_dst.y -= 2;
-		}
-		else if (up && down)
-		{
-			_actualMovementState = ST_STILL;
-		}
+			// STILL IF OPPOSITE DIRECTION IS PRESSED
 
-		// DOWN
-		if (down && !up)
-		{
-			if (_actualDir != DIR_DOWN || _actualMovementState != ST_MOVING)
+			// RIGHT - LEFT
+			if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_RIGHT)
 			{
-				_actualMovementState = ST_MOVING;
-				_actualDir = DIR_DOWN;
-				_nextSpriteCount = _spriteMaxTime;
-				_currSprite = 3;
+				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_LEFT)
+				{
+					_actualMovementState = ST_STILL;
+					actualDir = InputManager::DIR_LEFT;
+				}
 			}
 
-			_dst.y += 2;
-		}
-		else if (down && up)
-		{
-			_actualMovementState = ST_STILL;
-		}
-
-		// LEFT
-		if (left && !right)
-		{
-			if (_actualDir != DIR_LEFT || _actualMovementState != ST_MOVING)
+			// LEFT - RIGHT
+			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_LEFT)
 			{
-				_actualMovementState = ST_MOVING;
-				_actualDir = DIR_LEFT;
-				_nextSpriteCount = _spriteMaxTime;
-				_currSprite = 3;
+				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_RIGHT)
+				{
+					_actualMovementState = ST_STILL;
+					actualDir = InputManager::DIR_RIGHT;
+				}
 			}
 
-			_dst.x -= 2;
-		}
-		else if (left && right)
-		{
-			_actualMovementState = ST_STILL;
-		}
-
-		// RIGHT
-		if (right && !left)
-		{
-			if (_actualDir != DIR_RIGHT || _actualMovementState != ST_MOVING)
+			// UP - DOWN
+			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_UP)
 			{
-				_actualMovementState = ST_MOVING;
-				_actualDir = DIR_RIGHT;
-				_nextSpriteCount = _spriteMaxTime;
-				_currSprite = 3;
+				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_DOWN)
+				{
+					_actualMovementState = ST_STILL;
+					actualDir = InputManager::DIR_DOWN;
+				}
 			}
 
-			_dst.x += 2;
-		}
-		else if (right && left)
-		{
-			_actualMovementState = ST_STILL;
+			// DOWN - UP
+			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_DOWN)
+			{
+				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_UP)
+				{
+					_actualMovementState = ST_STILL;
+					actualDir = InputManager::DIR_UP;
+				}
+			}
 		}
 
-		// STILL
-		if (!up && !down && !left && !right)
+		// NOT MOVING
+		else
 		{
 			_actualMovementState = ST_STILL;
 		}
@@ -155,20 +169,101 @@ void Player::update()
 		}
 	}
 
-	// DEAD (PRUEBAS)
+	// DEAD (TESTING)
 	if (enter)
 	{
 		_actualMovementState = ST_DEAD;
 		_nextSpriteCount = 0;
 	}
 
-	// CONTROL SPRITES
+	// SPRITES CONTROL
 
 	// NOT DEAD
 	if (_actualMovementState != ST_DEAD)
 	{
+		// NO DIR
+		if (actualDir == InputManager::DIR_NONE)
+		{
+			switch (INPUT_MANAGER->getLastDir())
+			{
+			// LEFT
+			case InputManager::DIR_LEFT:
+				_src.y = _src.h * 2;
+
+				// NOT ATTACKING
+				if (_actualAttackingState == ST_NOT_ATTACKING)
+				{
+					_src.x = 0;
+				}
+
+				// ATTACKING
+				else if (_actualAttackingState == ST_ATTACKING)
+				{
+					_src.x = _src.w;
+				}
+
+				break;
+
+			// RIGHT
+			case InputManager::DIR_RIGHT:
+				_src.y = _src.h * 3;
+
+				// NOT ATTACKING
+				if (_actualAttackingState == ST_NOT_ATTACKING)
+				{
+					_src.x = 0;
+				}
+
+				// ATTACKING
+				else if (_actualAttackingState == ST_ATTACKING)
+				{
+					_src.x = _src.w;
+				}
+
+				break;
+
+			// UP
+			case InputManager::DIR_UP:
+				_src.y = 0;
+
+				// NOT ATTACKING
+				if (_actualAttackingState == ST_NOT_ATTACKING)
+				{
+					_src.x = 0;
+				}
+
+				// ATTACKING
+				else if (_actualAttackingState == ST_ATTACKING)
+				{
+					_src.x = _src.w;
+				}
+
+				break;
+
+			// DOWN
+			case InputManager::DIR_DOWN:
+				_src.y = _src.h;
+
+				// NOT ATTACKING
+				if (_actualAttackingState == ST_NOT_ATTACKING)
+				{
+					_src.x = 0;
+				}
+
+				// ATTACKING
+				else if (_actualAttackingState == ST_ATTACKING)
+				{
+					_src.x = _src.w;
+				}
+
+				break;
+			default:
+				break;
+			}
+		}
+
 		// UP
-		if (_actualDir == DIR_UP)
+		else if (actualDir == InputManager::DIR_UP)
 		{
 			_src.y = 0;
 
@@ -253,7 +348,7 @@ void Player::update()
 		}
 
 		// DOWN
-		else if (_actualDir == DIR_DOWN)
+		else if (actualDir == InputManager::DIR_DOWN)
 		{
 			_src.y = _src.h;
 
@@ -338,7 +433,7 @@ void Player::update()
 		}
 
 		// LEFT
-		else if (_actualDir == DIR_LEFT)
+		else if (actualDir == InputManager::DIR_LEFT)
 		{
 			_src.y = _src.h * 2;
 
@@ -423,7 +518,7 @@ void Player::update()
 		}
 
 		// RIGHT
-		else if (_actualDir == DIR_RIGHT)
+		else if (actualDir == InputManager::DIR_RIGHT)
 		{
 			_src.y = _src.h * 3;
 
