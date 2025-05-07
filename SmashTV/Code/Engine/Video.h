@@ -1,8 +1,8 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
-#define SCREEN_WIDTH 840
-#define SCREEN_HEIGHT 840
+#define SCREEN_WIDTH 832
+#define SCREEN_HEIGHT 832
 
 #include "SDL.h"
 
