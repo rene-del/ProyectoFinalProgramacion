@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bullet.h"
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
@@ -31,6 +32,9 @@ Player::Player()
 
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
+
+	_numberBullets = 0;
+	_bullets.clear();
 }
 
 Player::~Player()
@@ -60,6 +64,8 @@ void Player::init()
 
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
+	
+	_bullet1.init();
 }
 
 void Player::update()
@@ -70,6 +76,14 @@ void Player::update()
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
 	_dead = INPUT_MANAGER->getKeyState(SDL_SCANCODE_P);
+
+	if (_bullets.size() != 0)
+	{
+
+	}
+	
+	_bullet1.update();
+
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)
@@ -170,12 +184,17 @@ void Player::update()
 		if (space)
 		{
 			_actualAttackingState = ST_ATTACKING;
+			//looking for witch direction is currently looking at
+			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
+
+		}
+
 		}
 		else
 		{
 			_actualAttackingState = ST_NOT_ATTACKING;
 		}
-	}
+	
 
 	// DEAD
 	if (_dead)
@@ -620,12 +639,16 @@ void Player::update()
 		}
 	}
 
+
 	checkMapLimits();
 }
 
 void Player::render()
 {
 	VIDEO->renderGraphic(_img, _src, _dst);
+	_bullet1.render();
+	//_bullet2.render();
+
 }
 
 void Player::checkMapLimits()
