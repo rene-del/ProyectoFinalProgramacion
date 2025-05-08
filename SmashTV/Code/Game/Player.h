@@ -3,6 +3,9 @@
 
 #include "SDL.h"
 
+#include "Bullet.h"
+#include <vector>
+
 enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
 
 class Player
@@ -11,6 +14,9 @@ private:
 	int _img;
 	int _currSprite;
 	int _speed;
+	int _numberBullets;
+
+
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -20,6 +26,12 @@ private:
 
 	STATES _actualMovementState;
 	STATES _actualAttackingState;
+
+	std::vector<Bullet> _bullets;
+
+	Bullet _bullet1; 
+	Bullet _bullet2;
+
 
 public:
 	Player();

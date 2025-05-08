@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bullet.h"
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
@@ -29,6 +30,9 @@ Player::Player()
 
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
+
+	_numberBullets = 0;
+	_bullets.clear();
 }
 
 Player::~Player()
@@ -52,6 +56,10 @@ void Player::init()
 
 	_spriteMaxTime = 150;
 	_nextSpriteCount = 0;
+	
+
+	_bullet1.init();
+
 }
 
 void Player::update()
@@ -62,6 +70,11 @@ void Player::update()
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+
+
+	_numberBullets++;
+	_bullet1.update();
+	
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)
@@ -161,13 +174,28 @@ void Player::update()
 		// SHOOTING
 		if (space)
 		{
+
 			_actualAttackingState = ST_ATTACKING;
+			//metodo para detectar que se ha disparado una bala
+			//looking for witch direction is currently looking at
+			//1 derecha
+			//2 izquierda
+			//3 abajo
+			//4 arriba
+			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection());
+
+		}
+			
+			
+
+
+			//std::cout << "bullets: " << _numberBullets << "\n";
 		}
 		else
 		{
 			_actualAttackingState = ST_NOT_ATTACKING;
 		}
-	}
+	
 
 	// DEAD (TESTING)
 	if (enter)
@@ -619,6 +647,9 @@ void Player::update()
 void Player::render()
 {
 	VIDEO->renderGraphic(_img, _src, _dst);
+	_bullet1.render();
+	//_bullet2.render();
+
 }
 
 void Player::checkMapLimits()

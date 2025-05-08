@@ -11,7 +11,10 @@ private:
 	int _velocity;
 
 	int _direction;
-	bool _travel;
+	bool _shot;
+	bool _beginBullet;
+
+	int _bulletTimeLimit;
 
 
 	SDL_Rect _src;
@@ -25,6 +28,9 @@ public:
 	void init();
 	void update();
 	void render();
+
+	void isShoting(int Dir);
+	void resetBulletTimeLimit(Uint32 time) { _bulletTimeLimit = time; };
 
 	void setImg(int id) { _img = id; };
 

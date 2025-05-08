@@ -4,6 +4,8 @@
 #include "../Engine/Video.h"
 #include "../Engine/InputManager.h"
 
+#include <iostream>
+
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
@@ -12,7 +14,10 @@ Bullet::Bullet()
 {
 	_img = 0;
 
-	_travel = false;
+	_bulletTimeLimit = 0;
+
+	_shot = false;
+	_beginBullet = false;
 	_direction = 0;
 	_velocity = 0;
 
@@ -25,6 +30,7 @@ Bullet::Bullet()
 	_dst.y = 0;
 	_dst.h = 0;
 	_dst.w = 0;
+
 
 
 }
@@ -48,71 +54,80 @@ void Bullet::init()
 
 	_velocity = 20;
 
+	_beginBullet = false;
+	_shot = false;
+
+
 }
 
 void Bullet::update()
 {
-	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
-
-	bool up = INPUT_MANAGER->getKeyState(SDL_SCANCODE_UP);
-	bool down = INPUT_MANAGER->getKeyState(SDL_SCANCODE_DOWN);
-	bool left = INPUT_MANAGER->getKeyState(SDL_SCANCODE_LEFT);
-	bool right = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RIGHT);
-
-
-
-	if (space)
+	//std::cout << "X: " << _dst.x << "Y: " << _dst.y << "\n";
+	
+	if (_shot)
 	{
-		_travel = true;
-	}
-
-
-	if (_travel)
-	{
-		if (up)
-		{
-			_direction = 0;
-		}
-		if (down)
-		{
-			_direction = 1;
-		}
-		if (left)
-		{
-			_direction = 2;
-		}
-		if (right)
-		{
-			_direction = 3;
-		}
-		
 		switch (_direction)
 		{
 			//up
-		case 0:
+		case 4:
+			if (_beginBullet)
 			_dst.y -= _velocity;
 			break;
 			//down
-		case 1:
+		case 3:
+			if (_beginBullet)
 			_dst.y += _velocity;
 			break;
 			//left
 		case 2:
+			if (_beginBullet)
 			_dst.x -= _velocity;
 			break;
 			//right
-		case 3:
+		case 1:
+			if (_beginBullet)
 			_dst.x += _velocity;
 			break;
 		default:
 			break;
 		}
+		_bulletTimeLimit++;
+		if (_bulletTimeLimit > 500)
+		{
+			_beginBullet = false;
+			_bulletTimeLimit = 0;
+
+			std::cout << "true" << "\n";
+		}
+
 
 	}
+
+	if (_beginBullet)
+	{
+		std::cout << "bala comenzada" << "\n";
+	}
+	if (!_beginBullet)
+	{
+		std::cout << "bala acabada" << "\n";
+
+	}
+
 
 }
 
 void Bullet::render()
 {
 	VIDEO->renderGraphic(_img, _src, _dst);
+}
+
+void Bullet::isShoting(int dir)
+{
+	_shot = true;
+	
+	if (!_beginBullet)
+	{
+		_direction = dir;
+		_beginBullet = true;
+	}
 }

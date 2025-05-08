@@ -14,14 +14,14 @@ TimeManager* TIME_MANAGER = TimeManager::getInstance();
 
 Player* PLAYER = new Player();
 Map* MAP = new Map();
-Bullet* BULLET = new Bullet();
+//Bullet* BULLET = new Bullet();
 
 
 int main(int argc, char* args[])
 {
 	PLAYER->init();
 	MAP->init();
-	BULLET->init();
+	//BULLET->init();
 
 	while (!INPUT_MANAGER->getEndGame())
 	{
@@ -30,12 +30,12 @@ int main(int argc, char* args[])
 		VIDEO->clearScreen();
 		//UPDATE
 		PLAYER->update();
-		BULLET->update();
+	//	BULLET->update();
 
 		//RENDER
 		MAP->render();
 		PLAYER->render();
-		BULLET->render();
+	//	BULLET->render();
 		VIDEO->updateScreen();
 
 		TIME_MANAGER->timeControl();
