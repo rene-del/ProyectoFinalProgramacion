@@ -1,86 +1,193 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="Code\Game\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Code\Engine\InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\ResourceManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\TimeManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Engine\Video.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Code\Game\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Game\Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\tinyxml2.cpp">
+    <ClCompile Include="Code\Game\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\SceneDirector.cpp">
+    <ClCompile Include="Code\Game\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Code\Game\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\Menu.cpp">
-    <ClCompile Include="Code\Game\Bullet.cpp">
+    <ClCompile Include="Code\Game\SceneDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\TimeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Video.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\Enemy.cpp" />
+    <ClCompile Include="Code\Game\GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Game\Bullet.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
     <ClInclude Include="Code\Engine\InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\TimeManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Engine\Video.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Game\Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Code\Game\Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Game\tinyxml2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Game\SceneDirector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Game\Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Code\Game\Menu.h">
-    <ClInclude Include="Code\Game\Bullet.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header FIles</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Game\Player.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\ResourceManager.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Scene.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\SceneDirector.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\TimeManager.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\tinyxml2.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Video.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Enemy.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\GameOver.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header FIles">
+      <UniqueIdentifier>{481a7ea7-5765-4900-ad2a-97e88872ddd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d0a6e681-aad2-48a3-b4d9-1f86042d89b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{b64875c3-e22f-4fd9-abbf-b035254d7fb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets">
+      <UniqueIdentifier>{c62cb777-3c95-4835-97c0-779e81526a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Bullets">
+      <UniqueIdentifier>{9057fe36-2956-4b1b-930a-8e72ea87028a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Enemies">
+      <UniqueIdentifier>{44d45520-6bae-429a-9f40-6744ec641db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Player">
+      <UniqueIdentifier>{3b13e67c-1dca-400c-a78e-9eed5c7d84c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Map">
+      <UniqueIdentifier>{40921340-9459-4b8a-8da1-3c480e58259a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\Scenes">
+      <UniqueIdentifier>{ef65c313-1671-4321-9dbe-2d4e1248fe43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Assets\PowerUps">
+      <UniqueIdentifier>{88cf75fe-f8bd-48dc-a9e2-56930df2c486}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\PowerUps\Life_PowerUp.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Player_Shield.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Player_Shield_Small.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Rocket_Power.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Shield_Power.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Speed_Power.png">
+      <Filter>Resource Files\Assets\PowerUps</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Map\mapTileset.png">
+      <Filter>Resource Files\Assets\Map</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Map\Map.tmx">
+      <Filter>Resource Files\Assets\Map</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Player\PlayerTileset.png">
+      <Filter>Resource Files\Assets\Player</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\gameOver.png">
+      <Filter>Resource Files\Assets\Scenes</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\menu.png">
+      <Filter>Resource Files\Assets\Scenes</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\win.png">
+      <Filter>Resource Files\Assets\Scenes</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Down.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Don.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Left.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Right.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Up.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2.dll">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2_image.dll">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2_mixer.dll">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\bullet.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\bullet2.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -14,9 +14,7 @@ private:
 	int _img;
 	int _currSprite;
 	int _speed;
-	int _numberBullets;
-
-
+	int _shootingCooldown;
 
 	bool _dead;
 
@@ -29,12 +27,7 @@ private:
 	STATES _actualMovementState;
 	STATES _actualAttackingState;
 
-	std::vector<Bullet> _bullets;
-
-
-	Bullet _bullet1;
-	Bullet _bullet2;
-
+	std::vector<Bullet*> _bullets;
 
 public:
 	Player();
@@ -53,9 +46,6 @@ public:
 	void setPlayerX(int val) { _dst.x = val; };
 	void setPlayerY(int val) { _dst.y = val; };
 
-	//para que time manager pueda usar los metodos de la bala
-	Bullet& getBullet1() { return _bullet1; }
-
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
 
@@ -64,6 +54,8 @@ public:
 
 	STATES getMovementState() { return _actualMovementState; };
 	STATES getAttackingState() { return _actualAttackingState; };
+
+	std::vector<Bullet*> getBullets() { return _bullets; };
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "GameOver.h"
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
@@ -10,7 +10,7 @@ extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
 
-Menu::Menu()
+GameOver::GameOver()
 {
 	_texId = 0;
 
@@ -27,13 +27,13 @@ Menu::Menu()
 	_reInit = true;
 }
 
-Menu::~Menu()
+GameOver::~GameOver()
 {
 }
 
-void Menu::init()
+void GameOver::init()
 {
-	_texId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Scenes/menu.png");
+	_texId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Scenes/gameOver.png");
 
 	_src.x = 0;
 	_src.y = 0;
@@ -48,24 +48,24 @@ void Menu::init()
 	_reInit = false;
 }
 
-void Menu::reinit()
+void GameOver::reinit()
 {
 	_reInit = true;
 }
 
-void Menu::update()
+void GameOver::update()
 {
 	// CONTROL KEY
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
 
-	// START GAME
+	// GO MENU
 	if (enter)
 	{
-		SCENE_DIRECTOR->changeScene(SceneEnum::MAP, true);
+		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
 	}
 }
 
-void Menu::render()
+void GameOver::render()
 {
 	VIDEO->renderGraphic(_texId, _src, _dst);
 }

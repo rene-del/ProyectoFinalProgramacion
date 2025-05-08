@@ -43,7 +43,7 @@ void Map::init()
 
 void Map::reinit()
 {
-    _reInit = true;
+    init();
 }
 
 void Map::update()

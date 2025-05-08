@@ -24,6 +24,8 @@
     <ClCompile Include="Code\Engine\TimeManager.cpp" />
     <ClCompile Include="Code\Engine\Video.cpp" />
     <ClCompile Include="Code\Game\Bullet.cpp" />
+    <ClCompile Include="Code\Game\Enemy.cpp" />
+    <ClCompile Include="Code\Game\GameOver.cpp" />
     <ClCompile Include="Code\Game\Main.cpp" />
     <ClCompile Include="Code\Game\Map.cpp" />
     <ClCompile Include="Code\Game\Menu.cpp" />
@@ -38,12 +40,123 @@
     <ClInclude Include="Code\Engine\TimeManager.h" />
     <ClInclude Include="Code\Engine\Video.h" />
     <ClInclude Include="Code\Game\Bullet.h" />
+    <ClInclude Include="Code\Game\Enemy.h" />
+    <ClInclude Include="Code\Game\GameOver.h" />
     <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Menu.h" />
     <ClInclude Include="Code\Game\Player.h" />
     <ClInclude Include="Code\Game\Scene.h" />
     <ClInclude Include="Code\Game\SceneDirector.h" />
     <ClInclude Include="Code\Game\tinyxml2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Down.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Don.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Left.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Right.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Up.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Map\mapTileset.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Map\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Player\PlayerTileset.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Player\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Life_PowerUp.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Player_Shield.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Player_Shield_Small.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Rocket_Power.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Shield_Power.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\PowerUps\Speed_Power.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\PowerUps\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\gameOver.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Scenes\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\menu.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Scenes\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scenes\win.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Scenes\</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Map\Map.tmx">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Map\</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="SDL2.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2_image.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2_mixer.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Bullets\bullet.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\bullet2.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

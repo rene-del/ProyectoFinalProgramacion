@@ -5,8 +5,6 @@
 #include "../../Code/Game/SceneDirector.h"
 
 #include "../../Code/Game/Player.h"
-#include "../../Code/Game/Map.h"
-#include "../../Code/Game/Bullet.h"
 
 ResourceManager* RESOURCE_MANAGER;
 Video* VIDEO;

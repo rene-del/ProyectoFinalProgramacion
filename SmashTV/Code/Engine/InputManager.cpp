@@ -34,16 +34,16 @@ void InputManager::manageInputs()
 			{
 				switch (_testEvent.key.keysym.sym)
 				{
-				case SDLK_w:
+				case SDLK_UP:
 					pushDirection(DIR_UP);
 					break;
-				case SDLK_s:
+				case SDLK_DOWN:
 					pushDirection(DIR_DOWN);
 					break;
-				case SDLK_a:
+				case SDLK_LEFT:
 					pushDirection(DIR_LEFT);
 					break;
-				case SDLK_d:
+				case SDLK_RIGHT:
 					pushDirection(DIR_RIGHT);
 					break;
 				default:
@@ -67,16 +67,16 @@ void InputManager::manageInputs()
 		case SDL_KEYUP:
 			switch (_testEvent.key.keysym.sym)
 			{
-			case SDLK_w:
+			case SDLK_UP:
 				popDirection(DIR_UP);
 				break;
-			case SDLK_s:
+			case SDLK_DOWN:
 				popDirection(DIR_DOWN);
 				break;
-			case SDLK_a:
+			case SDLK_LEFT:
 				popDirection(DIR_LEFT);
 				break;
-			case SDLK_d:
+			case SDLK_RIGHT:
 				popDirection(DIR_RIGHT);
 				break;
 			default:

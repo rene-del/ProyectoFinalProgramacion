@@ -1,7 +1,8 @@
 #include "SceneDirector.h"
 
-#include "Map.h"
 #include "Menu.h"
+#include "Map.h"
+#include "GameOver.h"
 
 SceneDirector* SceneDirector::pInstance = NULL;
 
@@ -24,6 +25,7 @@ SceneDirector::~SceneDirector()
 {
 	delete mVectorScenes[MENU];
 	delete mVectorScenes[MAP];
+	delete mVectorScenes[GAMEOVER];
 }
 
 void SceneDirector::init()
@@ -32,12 +34,14 @@ void SceneDirector::init()
 
 	Menu* menu = new Menu();
 	Map* map = new Map();
+	GameOver* gameOver = new GameOver();
 
 	mVectorScenes[MENU] = menu;
 	mVectorScenes[MAP] = map;
+	mVectorScenes[GAMEOVER] = gameOver;
 
 	menu->init();
-	map->init();
+	gameOver->init();
 
 	mCurrScene = MENU;
 }
