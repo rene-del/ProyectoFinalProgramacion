@@ -72,7 +72,7 @@ void Player::update()
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
 
 
-	_numberBullets++;
+	
 	_bullet1.update();
 	
 
@@ -174,22 +174,12 @@ void Player::update()
 		// SHOOTING
 		if (space)
 		{
-
 			_actualAttackingState = ST_ATTACKING;
-			//metodo para detectar que se ha disparado una bala
 			//looking for witch direction is currently looking at
-			//1 derecha
-			//2 izquierda
-			//3 abajo
-			//4 arriba
 			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
 
 		}
-			
-			
 
-
-			//std::cout << "bullets: " << _numberBullets << "\n";
 		}
 		else
 		{

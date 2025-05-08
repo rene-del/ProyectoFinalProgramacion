@@ -42,13 +42,13 @@ Bullet::~Bullet()
 void Bullet::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Bullet.png");
-	_dst.w = 84;
-	_dst.h = 48;
+	_dst.w = 10;
+	_dst.h = 10;
 	_dst.x = (SCREEN_WIDTH / 2) - (_dst.w / 2);
 	_dst.y = (SCREEN_HEIGHT / 2) - (_dst.h / 2);
 
-	_src.w = 200;
-	_src.h = 26;
+	_src.w = 8;
+	_src.h = 7;
 	_src.x = 0;
 	_src.y = _src.h;
 
@@ -132,8 +132,8 @@ void Bullet::isShoting(int Dir, int x, int y)
 	{
 		_direction = Dir;
 		_beginBullet = true;
-		_dst.x = x;
-		_dst.y = y;
+		_dst.x = x + 32;
+		_dst.y = y + 32;
 
 	}
 }
