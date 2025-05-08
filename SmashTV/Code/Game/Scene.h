@@ -26,11 +26,11 @@ public:
 	//! Handles the updating of the scene
 	virtual void update() {};
 
-	void setReInit(bool loaded = true) { mReinit = loaded; };
-	bool mustReInit() { return mReinit; };
+	void setReInit(bool loaded = true) { _reInit = loaded; };
+	bool mustReInit() { return _reInit; };
 
 protected:
-	bool mReinit; /*!<  Reload when returning to scene*/
+	bool _reInit; /*!<  Reload when returning to scene*/
 };
 
 #endif

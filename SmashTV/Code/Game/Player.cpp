@@ -14,15 +14,17 @@ Player::Player()
 	_currSprite = 0;
 	_speed = 0;
 
+	_dead = false;
+
 	_src.x = 0;
 	_src.y = 0;
 	_src.w = 0;
 	_src.h = 0;
 
-	_dst.w = 0;
-	_dst.y = 0;
 	_dst.x = 0;
 	_dst.y = 0;
+	_dst.w = 0;
+	_dst.h = 0;
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
@@ -38,7 +40,10 @@ Player::~Player()
 void Player::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Player/PlayerTileset.png");
+	_currSprite = 0;
 	_speed = 2;
+
+	_dead = false;
 
 	_dst.w = 80;
 	_dst.h = 80;
@@ -52,6 +57,9 @@ void Player::init()
 
 	_spriteMaxTime = 150;
 	_nextSpriteCount = 0;
+
+	_actualMovementState = ST_STILL;
+	_actualAttackingState = ST_NOT_ATTACKING;
 }
 
 void Player::update()
@@ -61,7 +69,7 @@ void Player::update()
 
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
-	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+	_dead = INPUT_MANAGER->getKeyState(SDL_SCANCODE_P);
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)
@@ -169,8 +177,8 @@ void Player::update()
 		}
 	}
 
-	// DEAD (TESTING)
-	if (enter)
+	// DEAD
+	if (_dead)
 	{
 		_actualMovementState = ST_DEAD;
 		_nextSpriteCount = 0;

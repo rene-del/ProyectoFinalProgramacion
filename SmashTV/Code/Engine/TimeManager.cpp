@@ -4,7 +4,7 @@
 
 TimeManager* TimeManager::_pInstance = nullptr;
 
-extern Player* PLAYER;
+extern Player PLAYER;
 
 TimeManager::TimeManager()
 {
@@ -36,7 +36,7 @@ void TimeManager::timeControl()
 
 	_lastTime = _currentTime;
 
-	PLAYER->setNextSpriteCount(PLAYER->getNextSpriteCount() + 10);
+	PLAYER.setNextSpriteCount(PLAYER.getNextSpriteCount() + 10);
 }
 
 TimeManager* TimeManager::getInstance()

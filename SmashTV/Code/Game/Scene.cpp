@@ -2,7 +2,7 @@
 
 Scene::Scene()
 {
-	mReinit = true;
+	_reInit = true;
 }
 
 Scene::~Scene()
@@ -11,10 +11,10 @@ Scene::~Scene()
 
 void Scene::init()
 {
-	mReinit = false;
+	_reInit = false;
 }
 
 void Scene::reinit()
 {
-	mReinit = true;
+	_reInit = true;
 }

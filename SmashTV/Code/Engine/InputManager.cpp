@@ -1,11 +1,11 @@
 #include "InputManager.h"
+#include "../Game/SceneDirector.h"
 #include "../Game/Player.h"
-
-#include <iostream>
 
 InputManager* InputManager::_pInstance = nullptr;
 
-extern Player* PLAYER;
+extern SceneDirector* SCENE_DIRECTOR;
+extern Player PLAYER;
 
 InputManager::InputManager()
 {
@@ -50,8 +50,8 @@ void InputManager::manageInputs()
 					break;
 				}
 
-				PLAYER->setCurrSprite(3);
-				PLAYER->setNextSpriteCount(PLAYER->getSpriteMaxTime());
+				PLAYER.setCurrSprite(3);
+				PLAYER.setNextSpriteCount(PLAYER.getSpriteMaxTime());
 			}
 
 			switch (_testEvent.key.keysym.sym)
@@ -96,24 +96,30 @@ void InputManager::manageInputs()
 
 void InputManager::pushDirection(DIRECTION dir)
 {
-	if (std::find(_directionStack.begin(), _directionStack.end(), dir) == _directionStack.end())
+	if (SCENE_DIRECTOR->getCurrSceneEnum() == SceneEnum::MAP)
 	{
-		_directionStack.push_back(dir);
+		if (std::find(_directionStack.begin(), _directionStack.end(), dir) == _directionStack.end())
+		{
+			_directionStack.push_back(dir);
+		}
 	}
 }
 
 void InputManager::popDirection(DIRECTION dir)
 {
-	auto it = std::find(_directionStack.begin(), _directionStack.end(), dir);
-
-	if (it != _directionStack.end())
+	if (SCENE_DIRECTOR->getCurrSceneEnum() == SceneEnum::MAP)
 	{
-		if (_directionStack.size() == 1)
-		{
-			_lastDir = _directionStack[0];
-		}
+		auto it = std::find(_directionStack.begin(), _directionStack.end(), dir);
 
-		_directionStack.erase(it);
+		if (it != _directionStack.end())
+		{
+			if (_directionStack.size() == 1)
+			{
+				_lastDir = _directionStack[0];
+			}
+
+			_directionStack.erase(it);
+		}
 	}
 }
 

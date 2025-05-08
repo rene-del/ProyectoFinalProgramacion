@@ -13,7 +13,7 @@ InputManager* INPUT_MANAGER;
 TimeManager* TIME_MANAGER;
 SceneDirector* SCENE_DIRECTOR;
 
-Player* PLAYER = new Player();
+Player PLAYER;
 
 int main(int argc, char* args[])
 {
@@ -23,8 +23,6 @@ int main(int argc, char* args[])
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
-
-	PLAYER->init();
 
 	while (!INPUT_MANAGER->getEndGame())
 	{
@@ -41,7 +39,6 @@ int main(int argc, char* args[])
 		VIDEO->clearScreen();
 		
 		// UPDATE
-		PLAYER->update();
 		SCENE_DIRECTOR->getCurrentScene()->update();
 
 		// RENDER
@@ -49,8 +46,6 @@ int main(int argc, char* args[])
 		{
 			SCENE_DIRECTOR->getCurrentScene()->render();
 		}
-
-		PLAYER->render();
 
 		VIDEO->updateScreen();
 

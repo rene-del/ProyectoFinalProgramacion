@@ -7,8 +7,8 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Scene.h"
 
+#include "Scene.h"
 #include "tinyxml2.h"
 
 class Map : public Scene
@@ -33,6 +33,7 @@ public:
 	~Map() override;
 
 	void init() override;
+	void reinit() override;
 	void update() override;
 	void render() override;
 

@@ -22,6 +22,8 @@ SceneDirector::SceneDirector()
 
 SceneDirector::~SceneDirector()
 {
+	delete mVectorScenes[MENU];
+	delete mVectorScenes[MAP];
 }
 
 void SceneDirector::init()
@@ -37,7 +39,7 @@ void SceneDirector::init()
 	menu->init();
 	map->init();
 
-	mCurrScene = MAP;
+	mCurrScene = MENU;
 }
 
 void SceneDirector::changeScene(SceneEnum next_scene, bool reinit)

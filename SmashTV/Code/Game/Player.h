@@ -12,6 +12,8 @@ private:
 	int _currSprite;
 	int _speed;
 
+	bool _dead;
+
 	SDL_Rect _src;
 	SDL_Rect _dst;
 
