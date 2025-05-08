@@ -2,6 +2,8 @@
 
 #include "SDL.h"
 
+
+
 class Bullet
 {
 private:
@@ -19,6 +21,8 @@ private:
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
+
+	
 
 
 public:

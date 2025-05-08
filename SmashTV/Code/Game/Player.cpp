@@ -71,10 +71,13 @@ void Player::update()
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
 
+	if (_bullets.size() != 0)
+	{
 
+	}
 	
 	_bullet1.update();
-	
+
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)

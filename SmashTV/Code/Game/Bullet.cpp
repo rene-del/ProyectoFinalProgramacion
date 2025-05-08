@@ -10,6 +10,7 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
+
 Bullet::Bullet()
 {
 	_img = 0;
@@ -97,7 +98,7 @@ void Bullet::update()
 			_beginBullet = false;
 			_bulletTimeLimit = 0;
 
-			std::cout << "true" << "\n";
+		//std::cout << "true" << "\n";
 			//reset - despawn
 			_dst.x = 99999;
 			_dst.y = 99999;
@@ -108,11 +109,11 @@ void Bullet::update()
 
 	if (_beginBullet)
 	{
-		std::cout << "bala comenzada" << "\n";
+	//	std::cout << "bala comenzada" << "\n";
 	}
 	if (!_beginBullet)
 	{
-		std::cout << "bala acabada" << "\n";
+		//std::cout << "bala acabada" << "\n";
 
 	}
 
