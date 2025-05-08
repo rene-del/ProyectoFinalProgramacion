@@ -23,6 +23,7 @@
     <ClCompile Include="Code\Engine\ResourceManager.cpp" />
     <ClCompile Include="Code\Engine\TimeManager.cpp" />
     <ClCompile Include="Code\Engine\Video.cpp" />
+    <ClCompile Include="Code\Game\Blob.cpp" />
     <ClCompile Include="Code\Game\Bullet.cpp" />
     <ClCompile Include="Code\Game\Main.cpp" />
     <ClCompile Include="Code\Game\Map.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="Code\Engine\ResourceManager.h" />
     <ClInclude Include="Code\Engine\TimeManager.h" />
     <ClInclude Include="Code\Engine\Video.h" />
+    <ClInclude Include="Code\Game\Blob.h" />
     <ClInclude Include="Code\Game\Bullet.h" />
     <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Player.h" />

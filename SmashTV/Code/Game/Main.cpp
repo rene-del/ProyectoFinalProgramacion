@@ -6,6 +6,9 @@
 #include "../../Code/Game/Player.h"
 #include "../../Code/Game/Map.h"
 #include "../../Code/Game/Bullet.h"
+#include "../../Code/Game/Blob.h"
+
+
 
 ResourceManager* RESOURCE_MANAGER = ResourceManager::getInstance();
 Video* VIDEO = Video::getInstance();
@@ -14,14 +17,17 @@ TimeManager* TIME_MANAGER = TimeManager::getInstance();
 
 Player* PLAYER = new Player();
 Map* MAP = new Map();
-//Bullet* BULLET = new Bullet();
+Blob* BLOB = new Blob();;
+
+
 
 
 int main(int argc, char* args[])
 {
 	PLAYER->init();
 	MAP->init();
-	//BULLET->init();
+	BLOB->init();
+
 
 	while (!INPUT_MANAGER->getEndGame())
 	{
@@ -30,12 +36,12 @@ int main(int argc, char* args[])
 		VIDEO->clearScreen();
 		//UPDATE
 		PLAYER->update();
-	//	BULLET->update();
+		BLOB->update();
 
 		//RENDER
 		MAP->render();
 		PLAYER->render();
-	//	BULLET->render();
+		BLOB->render();
 		VIDEO->updateScreen();
 
 		TIME_MANAGER->timeControl();
