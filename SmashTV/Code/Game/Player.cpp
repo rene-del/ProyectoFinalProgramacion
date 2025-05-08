@@ -182,7 +182,7 @@ void Player::update()
 			//2 izquierda
 			//3 abajo
 			//4 arriba
-			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection());
+			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
 
 		}
 			

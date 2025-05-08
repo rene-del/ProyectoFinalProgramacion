@@ -92,12 +92,15 @@ void Bullet::update()
 			break;
 		}
 		_bulletTimeLimit++;
-		if (_bulletTimeLimit > 500)
+		if (_bulletTimeLimit > 50)
 		{
 			_beginBullet = false;
 			_bulletTimeLimit = 0;
 
 			std::cout << "true" << "\n";
+			//reset - despawn
+			_dst.x = 99999;
+			_dst.y = 99999;
 		}
 
 
@@ -121,13 +124,16 @@ void Bullet::render()
 	VIDEO->renderGraphic(_img, _src, _dst);
 }
 
-void Bullet::isShoting(int dir)
+void Bullet::isShoting(int Dir, int x, int y)
 {
 	_shot = true;
 	
 	if (!_beginBullet)
 	{
-		_direction = dir;
+		_direction = Dir;
 		_beginBullet = true;
+		_dst.x = x;
+		_dst.y = y;
+
 	}
 }

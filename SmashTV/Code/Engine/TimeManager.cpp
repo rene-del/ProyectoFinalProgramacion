@@ -1,10 +1,12 @@
 #include "TimeManager.h"
 
 #include "../Game/Player.h"
+#include "../Game/Bullet.h"
 
 TimeManager* TimeManager::_pInstance = nullptr;
 
 extern Player* PLAYER;
+
 
 TimeManager::TimeManager()
 {
@@ -37,6 +39,7 @@ void TimeManager::timeControl()
 	_lastTime = _currentTime;
 
 	PLAYER->setNextSpriteCount(PLAYER->getNextSpriteCount() + 10);
+	PLAYER->getBullet1().setBulletTimeLimit(PLAYER->getBullet1().getBulletTimeLimit() + 1);
 }
 
 TimeManager* TimeManager::getInstance()

@@ -29,7 +29,8 @@ private:
 
 	std::vector<Bullet> _bullets;
 
-	Bullet _bullet1; 
+
+	Bullet _bullet1;
 	Bullet _bullet2;
 
 
@@ -46,6 +47,15 @@ public:
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
+
+	void setPlayerX(int val) { _dst.x = val; };
+	void setPlayerY(int val) { _dst.y = val; };
+
+	//para que time manager pueda usar los metodos de la bala
+	Bullet& getBullet1() { return _bullet1; }
+
+	int getPlayerX() { return _dst.x; };
+	int getPlayerY() { return _dst.y; };
 
 	Uint32 getNextSpriteCount() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

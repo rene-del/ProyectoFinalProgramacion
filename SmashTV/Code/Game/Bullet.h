@@ -29,8 +29,11 @@ public:
 	void update();
 	void render();
 
-	void isShoting(int Dir);
-	void resetBulletTimeLimit(Uint32 time) { _bulletTimeLimit = time; };
+	void isShoting(int Dir, int x, int y);
+	
+	void setBulletTimeLimit(Uint32 time) { _bulletTimeLimit = time; };
+	
+	Uint32 getBulletTimeLimit() { return _bulletTimeLimit; };
 
 	void setImg(int id) { _img = id; };
 
