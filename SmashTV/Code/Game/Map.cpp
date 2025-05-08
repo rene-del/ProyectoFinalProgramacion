@@ -32,6 +32,12 @@ Map::~Map()
 void Map::init()
 {
     loadMap("Assets/Map/Map.tmx");
+    mReinit = false;
+}
+
+void Map::update()
+{
+
 }
 
 void Map::render()
