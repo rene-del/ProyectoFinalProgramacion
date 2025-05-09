@@ -8,8 +8,9 @@ class Bullet
 private:
 	int _img;
 	int _velocity;
-
 	int _direction;
+	double _rotation;
+
 	bool _shot;
 	bool _beginBullet;
 

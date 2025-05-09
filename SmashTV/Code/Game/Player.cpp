@@ -668,7 +668,7 @@ void Player::update()
 			_nextSpriteCount = 0;
 		}
 
-		if (_src.x == RESOURCE_MANAGER->getGraphicWidth(_img))
+		if (_src.x == RESOURCE_MANAGER->getGraphicWidth(_img) + _src.w)
 		{
 			SCENE_DIRECTOR->changeScene(SceneEnum::GAMEOVER, false);
 		}

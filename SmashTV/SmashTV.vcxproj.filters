@@ -37,8 +37,12 @@
     <ClCompile Include="Code\Engine\Video.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\Enemy.cpp" />
-    <ClCompile Include="Code\Game\GameOver.cpp" />
+    <ClCompile Include="Code\Game\Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\GameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Game\Bullet.h">
