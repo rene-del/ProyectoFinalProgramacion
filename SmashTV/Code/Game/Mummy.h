@@ -1,24 +1,19 @@
 #pragma once
-
 #include "SDL.h"
 
-//constant movement
-enum STATES_BLOB {ST_B_STILL, ST_B_MOVING, ST_B_DEAD, ST_B_ALIVE};
+enum STATES_MUMMY { ST_M_STILL, ST_M_MOVING, ST_M_DEAD, ST_M_ALIVE };
 
-class Blob
+
+class Mummy
 {
 private:
-
 	int _img;
+	int _imgDead;
 	int _currSprite;
 	int _speed;
-	int _numberBullets;
 	int _contador;
-	
-	bool _reverse;
+
 	bool _isDead;
-
-
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -26,12 +21,10 @@ private:
 	Uint32 _spriteMaxTime;
 	Uint32 _nextSpriteCount;
 
-	STATES_BLOB _actualMovementState;
-	
-
+	STATES_MUMMY _actualMovementState;
 public:
-	Blob();
-	~Blob();
+	Mummy();
+	~Mummy();
 
 	void init();
 	void update();
@@ -43,17 +36,16 @@ public:
 	void setCurrentSprite(int val) { _currSprite = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
 
-	void setBlobX(int val) { _dst.x = val; };
-	void setBlobY(int val) { _dst.y = val; };
+	void setMummytX(int val) { _dst.x = val; };
+	void setMummyY(int val) { _dst.y = val; };
 
-	int getBlobX() { return _dst.x; };
-	int getBlobY() { return _dst.y; };
+	int getMummyX() { return _dst.x; };
+	int getMummyY() { return _dst.y; };
 
 	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };
 
-	STATES_BLOB getMovementState() { return _actualMovementState; };
-	
+	STATES_MUMMY getMovementState() { return _actualMovementState; };
 
 
 };

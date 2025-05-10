@@ -14,7 +14,6 @@ extern InputManager* INPUT_MANAGER;
 Blob::Blob()
 {
 	_img = 0;
-	_bulltetImg = 0;
 	_currSprite = 0;
 	_speed = 0;
 	_numberBullets = 0;
@@ -32,7 +31,7 @@ Blob::Blob()
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
 
-	_actualMovementState = ST_E_DEAD;
+	_actualMovementState = ST_B_DEAD;
 
 
 	_contador = 0;
@@ -72,7 +71,7 @@ void Blob::update()
 	//COOLDOWN
 	_contador++;
 	//JUMP (0-1-2-1-0)
-	if (_actualMovementState == ST_E_ALIVE)
+	if (_actualMovementState == ST_B_ALIVE)
 	{
 		//MOVEMENT
 		if (_contador > 20)
@@ -113,7 +112,7 @@ void Blob::update()
 	}
 
 	//DEAD
-	if (_actualMovementState == ST_E_DEAD)
+	if (_actualMovementState == ST_B_DEAD)
 	{
 
 		bool endAnim = false;

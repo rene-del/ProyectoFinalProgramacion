@@ -27,12 +27,16 @@
     <ClCompile Include="Code\Game\Bullet.cpp" />
     <ClCompile Include="Code\Game\Enemy.cpp" />
     <ClCompile Include="Code\Game\GameOver.cpp" />
+    <ClCompile Include="Code\Game\Grunt.cpp" />
     <ClCompile Include="Code\Game\Main.cpp" />
     <ClCompile Include="Code\Game\Map.cpp" />
     <ClCompile Include="Code\Game\Menu.cpp" />
+    <ClCompile Include="Code\Game\Mine.cpp" />
+    <ClCompile Include="Code\Game\Mummy.cpp" />
     <ClCompile Include="Code\Game\Player.cpp" />
     <ClCompile Include="Code\Game\Scene.cpp" />
     <ClCompile Include="Code\Game\SceneDirector.cpp" />
+    <ClCompile Include="Code\Game\tinyGrunt.cpp" />
     <ClCompile Include="Code\Game\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +48,15 @@
     <ClInclude Include="Code\Game\Bullet.h" />
     <ClInclude Include="Code\Game\Enemy.h" />
     <ClInclude Include="Code\Game\GameOver.h" />
+    <ClInclude Include="Code\Game\Grunt.h" />
     <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Menu.h" />
+    <ClInclude Include="Code\Game\Mine.h" />
+    <ClInclude Include="Code\Game\Mummy.h" />
     <ClInclude Include="Code\Game\Player.h" />
     <ClInclude Include="Code\Game\Scene.h" />
     <ClInclude Include="Code\Game\SceneDirector.h" />
+    <ClInclude Include="Code\Game\tinyGrunt.h" />
     <ClInclude Include="Code\Game\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
