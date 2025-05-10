@@ -8,9 +8,10 @@ using namespace std;
 #include <string>
 #include <vector>
 
+#include "Scene.h"
 #include "tinyxml2.h"
 
-class Map
+class Map : public Scene
 {
 private:
 	int _width;
@@ -29,10 +30,12 @@ private:
 
 public:
 	Map();
-	~Map();
+	~Map() override;
 
-	void init();
-	void render();
+	void init() override;
+	void reinit() override;
+	void update() override;
+	void render() override;
 
 	int loadMap(const char* filename);
 	int getMapId() { return _mapId; };

@@ -2,48 +2,53 @@
 #include "../../Code/Engine/Video.h"
 #include "../../Code/Engine/InputManager.h"
 #include "../../Code/Engine/TimeManager.h"
+#include "../../Code/Game/SceneDirector.h"
 
 #include "../../Code/Game/Player.h"
-#include "../../Code/Game/Map.h"
-#include "../../Code/Game/Bullet.h"
-#include "../../Code/Game/Blob.h"
 
+ResourceManager* RESOURCE_MANAGER;
+Video* VIDEO;
+InputManager* INPUT_MANAGER;
+TimeManager* TIME_MANAGER;
+SceneDirector* SCENE_DIRECTOR;
 
-
-ResourceManager* RESOURCE_MANAGER = ResourceManager::getInstance();
-Video* VIDEO = Video::getInstance();
-InputManager* INPUT_MANAGER = InputManager::getInstance();
-TimeManager* TIME_MANAGER = TimeManager::getInstance();
-
-Player* PLAYER = new Player();
-Map* MAP = new Map();
-Blob* BLOB = new Blob();;
-
-
-
+Player PLAYER;
 
 int main(int argc, char* args[])
 {
-	PLAYER->init();
-	MAP->init();
-	BLOB->init();
-
+	// INIT
+	RESOURCE_MANAGER = ResourceManager::getInstance();
+	VIDEO = Video::getInstance();
+	INPUT_MANAGER = InputManager::getInstance();
+	TIME_MANAGER = TimeManager::getInstance();
+	SCENE_DIRECTOR = SceneDirector::getInstance();
 
 	while (!INPUT_MANAGER->getEndGame())
 	{
+		// CHECK IF SCENE NEEDS REINIT
+		if (SCENE_DIRECTOR->getCurrentScene()->mustReInit())
+		{
+			SCENE_DIRECTOR->getCurrentScene()->reinit();
+		}
+
+		// INPUTS
 		INPUT_MANAGER->manageInputs();
 
+		// CLEAR SCREEN
 		VIDEO->clearScreen();
-		//UPDATE
-		PLAYER->update();
-		BLOB->update();
+		
+		// UPDATE
+		SCENE_DIRECTOR->getCurrentScene()->update();
 
-		//RENDER
-		MAP->render();
-		PLAYER->render();
-		BLOB->render();
+		// RENDER
+		if (!SCENE_DIRECTOR->getCurrentScene()->mustReInit())
+		{
+			SCENE_DIRECTOR->getCurrentScene()->render();
+		}
+
 		VIDEO->updateScreen();
 
+		// UPDATE TIME
 		TIME_MANAGER->timeControl();
 	}
 

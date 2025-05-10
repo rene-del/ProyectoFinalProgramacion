@@ -16,6 +16,7 @@ public:
 	bool getEndGame() { return _endGame; };
 	bool getKeyState(SDL_Scancode key) { return _keyStates[key]; };
 
+	void resetLastDir() { _lastDir = DIR_DOWN; };
 	DIRECTION getLastDir() { return _lastDir; };
 
 	static InputManager* getInstance();

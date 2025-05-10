@@ -17,6 +17,7 @@ public:
 	~Video();
 
 	void renderGraphic(int img, SDL_Rect src, SDL_Rect dst);
+	void renderGraphicRotated(int img, SDL_Rect src, SDL_Rect dst, double rotation);
 	void clearScreen();
 	void updateScreen();
 	void close();

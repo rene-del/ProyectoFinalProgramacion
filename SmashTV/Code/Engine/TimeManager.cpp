@@ -5,8 +5,7 @@
 
 TimeManager* TimeManager::_pInstance = nullptr;
 
-extern Player* PLAYER;
-
+extern Player PLAYER;
 
 TimeManager::TimeManager()
 {
@@ -38,8 +37,12 @@ void TimeManager::timeControl()
 
 	_lastTime = _currentTime;
 
-	PLAYER->setNextSpriteCount(PLAYER->getNextSpriteCount() + 10);
-	PLAYER->getBullet1().setBulletTimeLimit(PLAYER->getBullet1().getBulletTimeLimit() + 1);
+	PLAYER.setNextSpriteCount(PLAYER.getNextSpriteCount() + 10);
+
+	for (auto& bullet : PLAYER.getBullets())
+	{
+		bullet->setBulletTimeLimit(bullet->getBulletTimeLimit() + 1);
+	}
 }
 
 TimeManager* TimeManager::getInstance()

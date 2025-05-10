@@ -1,9 +1,12 @@
 #include "Map.h"
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Game/Player.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+
+extern Player PLAYER;
 
 Map::Map()
 {
@@ -23,6 +26,8 @@ Map::Map()
     {
         Layers[i].resize(0);
     }
+
+    _reInit = true;
 }
 
 Map::~Map()
@@ -32,6 +37,18 @@ Map::~Map()
 void Map::init()
 {
     loadMap("Assets/Map/Map.tmx");
+    PLAYER.init();
+    _reInit = false;
+}
+
+void Map::reinit()
+{
+    init();
+}
+
+void Map::update()
+{
+    PLAYER.update();
 }
 
 void Map::render()
@@ -67,6 +84,8 @@ void Map::render()
             }
         }
     }
+
+    PLAYER.render();
 }
 
 int Map::loadMap(const char* filename)

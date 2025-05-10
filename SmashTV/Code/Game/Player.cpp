@@ -4,26 +4,31 @@
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
 #include "../Engine/InputManager.h"
+#include "../Game/SceneDirector.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
+extern SceneDirector* SCENE_DIRECTOR;
 
 Player::Player()
 {
 	_img = 0;
 	_currSprite = 0;
 	_speed = 0;
+	_shootingCooldown = 0;
+
+	_dead = false;
 
 	_src.x = 0;
 	_src.y = 0;
 	_src.w = 0;
 	_src.h = 0;
 
-	_dst.w = 0;
-	_dst.y = 0;
 	_dst.x = 0;
 	_dst.y = 0;
+	_dst.w = 0;
+	_dst.h = 0;
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
@@ -31,7 +36,6 @@ Player::Player()
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
 
-	_numberBullets = 0;
 	_bullets.clear();
 }
 
@@ -42,7 +46,11 @@ Player::~Player()
 void Player::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Player/PlayerTileset.png");
+	_currSprite = 0;
 	_speed = 2;
+	_shootingCooldown = 0;
+
+	_dead = false;
 
 	_dst.w = 80;
 	_dst.h = 80;
@@ -56,10 +64,11 @@ void Player::init()
 
 	_spriteMaxTime = 150;
 	_nextSpriteCount = 0;
-	
 
-	_bullet1.init();
+	_actualMovementState = ST_STILL;
+	_actualAttackingState = ST_NOT_ATTACKING;
 
+	INPUT_MANAGER->resetLastDir();
 }
 
 void Player::update()
@@ -69,15 +78,22 @@ void Player::update()
 
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
-	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+	_dead = INPUT_MANAGER->getKeyState(SDL_SCANCODE_P);
 
-	if (_bullets.size() != 0)
+	if (_bullets.size() > 0)
 	{
+		for (int i = 0; i < _bullets.size(); i++)
+		{
+			_bullets[i]->update();
 
+			if (_bullets[i]->getBulletTimeLimit() > 50)
+			{
+				delete _bullets[i];
+				_bullets.erase(_bullets.begin() + i);
+				i--;
+			}
+		}
 	}
-	
-	_bullet1.update();
-
 
 	// ALIVE
 	if (_actualMovementState != ST_DEAD)
@@ -178,20 +194,40 @@ void Player::update()
 		if (space)
 		{
 			_actualAttackingState = ST_ATTACKING;
-			//looking for witch direction is currently looking at
-			_bullet1.isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
 
-		}
+			// SPAWN BULLET
+			if (_shootingCooldown >= 20)
+			{
+				Bullet* bullet = new Bullet();
+				bullet->init();
+				_bullets.push_back(bullet);
+				_shootingCooldown = 0;
+			}
 
+			// BULLET DIRECTION
+			for (auto& bullet : _bullets)
+			{
+				if (INPUT_MANAGER->getCurrentDirection() != InputManager::DIR_NONE)
+				{
+					bullet->isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
+				}
+				else
+				{
+					bullet->isShoting(INPUT_MANAGER->getLastDir(), _dst.x, _dst.y);
+				}
+			}
 		}
 		else
 		{
 			_actualAttackingState = ST_NOT_ATTACKING;
 		}
+	}
 	
+	// SHOOTING COOLDOWN
+	_shootingCooldown++;
 
-	// DEAD (TESTING)
-	if (enter)
+	// DEAD
+	if (_dead)
 	{
 		_actualMovementState = ST_DEAD;
 		_nextSpriteCount = 0;
@@ -631,8 +667,12 @@ void Player::update()
 			_src.x += _src.w;
 			_nextSpriteCount = 0;
 		}
-	}
 
+		if (_src.x == RESOURCE_MANAGER->getGraphicWidth(_img) + _src.w)
+		{
+			SCENE_DIRECTOR->changeScene(SceneEnum::GAMEOVER, false);
+		}
+	}
 
 	checkMapLimits();
 }
@@ -640,9 +680,14 @@ void Player::update()
 void Player::render()
 {
 	VIDEO->renderGraphic(_img, _src, _dst);
-	_bullet1.render();
-	//_bullet2.render();
-
+	
+	if (_bullets.size() > 0)
+	{
+		for (auto& bullet : _bullets)
+		{
+			bullet->render();
+		}
+	}
 }
 
 void Player::checkMapLimits()
