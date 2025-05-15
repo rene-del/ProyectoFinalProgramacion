@@ -3,10 +3,15 @@
 #include "../Engine/Video.h"
 #include "../Game/Player.h"
 
+
+
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
 extern Player PLAYER;
+extern Grunt* GRUNT;
+
+
 
 Map::Map()
 {
@@ -38,6 +43,8 @@ void Map::init()
 {
     loadMap("Assets/Map/Map.tmx");
     PLAYER.init();
+    //Grunt
+    GRUNT->init();
     _reInit = false;
 }
 
@@ -48,7 +55,10 @@ void Map::reinit()
 
 void Map::update()
 {
+    
     PLAYER.update();
+    GRUNT->update();
+    GRUNT->checkPlayerCollision(PLAYER.getPlayerRect());
 }
 
 void Map::render()
@@ -86,6 +96,7 @@ void Map::render()
     }
 
     PLAYER.render();
+    GRUNT->render();
 }
 
 int Map::loadMap(const char* filename)

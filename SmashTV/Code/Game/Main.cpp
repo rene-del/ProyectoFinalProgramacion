@@ -36,12 +36,7 @@ int main(int argc, char* args[])
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
 
-	BLOB->init();
-	GRUNT->init();
-	MUMMY->init();
-	TINNYGRUNT->init();
-	MINE->init();
-
+	
 	while (!INPUT_MANAGER->getEndGame())
 	{
 		// CHECK IF SCENE NEEDS REINIT
@@ -59,23 +54,13 @@ int main(int argc, char* args[])
 		// UPDATE
 		SCENE_DIRECTOR->getCurrentScene()->update();
 
-		BLOB->update();
-		GRUNT->update();
-		MUMMY->update();
-		TINNYGRUNT->update();
-		MINE->update();
-
+		
 		// RENDER
 		if (!SCENE_DIRECTOR->getCurrentScene()->mustReInit())
 		{
 			SCENE_DIRECTOR->getCurrentScene()->render();
 		}
-		BLOB->render();
-		GRUNT->render();
-		MUMMY->render();
-		TINNYGRUNT->render();
-		MINE->render();
-
+		
 		VIDEO->updateScreen();
 
 		// UPDATE TIME

@@ -145,3 +145,16 @@ void Blob::render()
 void Blob::checkMapLimits()
 {
 }
+
+void Blob::checkPlayerCollision(SDL_Rect rectPlayer)
+{
+	if (
+		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
+		rectPlayer.x < _dst.x + _dst.w &&
+		_dst.y < rectPlayer.y + rectPlayer.h &&
+		rectPlayer.y < _dst.y + _dst.h
+		)
+	{
+		std::cout << "colision con jugador" << "\n";
+	}
+}

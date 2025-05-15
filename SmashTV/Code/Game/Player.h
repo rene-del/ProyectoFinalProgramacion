@@ -42,7 +42,7 @@ public:
 	void render();
 
 	void checkMapLimits();
-	bool checkCollisionEnemy();
+	bool checkCollisionEnemy(SDL_Rect rectEnemy);
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
@@ -54,8 +54,7 @@ public:
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
 
-
-
+	SDL_Rect getPlayerRect() { return _dst; };
 
 	Uint32 getNextSpriteCount() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

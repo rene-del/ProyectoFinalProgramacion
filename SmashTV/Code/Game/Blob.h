@@ -38,6 +38,7 @@ public:
 	void render();
 
 	void checkMapLimits();
+	void checkPlayerCollision(SDL_Rect rectPlayer);
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
@@ -48,6 +49,7 @@ public:
 
 	int getBlobX() { return _dst.x; };
 	int getBlobY() { return _dst.y; };
+
 
 	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

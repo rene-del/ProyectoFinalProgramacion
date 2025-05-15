@@ -31,6 +31,7 @@ public:
 	void render();
 
 	void checkMapLimits();
+	void checkPlayerCollision(SDL_Rect rectPlayer);
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
