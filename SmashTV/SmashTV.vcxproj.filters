@@ -43,6 +43,21 @@
     <ClCompile Include="Code\Game\GameOver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Game\Blob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\Grunt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\Mine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\Mummy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\tinyGrunt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Game\Bullet.h">
@@ -82,6 +97,21 @@
       <Filter>Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Code\Game\GameOver.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Blob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Grunt.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Mummy.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\Mine.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\tinyGrunt.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
   </ItemGroup>

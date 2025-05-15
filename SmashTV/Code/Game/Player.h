@@ -8,6 +8,9 @@
 
 enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
 
+//ENEMIES
+#include "Grunt.h"
+
 class Player
 {
 private:
@@ -28,6 +31,7 @@ private:
 	STATES _actualAttackingState;
 
 	std::vector<Bullet*> _bullets;
+	Grunt* _Grunt;
 
 public:
 	Player();
@@ -38,6 +42,7 @@ public:
 	void render();
 
 	void checkMapLimits();
+	bool checkCollisionEnemy();
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
@@ -48,6 +53,9 @@ public:
 
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
+
+
+
 
 	Uint32 getNextSpriteCount() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

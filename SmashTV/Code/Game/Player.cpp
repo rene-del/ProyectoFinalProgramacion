@@ -37,6 +37,9 @@ Player::Player()
 	_actualAttackingState = ST_NOT_ATTACKING;
 
 	_bullets.clear();
+
+
+	_Grunt = nullptr;
 }
 
 Player::~Player()
@@ -711,4 +714,21 @@ void Player::checkMapLimits()
 	{
 		_dst.y = SCREEN_HEIGHT - _dst.h;
 	}
+}
+
+bool Player::checkCollisionEnemy()
+{
+	//COORD FROM PLAYER
+	//collision check
+	if (_dst.x == _Grunt->getGruntX() || //top right
+		(_dst.x + _dst.w) == (_Grunt->getGruntX() + _Grunt->getGruntW()) || //top right
+		_dst.y == (_Grunt->getGruntY()) ||// bottom left 
+		(_dst.y + _dst.h) == (_Grunt->getGruntY() + _Grunt->getGruntW()) // bottom right
+		)
+	{
+		std::cout << "hay colision" << std::endl;
+	}
+
+
+	return false;
 }
