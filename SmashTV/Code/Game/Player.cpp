@@ -86,7 +86,7 @@ void Player::update()
 		{
 			_bullets[i]->update();
 
-			if (_bullets[i]->getBulletTimeLimit() > 50)
+			if (_bullets[i]->getBulletTimeLimit() > 60)
 			{
 				delete _bullets[i];
 				_bullets.erase(_bullets.begin() + i);

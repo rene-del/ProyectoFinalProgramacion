@@ -157,27 +157,6 @@
     <CopyFileToFolders Include="Assets\Bullets\Bullet_Down.png">
       <Filter>Resource Files\Assets\Bullets</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Don.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Left.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Right.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Up.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
-      <Filter>Resource Files\Assets\Bullets</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="SDL2.dll">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
@@ -187,10 +166,13 @@
     <CopyFileToFolders Include="SDL2_mixer.dll">
       <Filter>Resource Files</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\bullet.png">
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
       <Filter>Resource Files\Assets\Bullets</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\bullet2.png">
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
+      <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
       <Filter>Resource Files\Assets\Bullets</Filter>
     </CopyFileToFolders>
   </ItemGroup>
