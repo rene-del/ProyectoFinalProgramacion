@@ -2,6 +2,9 @@
 
 #include "SDL.h"
 enum STATES_GRUNT { ST_G_STILL, ST_G_MOVING, ST_G_DEAD, ST_G_ALIVE };
+//enemies
+
+
 
 class Grunt
 {
@@ -21,6 +24,9 @@ private:
 	Uint32 _nextSpriteCount;
 
 	STATES_GRUNT _actualMovementState;
+
+	
+
 
 public:
 
@@ -42,6 +48,12 @@ public:
 
 	int getGruntX() { return _dst.x; };
 	int getGruntY() { return _dst.y; };
+
+	int getGruntW() { return _dst.w; };
+	int getGruntH() { return _dst.h; };
+
+	
+
 
 	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

@@ -36,6 +36,7 @@ Grunt::Grunt()
 
 	_actualMovementState = ST_G_ALIVE;
 
+
 }
 
 Grunt::~Grunt()
