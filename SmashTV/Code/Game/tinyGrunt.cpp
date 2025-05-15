@@ -11,7 +11,7 @@ extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
 
-tinyGrunt::tinyGrunt()
+TinyGrunt::TinyGrunt()
 {
 	_img = 0;
 	_imgDead = 0;
@@ -37,12 +37,12 @@ tinyGrunt::tinyGrunt()
 	_actualMovementState = ST_TG_ALIVE;
 }
 
-tinyGrunt::~tinyGrunt()
+TinyGrunt::~TinyGrunt()
 {
 	
 }
 
-void tinyGrunt::init()
+void TinyGrunt::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/TinyGrunt.png");
 	_imgDead = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/TinyGrunt_Death.png");
@@ -58,7 +58,7 @@ void tinyGrunt::init()
 	_src.y = 0;
 }
 
-void tinyGrunt::update()
+void TinyGrunt::update()
 {
 	_contador++;
 	//35 x 40
@@ -89,7 +89,7 @@ void tinyGrunt::update()
 	}
 }
 
-void tinyGrunt::render()
+void TinyGrunt::render()
 {
 	if (!_isDead)
 	{
@@ -101,6 +101,6 @@ void tinyGrunt::render()
 	}
 }
 
-void tinyGrunt::checkMapLimits()
+void TinyGrunt::checkMapLimits()
 {
 }

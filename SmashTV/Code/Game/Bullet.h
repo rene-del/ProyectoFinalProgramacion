@@ -35,6 +35,8 @@ public:
 	
 	Uint32 getBulletTimeLimit() { return _bulletTimeLimit; };
 
+	SDL_Rect getRect() { return _vDst[_direction - 1]; };
+
 	void setImg(int id) { _img[_direction - 1] = id; };
 };
 

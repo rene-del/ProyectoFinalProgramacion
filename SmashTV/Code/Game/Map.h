@@ -9,11 +9,26 @@ using namespace std;
 #include <vector>
 
 #include "Scene.h"
+
+#include "Bullet.h"
+
+#include "Blob.h"
+#include "Grunt.h"
+#include "TinyGrunt.h"
+#include "Mummy.h"
+#include "Mine.h"
+
 #include "tinyxml2.h"
 
 class Map : public Scene
 {
 private:
+	Blob* _blob;
+	Grunt* _grunt;
+	TinyGrunt* _tinyGrunt;
+	Mummy* _mummy;
+	Mine* _mine;
+
 	int _width;
 	int _height;
 

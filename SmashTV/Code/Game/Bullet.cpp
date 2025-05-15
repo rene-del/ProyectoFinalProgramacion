@@ -67,7 +67,7 @@ void Bullet::init()
 		_vDst.push_back(_dst);
 	}
 
-	_velocity = 10;
+	_velocity = 5;
 
 	_beginBullet = false;
 	_shot = false;

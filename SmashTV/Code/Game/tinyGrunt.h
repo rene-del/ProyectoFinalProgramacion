@@ -4,7 +4,7 @@
 
 enum STATES_TINYGRUNT { ST_TG_STILL, ST_TG_MOVING, ST_TG_DEAD, ST_TG_ALIVE };
 
-class tinyGrunt
+class TinyGrunt
 {
 private:
 	int _img;
@@ -25,8 +25,8 @@ private:
 
 public:
 
-	tinyGrunt();
-	~tinyGrunt();
+	TinyGrunt();
+	~TinyGrunt();
 
 	void init();
 	void update();
