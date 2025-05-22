@@ -17,8 +17,7 @@ Player::Player()
 	_currSprite = 0;
 	_speed = 0;
 	_shootingCooldown = 0;
-
-	_dead = false;
+	_lifes = 3;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -59,8 +58,6 @@ void Player::init()
 	_speed = 2;
 	_shootingCooldown = 0;
 
-	_dead = false;
-
 	_dst.w = 80;
 	_dst.h = 80;
 	_dst.x = (SCREEN_WIDTH / 2) - (_dst.w / 2);
@@ -87,7 +84,6 @@ void Player::update()
 
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
-	_dead = INPUT_MANAGER->getKeyState(SDL_SCANCODE_P);
 
 	if (_bullets.size() > 0)
 	{
@@ -236,7 +232,7 @@ void Player::update()
 	_shootingCooldown++;
 
 	// DEAD
-	if (_dead)
+	if (_lifes <= -1)
 	{
 		_actualMovementState = ST_DEAD;
 		_nextSpriteCount = 0;

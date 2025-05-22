@@ -8,9 +8,6 @@
 
 enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
 
-//ENEMIES
-#include "Grunt.h"
-
 class Player
 {
 private:
@@ -18,8 +15,7 @@ private:
 	int _currSprite;
 	int _speed;
 	int _shootingCooldown;
-
-	bool _dead;
+	int _lifes;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -46,6 +42,7 @@ public:
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
+	void setLifes(int val) { _lifes = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
 
 	void setBulletsVector(std::vector<Bullet*> val) { _bullets = val; };
@@ -55,6 +52,7 @@ public:
 
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
+	int getLifes() { return _lifes; };
 
 	SDL_Rect getPlayerRect() { return _dst; };
 
