@@ -24,6 +24,7 @@ Mine::Mine()
 	_cooldownCollision = false;
 	_isNotExploted = true;
 
+
 	_src.x = 0;
 	_src.y = 0;
 	_src.h = 0;

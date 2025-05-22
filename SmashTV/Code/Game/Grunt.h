@@ -16,6 +16,8 @@ private:
 	int _contador;
 
 	bool _isDead;
+	bool _endAnim;
+	bool _resetAnim;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;

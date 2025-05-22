@@ -1,11 +1,7 @@
 #include "TimeManager.h"
 
-#include "../Game/Player.h"
-#include "../Game/Bullet.h"
 
 TimeManager* TimeManager::_pInstance = nullptr;
-
-extern Player PLAYER;
 
 TimeManager::TimeManager()
 {

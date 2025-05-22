@@ -80,7 +80,7 @@ void Map::update()
     _blob->update();
 
     _mine->update();
-    _mine->checkPlayerCollision(PLAYER.getPlayerRect());
+    _mine->checkCollision(PLAYER.getPlayerRect());
     
     _grunt->update();
 
