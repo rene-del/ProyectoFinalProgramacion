@@ -48,6 +48,8 @@ public:
 	void setCurrSprite(int val) { _currSprite = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
 
+	void setBulletsVector(std::vector<Bullet*> val) { _bullets = val; };
+
 	void setPlayerX(int val) { _dst.x = val; };
 	void setPlayerY(int val) { _dst.y = val; };
 

@@ -1,7 +1,9 @@
 #include "Map.h"
+
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
-#include "../Game/Player.h"
+
+#include "Player.h"
 
 
 
@@ -16,6 +18,12 @@ extern Grunt* GRUNT;
 
 Map::Map()
 {
+    _blob = nullptr;
+    _grunt = nullptr;
+    _tinyGrunt = nullptr;
+    _mummy = nullptr;
+    _mine = nullptr;
+
     _width = 0;
     _height = 0;
 
@@ -38,19 +46,45 @@ Map::Map()
 
 Map::~Map()
 {
+    delete _blob;
+    delete _grunt;
+    delete _tinyGrunt;
+    delete _mummy;
+    delete _mine;
 }
 
 void Map::init()
 {
     loadMap("Assets/Map/Map.tmx");
+
     PLAYER.init();
-    //Grunt
-    GRUNT->init();
+
+    _blob = new Blob();
+    _blob->init();
+
+    _grunt = new Grunt();
+    _grunt->init();
+
+    _tinyGrunt = new TinyGrunt();
+    _tinyGrunt->init();
+
+    _mummy = new Mummy();
+    _mummy->init();
+
+    _mine = new Mine();
+    _mine->init();
+
     _reInit = false;
 }
 
 void Map::reinit()
 {
+    delete _blob;
+    delete _grunt;
+    delete _tinyGrunt;
+    delete _mummy;
+    delete _mine;
+
     init();
 }
 
@@ -58,8 +92,35 @@ void Map::update()
 {
     
     PLAYER.update();
-    GRUNT->update();
-    GRUNT->checkPlayerCollision(PLAYER.getPlayerRect());
+
+    std::vector<Bullet*> playerBullets;
+    playerBullets = PLAYER.getBullets();
+
+    _blob->update();
+
+    _tinyGrunt->update();
+
+    _mummy->update();
+
+    _mine->update();
+
+    _grunt->update();
+
+    _grunt->checkPlayerCollision(PLAYER.getPlayerRect());
+
+    // ENEMIES COLLISION WITH PLAYER BULLETS
+    for (int i = 0; i < playerBullets.size(); i++)
+    {
+        bool collide = _blob->checkCollisionBullet(playerBullets[i]->getRect());
+
+        if (collide)
+        {
+            delete playerBullets[i];
+            playerBullets.erase(playerBullets.begin() + i);
+            PLAYER.setBulletsVector(playerBullets);
+            i--;
+        }
+    }
 }
 
 void Map::render()
@@ -97,7 +158,13 @@ void Map::render()
     }
 
     PLAYER.render();
-    GRUNT->render();
+
+    _blob->render();
+    _grunt->render();
+    _tinyGrunt->render();
+    _mummy->render();
+    _mine->render();
+    _grunt->render();
 }
 
 int Map::loadMap(const char* filename)

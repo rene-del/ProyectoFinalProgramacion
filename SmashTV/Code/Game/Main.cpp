@@ -6,13 +6,6 @@
 
 #include "../../Code/Game/Player.h"
 
-#include "../../Code/Game/Blob.h"
-#include "../../Code/Game/Grunt.h"
-#include "../../Code/Game/Mummy.h"
-#include "../../Code/Game/tinyGrunt.h"
-#include "../../Code/Game/Mine.h"
-
-
 ResourceManager* RESOURCE_MANAGER;
 Video* VIDEO;
 InputManager* INPUT_MANAGER;
@@ -20,12 +13,6 @@ TimeManager* TIME_MANAGER;
 SceneDirector* SCENE_DIRECTOR;
 
 Player PLAYER;
-
-Blob* BLOB = new Blob();
-Grunt* GRUNT = new Grunt();
-Mummy* MUMMY = new Mummy();
-tinyGrunt* TINNYGRUNT = new tinyGrunt();
-Mine* MINE = new Mine();
 
 int main(int argc, char* args[])
 {
@@ -35,7 +22,6 @@ int main(int argc, char* args[])
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
-
 	
 	while (!INPUT_MANAGER->getEndGame())
 	{
@@ -54,7 +40,6 @@ int main(int argc, char* args[])
 		// UPDATE
 		SCENE_DIRECTOR->getCurrentScene()->update();
 
-		
 		// RENDER
 		if (!SCENE_DIRECTOR->getCurrentScene()->mustReInit())
 		{

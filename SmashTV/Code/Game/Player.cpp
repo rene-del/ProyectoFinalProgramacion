@@ -38,12 +38,18 @@ Player::Player()
 
 	_bullets.clear();
 
-
 	_Grunt = nullptr;
 }
 
 Player::~Player()
 {
+	// DELETE BULLETS
+	for (int i = 0; i < _bullets.size(); i++)
+	{
+		delete _bullets[i];
+		_bullets.erase(_bullets.begin() + i);
+		i--;
+	}
 }
 
 void Player::init()
@@ -89,7 +95,7 @@ void Player::update()
 		{
 			_bullets[i]->update();
 
-			if (_bullets[i]->getBulletTimeLimit() > 50)
+			if (_bullets[i]->getBulletTimeLimit() > 150)
 			{
 				delete _bullets[i];
 				_bullets.erase(_bullets.begin() + i);
@@ -199,7 +205,7 @@ void Player::update()
 			_actualAttackingState = ST_ATTACKING;
 
 			// SPAWN BULLET
-			if (_shootingCooldown >= 20)
+			if (_shootingCooldown >= 25)
 			{
 				Bullet* bullet = new Bullet();
 				bullet->init();

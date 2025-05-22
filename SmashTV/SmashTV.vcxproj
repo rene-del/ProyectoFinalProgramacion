@@ -24,6 +24,7 @@
     <ClCompile Include="Code\Engine\TimeManager.cpp" />
     <ClCompile Include="Code\Engine\Video.cpp" />
     <ClCompile Include="Code\Game\Blob.cpp" />
+    <ClCompile Include="Code\Game\BlobBullet.cpp" />
     <ClCompile Include="Code\Game\Bullet.cpp" />
     <ClCompile Include="Code\Game\Enemy.cpp" />
     <ClCompile Include="Code\Game\GameOver.cpp" />
@@ -36,7 +37,7 @@
     <ClCompile Include="Code\Game\Player.cpp" />
     <ClCompile Include="Code\Game\Scene.cpp" />
     <ClCompile Include="Code\Game\SceneDirector.cpp" />
-    <ClCompile Include="Code\Game\tinyGrunt.cpp" />
+    <ClCompile Include="Code\Game\TinyGrunt.cpp" />
     <ClCompile Include="Code\Game\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -45,6 +46,7 @@
     <ClInclude Include="Code\Engine\TimeManager.h" />
     <ClInclude Include="Code\Engine\Video.h" />
     <ClInclude Include="Code\Game\Blob.h" />
+    <ClInclude Include="Code\Game\BlobBullet.h" />
     <ClInclude Include="Code\Game\Bullet.h" />
     <ClInclude Include="Code\Game\Enemy.h" />
     <ClInclude Include="Code\Game\GameOver.h" />
@@ -56,39 +58,11 @@
     <ClInclude Include="Code\Game\Player.h" />
     <ClInclude Include="Code\Game\Scene.h" />
     <ClInclude Include="Code\Game\SceneDirector.h" />
-    <ClInclude Include="Code\Game\tinyGrunt.h" />
+    <ClInclude Include="Code\Game\TinyGrunt.h" />
     <ClInclude Include="Code\Game\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Assets\Bullets\Bullet_Down.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Don.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Left.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Right.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Impact_Up.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
     </CopyFileToFolders>
@@ -159,11 +133,15 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="Assets\Bullets\bullet.png">
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Left.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Bullets\bullet2.png">
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Right.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
     </CopyFileToFolders>
