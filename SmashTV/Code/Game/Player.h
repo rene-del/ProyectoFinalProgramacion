@@ -27,7 +27,6 @@ private:
 	STATES _actualAttackingState;
 
 	std::vector<Bullet*> _bullets;
-	Grunt* _Grunt;
 
 public:
 	Player();
@@ -37,8 +36,8 @@ public:
 	void update();
 	void render();
 
+	bool checkCollision(SDL_Rect object);
 	void checkMapLimits();
-	bool checkCollisionEnemy(SDL_Rect rectEnemy);
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };

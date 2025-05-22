@@ -5,23 +5,15 @@
 
 #include "Player.h"
 
-
-
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
 extern Player PLAYER;
-extern Grunt* GRUNT;
-
-
-
 
 Map::Map()
 {
     _blob = nullptr;
     _grunt = nullptr;
-    _tinyGrunt = nullptr;
-    _mummy = nullptr;
     _mine = nullptr;
 
     _width = 0;
@@ -48,8 +40,6 @@ Map::~Map()
 {
     delete _blob;
     delete _grunt;
-    delete _tinyGrunt;
-    delete _mummy;
     delete _mine;
 }
 
@@ -65,12 +55,6 @@ void Map::init()
     _grunt = new Grunt();
     _grunt->init();
 
-    _tinyGrunt = new TinyGrunt();
-    _tinyGrunt->init();
-
-    _mummy = new Mummy();
-    _mummy->init();
-
     _mine = new Mine();
     _mine->init();
 
@@ -81,16 +65,13 @@ void Map::reinit()
 {
     delete _blob;
     delete _grunt;
-    delete _tinyGrunt;
-    delete _mummy;
     delete _mine;
 
     init();
 }
 
 void Map::update()
-{
-    
+{    
     PLAYER.update();
 
     std::vector<Bullet*> playerBullets;
@@ -98,21 +79,96 @@ void Map::update()
 
     _blob->update();
 
-    _tinyGrunt->update();
-
-    _mummy->update();
-
     _mine->update();
 
     _grunt->update();
 
-    _grunt->checkPlayerCollision(PLAYER.getPlayerRect());
+    // PLAYER COLLISION WITH BLOB BULLETS
+    bool collide = false;
+    std::vector<BlobBullet*> blobBullets;
+    blobBullets = _blob->getBullets();
+
+    for (int i = 0; i < blobBullets.size(); i++)
+    {
+        collide = PLAYER.checkCollision(blobBullets[i]->getRect());
+
+        if (collide)
+        {
+            delete blobBullets[i];
+            blobBullets.erase(blobBullets.begin() + i);
+            _blob->setBulletsVector(blobBullets);
+            i--;
+        }
+    }
+
+    // ENEMIES COLLISION WITH PLAYER
+
+    // BLOB
+    collide = _blob->checkCollision(PLAYER.getPlayerRect());
+
+    if (collide)
+    {
+        if (!_blob->getIsDead())
+        {
+            _blob->setIsDead(true);
+            PLAYER.setLifes(PLAYER.getLifes() - 1);
+        }
+    }
+
+    // GRUNT
+    collide = _grunt->checkCollision(PLAYER.getPlayerRect());
+
+    if (collide)
+    {
+        if (!_grunt->getIsDead())
+        {
+            _grunt->setIsDead(true);
+            PLAYER.setLifes(PLAYER.getLifes() - 1);
+        }
+    }
+
+    // MINE
+    collide = _mine->checkCollision(PLAYER.getPlayerRect());
+
+    if (collide)
+    {
+        PLAYER.setLifes(PLAYER.getLifes() - 1);
+    }
 
     // ENEMIES COLLISION WITH PLAYER BULLETS
+
+    // BLOB
     for (int i = 0; i < playerBullets.size(); i++)
     {
-        // BLOB
-        bool collide = _blob->checkCollisionBullet(playerBullets[i]->getRect());
+        collide = _blob->checkCollision(playerBullets[i]->getRect());
+
+        if (collide)
+        {
+            delete playerBullets[i];
+            playerBullets.erase(playerBullets.begin() + i);
+            PLAYER.setBulletsVector(playerBullets);
+            i--;
+        }        
+    }
+
+    // GRUNT
+    for (int i = 0; i < playerBullets.size(); i++)
+    {
+        collide = _grunt->checkCollision(playerBullets[i]->getRect());
+
+        if (collide)
+        {
+            delete playerBullets[i];
+            playerBullets.erase(playerBullets.begin() + i);
+            PLAYER.setBulletsVector(playerBullets);
+            i--;
+        }
+    }
+
+    // MINE
+    for (int i = 0; i < playerBullets.size(); i++)
+    {
+        collide = _mine->checkCollision(playerBullets[i]->getRect());
 
         if (collide)
         {
@@ -162,8 +218,6 @@ void Map::render()
 
     _blob->render();
     _grunt->render();
-    _tinyGrunt->render();
-    _mummy->render();
     _mine->render();
     _grunt->render();
 }

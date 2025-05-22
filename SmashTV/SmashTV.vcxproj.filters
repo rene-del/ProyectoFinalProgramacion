@@ -52,12 +52,6 @@
     <ClCompile Include="Code\Game\Mine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Game\Mummy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Code\Game\TinyGrunt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Code\Game\BlobBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -108,13 +102,7 @@
     <ClInclude Include="Code\Game\Grunt.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Game\Mummy.h">
-      <Filter>Header FIles</Filter>
-    </ClInclude>
     <ClInclude Include="Code\Game\Mine.h">
-      <Filter>Header FIles</Filter>
-    </ClInclude>
-    <ClInclude Include="Code\Game\TinyGrunt.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Code\Game\BlobBullet.h">
@@ -210,6 +198,21 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
       <Filter>Resource Files\Assets\Bullets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Blob.png">
+      <Filter>Resource Files\Assets\Enemies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Blob_Shot.png">
+      <Filter>Resource Files\Assets\Enemies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\EnemyBlade.png">
+      <Filter>Resource Files\Assets\Enemies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Explosion.png">
+      <Filter>Resource Files\Assets\Enemies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Mine.png">
+      <Filter>Resource Files\Assets\Enemies</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

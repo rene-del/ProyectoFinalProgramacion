@@ -44,7 +44,7 @@ void Mine::init()
 {
 
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Mine.png");
-	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Asset/Enemies/Explosion.png");
+	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
 	_dst.w = 32;
 	_dst.h = 32;
 	_dst.x = 180;
@@ -95,24 +95,16 @@ void Mine::render()
 
 }
 
-void Mine::checkMapLimits()
+bool Mine::checkCollision(SDL_Rect object)
 {
-}
-
-bool Mine::checkPlayerCollision(SDL_Rect rectPlayer)
-{
-
-	if (
-		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
-		rectPlayer.x < _dst.x + _dst.w &&
-		_dst.y < rectPlayer.y + rectPlayer.h &&
-		rectPlayer.y < _dst.y + _dst.h
-		)
+	if ((_dst.x < object.x + object.w) &&
+		(object.x < _dst.x + _dst.w) &&
+		(_dst.y < object.y + object.h) &&
+		(object.y < _dst.y + _dst.h))
 	{
-		return true;
+		_isTouched = true;
+		return _isTouched;
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }

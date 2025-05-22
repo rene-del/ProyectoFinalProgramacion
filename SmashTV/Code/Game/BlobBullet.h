@@ -15,6 +15,8 @@ public:
 
 	int getLimit() { return _limit; };
 
+	SDL_Rect getRect() { return _dst; };
+
 private:
 	int _img;
 	int _limit;

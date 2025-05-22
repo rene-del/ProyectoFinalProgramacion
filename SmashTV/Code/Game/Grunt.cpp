@@ -105,17 +105,20 @@ void Grunt::checkMapLimits()
 {
 }
 
-void Grunt::checkPlayerCollision(SDL_Rect rectPlayer)
+bool Grunt::checkCollision(SDL_Rect object)
 {
-	if (
-		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
-		rectPlayer.x < _dst.x + _dst.w &&
-		_dst.y < rectPlayer.y + rectPlayer.h &&
-		rectPlayer.y < _dst.y + _dst.h
-		)
+	if (_actualMovementState != ST_G_DEAD)
 	{
-		std::cout << "colision con jugador" << "\n";
+		if ((_dst.x < object.x + object.w) &&
+			(object.x < _dst.x + _dst.w) &&
+			(_dst.y < object.y + object.h) &&
+			(object.y < _dst.y + _dst.h))
+		{
+			_actualMovementState = ST_G_DEAD;
+			return true;
+		}
 	}
 
+	return false;
 }
 

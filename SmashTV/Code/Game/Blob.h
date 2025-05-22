@@ -39,9 +39,7 @@ public:
 	void update();
 	void render();
 
-	bool checkCollisionBullet(SDL_Rect object);
-	void checkMapLimits();
-	void checkPlayerCollision(SDL_Rect rectPlayer);
+	bool checkCollision(SDL_Rect object);
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
@@ -50,16 +48,21 @@ public:
 	void setBlobX(int val) { _dst.x = val; };
 	void setBlobY(int val) { _dst.y = val; };
 
+	void setIsDead(bool val) { _isDead = val; };
+
+	bool getIsDead() { return _isDead; };
+
 	int getBlobX() { return _dst.x; };
 	int getBlobY() { return _dst.y; };
-
 
 	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };
 
 	STATES_BLOB getMovementState() { return _actualMovementState; };
 
-	bool getIsDead() { return _isDead; };
+	std::vector<BlobBullet*> getBullets() { return _bullets; };
+
+	void setBulletsVector(std::vector<BlobBullet*> val) { _bullets = val; };
 };
 
 #endif

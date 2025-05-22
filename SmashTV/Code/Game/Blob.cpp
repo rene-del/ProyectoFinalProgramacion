@@ -158,7 +158,6 @@ void Blob::update()
 				else
 				{
 					endAnim = true;
-					_isDead = true;
 				}
 			}
 
@@ -180,7 +179,7 @@ void Blob::render()
 	}
 }
 
-bool Blob::checkCollisionBullet(SDL_Rect object)
+bool Blob::checkCollision(SDL_Rect object)
 {
 	if (_actualMovementState != ST_B_DEAD)
 	{
@@ -195,17 +194,4 @@ bool Blob::checkCollisionBullet(SDL_Rect object)
 	}
 
 	return false;
-}
-
-void Blob::checkPlayerCollision(SDL_Rect rectPlayer)
-{
-	if (
-		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
-		rectPlayer.x < _dst.x + _dst.w &&
-		_dst.y < rectPlayer.y + rectPlayer.h &&
-		rectPlayer.y < _dst.y + _dst.h
-		)
-	{
-		std::cout << "colision con jugador" << "\n";
-	}
 }

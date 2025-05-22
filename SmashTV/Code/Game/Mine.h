@@ -29,22 +29,15 @@ public:
 	void update();
 	void render();
 
-	void checkMapLimits();
-	bool checkPlayerCollision(SDL_Rect rectPlayer);
-
+	bool checkCollision(SDL_Rect object);
 
 	void setImg(int id) { _img = id; };
-	void setCurrentSprite(int val) { _currSprite = val; };
-	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
 	
 	void setMineX(int val) { _dst.x = val; };
 	void setMineY(int val) { _dst.y = val; };
 
 	int getMineX() { return _dst.x; };
 	int getMineY() { return _dst.y; };
-
-	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
-	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };
 
 };
 

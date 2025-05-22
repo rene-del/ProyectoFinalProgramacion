@@ -36,13 +36,6 @@ void TimeManager::timeControl()
 	}
 
 	_lastTime = _currentTime;
-
-	PLAYER.setNextSpriteCount(PLAYER.getNextSpriteCount() + 10);
-
-	for (auto& bullet : PLAYER.getBullets())
-	{
-		bullet->setBulletTimeLimit(bullet->getBulletTimeLimit() + 1);
-	}
 }
 
 TimeManager* TimeManager::getInstance()

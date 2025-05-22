@@ -36,8 +36,6 @@ Player::Player()
 	_actualAttackingState = ST_NOT_ATTACKING;
 
 	_bullets.clear();
-
-	_Grunt = nullptr;
 }
 
 Player::~Player()
@@ -91,7 +89,7 @@ void Player::update()
 		{
 			_bullets[i]->update();
 
-			if (_bullets[i]->getBulletTimeLimit() > 150)
+			if (_bullets[i]->getBulletTimeLimit() > 100)
 			{
 				delete _bullets[i];
 				_bullets.erase(_bullets.begin() + i);
@@ -232,10 +230,11 @@ void Player::update()
 	_shootingCooldown++;
 
 	// DEAD
-	if (_lifes <= -1)
+	if (_lifes == -1)
 	{
 		_actualMovementState = ST_DEAD;
 		_nextSpriteCount = 0;
+		_lifes--;
 	}
 
 	// SPRITES CONTROL
@@ -679,10 +678,9 @@ void Player::update()
 		}
 	}
 
+	_nextSpriteCount += 10;
+
 	checkMapLimits();
-
-	
-
 }
 
 void Player::render()
@@ -696,6 +694,20 @@ void Player::render()
 			bullet->render();
 		}
 	}
+}
+
+bool Player::checkCollision(SDL_Rect object)
+{
+	if ((_dst.x + 20 < object.x + object.w) &&
+		(object.x + 20 < _dst.x + _dst.w) &&
+		(_dst.y < object.y + object.h) &&
+		(object.y < _dst.y + _dst.h))
+	{
+		_lifes--;
+		return true;
+	}
+
+	return false;
 }
 
 void Player::checkMapLimits()
@@ -719,47 +731,4 @@ void Player::checkMapLimits()
 	{
 		_dst.y = SCREEN_HEIGHT - _dst.h;
 	}
-}
-
-bool Player::checkCollisionEnemy(SDL_Rect rectEnemy)
-{
-	//COORD FROM PLAYER
-	//collision check
-	//std::cout << "grunt x: " << rectEnemy.x << " - " << rectEnemy.x + rectEnemy.w << " y: " << rectEnemy.y << " - " << rectEnemy.y + rectEnemy.h << "\n";
-	std::cout << "player x : " << _dst.x << " - " << _dst.x + _dst.w << " y: " << _dst.y << " - " << _dst.y + _dst.h << "\n";
-
-	if (
-		(_dst.x + (_dst.w / 2)) > rectEnemy.x && 
-		(_dst.x + (_dst.w / 2)) < rectEnemy.x + rectEnemy.w
-		)
-	{
-//	std::cout << "colision horizontal" ;
-
-	}
-
-	if ((_dst.y) + (_dst.h ) < rectEnemy.y + rectEnemy.h && // bottom enemy
-		(_dst.y - 20) + (_dst.h) >  rectEnemy.y // top enemy
-		)
-	{
-//	std::cout << "colision vertical";
-
-	}
-
-	
-	if (//top right
-		_dst.x > rectEnemy.x && //Pright - Etop right
-		_dst.x < rectEnemy.x + (rectEnemy.w - 20)  &&//Pright - EtopLeft
-
-		_dst.y + 20> rectEnemy.y &&//Pup - EtopLeft
-		_dst.y < rectEnemy.y + rectEnemy.h && //PUp - Ebottom left
-
-		(_dst.y ) + (_dst.h) > rectEnemy.y 
-
-		)
-	{
-		//std::cout << "hay colision";
-	}
-
-
-	return false;
 }

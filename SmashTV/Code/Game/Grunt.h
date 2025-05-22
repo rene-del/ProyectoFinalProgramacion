@@ -38,7 +38,7 @@ public:
 	void render();
 
 	void checkMapLimits();
-	void checkPlayerCollision(SDL_Rect rectPlayer);
+	bool checkCollision(SDL_Rect object);
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
@@ -54,7 +54,8 @@ public:
 
 	STATES_GRUNT getMovementState() { return _actualMovementState; };
 
+	void setIsDead(bool val) { _isDead = val; };
 
-
+	bool getIsDead() { return _isDead; };
 };
 

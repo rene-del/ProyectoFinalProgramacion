@@ -33,11 +33,9 @@
     <ClCompile Include="Code\Game\Map.cpp" />
     <ClCompile Include="Code\Game\Menu.cpp" />
     <ClCompile Include="Code\Game\Mine.cpp" />
-    <ClCompile Include="Code\Game\Mummy.cpp" />
     <ClCompile Include="Code\Game\Player.cpp" />
     <ClCompile Include="Code\Game\Scene.cpp" />
     <ClCompile Include="Code\Game\SceneDirector.cpp" />
-    <ClCompile Include="Code\Game\TinyGrunt.cpp" />
     <ClCompile Include="Code\Game\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -54,11 +52,9 @@
     <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Menu.h" />
     <ClInclude Include="Code\Game\Mine.h" />
-    <ClInclude Include="Code\Game\Mummy.h" />
     <ClInclude Include="Code\Game\Player.h" />
     <ClInclude Include="Code\Game\Scene.h" />
     <ClInclude Include="Code\Game\SceneDirector.h" />
-    <ClInclude Include="Code\Game\TinyGrunt.h" />
     <ClInclude Include="Code\Game\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +140,28 @@
     <CopyFileToFolders Include="Assets\Bullets\Bullet_Up.png">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Bullets\</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Enemies\Blob.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Enemies\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Blob_Shot.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Enemies\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\EnemyBlade.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Enemies\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Explosion.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Enemies\</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Enemies\Mine.png">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Enemies\</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <PropertyGroup Label="Globals">
