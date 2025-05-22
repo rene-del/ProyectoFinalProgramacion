@@ -5,10 +5,16 @@
 
 #include "Player.h"
 
+
+
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
 extern Player PLAYER;
+extern Grunt* GRUNT;
+extern Mine
+
+
 
 Map::Map()
 {
@@ -84,6 +90,7 @@ void Map::reinit()
 
 void Map::update()
 {
+    
     PLAYER.update();
 
     std::vector<Bullet*> playerBullets;
@@ -91,6 +98,17 @@ void Map::update()
 
     _blob->update();
 
+    _tinyGrunt->update();
+
+    _mummy->update();
+
+    _mine->update();
+
+    _grunt->update();
+
+    _grunt->checkPlayerCollision(PLAYER.getPlayerRect());
+
+    // ENEMIES COLLISION WITH PLAYER BULLETS
     for (int i = 0; i < playerBullets.size(); i++)
     {
         bool collide = _blob->checkCollisionBullet(playerBullets[i]->getRect());
@@ -103,14 +121,6 @@ void Map::update()
             i--;
         }
     }
-
-    _grunt->update();
-
-    _tinyGrunt->update();
-
-    _mummy->update();
-
-    _mine->update();
 }
 
 void Map::render()
@@ -154,6 +164,7 @@ void Map::render()
     _tinyGrunt->render();
     _mummy->render();
     _mine->render();
+    _grunt->render();
 }
 
 int Map::loadMap(const char* filename)

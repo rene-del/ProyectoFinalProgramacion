@@ -19,7 +19,7 @@ Grunt::Grunt()
 	_speed = 0;
 	_contador = 0;
 
-	_isDead = true;
+	_isDead = false;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -51,7 +51,7 @@ void Grunt::init()
 	_dst.w = 64;
 	_dst.h = 128;
 	_dst.x = 160;
-	_dst.y = 80;
+	_dst.y = 160;
 
 	_src.w = 32;
 	_src.h = 57;
@@ -104,3 +104,18 @@ void Grunt::render()
 void Grunt::checkMapLimits()
 {
 }
+
+void Grunt::checkPlayerCollision(SDL_Rect rectPlayer)
+{
+	if (
+		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
+		rectPlayer.x < _dst.x + _dst.w &&
+		_dst.y < rectPlayer.y + rectPlayer.h &&
+		rectPlayer.y < _dst.y + _dst.h
+		)
+	{
+		std::cout << "colision con jugador" << "\n";
+	}
+
+}
+

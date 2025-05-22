@@ -30,11 +30,13 @@ public:
 	void render();
 
 	void checkMapLimits();
+	void checkPlayerCollision(SDL_Rect rectPlayer);
+
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
-
+	
 	void setMineX(int val) { _dst.x = val; };
 	void setMineY(int val) { _dst.y = val; };
 

@@ -684,6 +684,9 @@ void Player::update()
 	}
 
 	checkMapLimits();
+
+	
+
 }
 
 void Player::render()
@@ -722,17 +725,43 @@ void Player::checkMapLimits()
 	}
 }
 
-bool Player::checkCollisionEnemy()
+bool Player::checkCollisionEnemy(SDL_Rect rectEnemy)
 {
 	//COORD FROM PLAYER
 	//collision check
-	if (_dst.x == _Grunt->getGruntX() || //top right
-		(_dst.x + _dst.w) == (_Grunt->getGruntX() + _Grunt->getGruntW()) || //top right
-		_dst.y == (_Grunt->getGruntY()) ||// bottom left 
-		(_dst.y + _dst.h) == (_Grunt->getGruntY() + _Grunt->getGruntW()) // bottom right
+	//std::cout << "grunt x: " << rectEnemy.x << " - " << rectEnemy.x + rectEnemy.w << " y: " << rectEnemy.y << " - " << rectEnemy.y + rectEnemy.h << "\n";
+	std::cout << "player x : " << _dst.x << " - " << _dst.x + _dst.w << " y: " << _dst.y << " - " << _dst.y + _dst.h << "\n";
+
+	if (
+		(_dst.x + (_dst.w / 2)) > rectEnemy.x && 
+		(_dst.x + (_dst.w / 2)) < rectEnemy.x + rectEnemy.w
 		)
 	{
-		std::cout << "hay colision" << std::endl;
+//	std::cout << "colision horizontal" ;
+
+	}
+
+	if ((_dst.y) + (_dst.h ) < rectEnemy.y + rectEnemy.h && // bottom enemy
+		(_dst.y - 20) + (_dst.h) >  rectEnemy.y // top enemy
+		)
+	{
+//	std::cout << "colision vertical";
+
+	}
+
+	
+	if (//top right
+		_dst.x > rectEnemy.x && //Pright - Etop right
+		_dst.x < rectEnemy.x + (rectEnemy.w - 20)  &&//Pright - EtopLeft
+
+		_dst.y + 20> rectEnemy.y &&//Pup - EtopLeft
+		_dst.y < rectEnemy.y + rectEnemy.h && //PUp - Ebottom left
+
+		(_dst.y ) + (_dst.h) > rectEnemy.y 
+
+		)
+	{
+		//std::cout << "hay colision";
 	}
 
 

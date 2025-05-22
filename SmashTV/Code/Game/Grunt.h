@@ -38,6 +38,7 @@ public:
 	void render();
 
 	void checkMapLimits();
+	void checkPlayerCollision(SDL_Rect rectPlayer);
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
@@ -46,14 +47,7 @@ public:
 	void setGruntX(int val) { _dst.x = val; };
 	void setGruntY(int val) { _dst.y = val; };
 
-	int getGruntX() { return _dst.x; };
-	int getGruntY() { return _dst.y; };
-
-	int getGruntW() { return _dst.w; };
-	int getGruntH() { return _dst.h; };
-
-	
-
+	SDL_Rect getRectGrunt() { return _dst; };
 
 	Uint32 getNextSpriteCoint() { return _nextSpriteCount; };
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };

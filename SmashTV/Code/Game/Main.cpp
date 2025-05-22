@@ -22,7 +22,7 @@ int main(int argc, char* args[])
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
-
+	
 	while (!INPUT_MANAGER->getEndGame())
 	{
 		// CHECK IF SCENE NEEDS REINIT
@@ -45,7 +45,7 @@ int main(int argc, char* args[])
 		{
 			SCENE_DIRECTOR->getCurrentScene()->render();
 		}
-
+		
 		VIDEO->updateScreen();
 
 		// UPDATE TIME

@@ -42,7 +42,7 @@ public:
 	void render();
 
 	void checkMapLimits();
-	bool checkCollisionEnemy();
+	bool checkCollisionEnemy(SDL_Rect rectEnemy);
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
