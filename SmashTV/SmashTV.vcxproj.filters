@@ -55,6 +55,9 @@
     <ClCompile Include="Code\Game\BlobBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Game\HighScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Game\Bullet.h">
@@ -106,6 +109,9 @@
       <Filter>Header FIles</Filter>
     </ClInclude>
     <ClInclude Include="Code\Game\BlobBullet.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\HighScore.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
   </ItemGroup>
