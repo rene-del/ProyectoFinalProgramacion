@@ -99,6 +99,7 @@ void Map::update()
         {
             delete playerBullets[i];
             playerBullets.erase(playerBullets.begin() + i);
+            PLAYER.setBulletsVector(playerBullets);
             i--;
         }
     }
