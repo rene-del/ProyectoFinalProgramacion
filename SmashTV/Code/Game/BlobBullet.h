@@ -6,7 +6,7 @@
 class BlobBullet
 {
 public:
-	BlobBullet();
+	BlobBullet(int dir);
 	~BlobBullet();
 
 	void init(int x, int y, int w, int h);

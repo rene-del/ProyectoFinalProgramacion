@@ -11,7 +11,7 @@ extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
 
-Mine::Mine()
+Mine::Mine(int x, int y, int dir)
 {
 	_img = 0;
 	_imgExplosion = 0;
@@ -30,8 +30,8 @@ Mine::Mine()
 	_src.h = 0;
 	_src.w = 0;
 
-	_dst.x = 0;
-	_dst.y = 0;
+	_dst.x = x;
+	_dst.y = y;
 	_dst.h = 0;
 	_dst.w = 0;
 
@@ -51,8 +51,6 @@ void Mine::init()
 	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
 	_dst.w = 32;
 	_dst.h = 32;
-	_dst.x = 180;
-	_dst.y = 90;
 
 	_src.w = 14;
 	_src.h = 12;

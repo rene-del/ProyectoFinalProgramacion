@@ -14,7 +14,7 @@ extern InputManager* INPUT_MANAGER;
 
 extern Player PLAYER;
 
-Blob::Blob()
+Blob::Blob(int x, int y, int dir)
 {
 	_bullets.resize(0);
 
@@ -27,8 +27,8 @@ Blob::Blob()
 	_src.w = 0;
 	_src.h = 0;
 
-	_dst.x = 0;
-	_dst.y = 0;
+	_dst.x = x;
+	_dst.y = y;
 	_dst.w = 0;
 	_dst.h = 0;
 
@@ -60,8 +60,6 @@ void Blob::init()
 	
 	_dst.w = 64;
 	_dst.h = 128;
-	_dst.x = (SCREEN_WIDTH / 4) +   (SCREEN_WIDTH / 2);
-	_dst.y = 80;
 
 	_src.w = 52;
 	_src.h = 75;

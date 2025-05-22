@@ -6,6 +6,9 @@
 
 #include "../../Code/Game/Player.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 ResourceManager* RESOURCE_MANAGER;
 Video* VIDEO;
 InputManager* INPUT_MANAGER;
@@ -16,6 +19,8 @@ Player PLAYER;
 
 int main(int argc, char* args[])
 {
+	srand(time(NULL));
+
 	// INIT
 	RESOURCE_MANAGER = ResourceManager::getInstance();
 	VIDEO = Video::getInstance();

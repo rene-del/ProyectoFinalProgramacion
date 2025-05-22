@@ -2,6 +2,7 @@
 #define BLOB_H
 
 #include "SDL.h"
+#include "Enemy.h"
 #include "BlobBullet.h"
 
 #include <vector>
@@ -9,7 +10,7 @@
 //constant movement
 enum STATES_BLOB {ST_B_STILL, ST_B_MOVING, ST_B_DEAD, ST_B_ALIVE};
 
-class Blob
+class Blob : public Enemy
 {
 private:
 	std::vector<BlobBullet*> _bullets;
@@ -32,12 +33,12 @@ private:
 	
 
 public:
-	Blob();
+	Blob(int x, int y, int dir);
 	~Blob();
 
-	void init();
-	void update();
-	void render();
+	void init() override;
+	void update() override;
+	void render() override;
 
 	bool checkCollision(SDL_Rect object);
 

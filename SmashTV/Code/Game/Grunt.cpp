@@ -11,7 +11,7 @@ extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
 
-Grunt::Grunt()
+Grunt::Grunt(int x, int y, int dir)
 {
 	_img = 0;
 	_imgDead = 0;
@@ -28,8 +28,8 @@ Grunt::Grunt()
 	_src.h = 0;
 	_src.w = 0;
 
-	_dst.x = 0;
-	_dst.y = 0;
+	_dst.x = x;
+	_dst.y = y;
 	_dst.h = 0;
 	_dst.w = 0;
 
@@ -53,8 +53,6 @@ void Grunt::init()
 
 	_dst.w = 64;
 	_dst.h = 64;
-	_dst.x = 160;
-	_dst.y = 160;
 
 	_src.w = 34;
 	_src.h = 34;

@@ -1,12 +1,12 @@
-#pragma once
+#ifndef GRUNT_H
+#define GRUNT_H
 
 #include "SDL.h"
+#include "Enemy.h"
+
 enum STATES_GRUNT { ST_G_STILL, ST_G_MOVING, ST_G_DEAD, ST_G_ALIVE };
-//enemies
 
-
-
-class Grunt
+class Grunt : public Enemy
 {
 private:
 	int _img;
@@ -32,12 +32,12 @@ private:
 
 public:
 
-	Grunt();
+	Grunt(int x, int y, int dir);
 	~Grunt();
 
-	void init();
-	void update();
-	void render();
+	void init() override;
+	void update() override;
+	void render() override;
 
 	void checkMapLimits();
 	bool checkCollision(SDL_Rect object);
@@ -60,4 +60,6 @@ public:
 
 	bool getIsDead() { return _isDead; };
 };
+
+#endif
 

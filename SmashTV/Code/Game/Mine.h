@@ -1,10 +1,10 @@
-#pragma once
+#ifndef MINE_H
+#define MINE_H
 
-#include "Blob.h"
+#include "SDL.h"
+#include "Enemy.h"
 
-
-
-class Mine
+class Mine : public Enemy
 {
 private:
 	int _img;
@@ -25,12 +25,12 @@ private:
 	Uint32 _nextSpriteCount;
 
 public:
-	Mine();
+	Mine(int x, int y, int dir);
 	~Mine();
 
-	void init();
-	void update();
-	void render();
+	void init() override;
+	void update() override;
+	void render() override;
 
 	bool checkCollision(SDL_Rect object);
 
@@ -51,4 +51,6 @@ public:
 
 	bool getIsTouched() { return _isTouched; };
 };
+
+#endif
 

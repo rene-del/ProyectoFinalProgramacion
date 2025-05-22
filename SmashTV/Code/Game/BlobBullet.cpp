@@ -6,7 +6,7 @@
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
-BlobBullet::BlobBullet()
+BlobBullet::BlobBullet(int dir)
 {
 	_img = 0;
 	_limit = 0;
