@@ -14,7 +14,7 @@ extern InputManager* INPUT_MANAGER;
 Mine::Mine()
 {
 	_img = 0;
-	_imgDead = 0;
+	_imgExplosion = 0;
 	_currSprite = 0;
 	_speed = 0;
 	_contador = 0;
@@ -44,7 +44,7 @@ void Mine::init()
 {
 
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Mine.png");
-
+	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Asset/Enemies/Explosion.png");
 	_dst.w = 32;
 	_dst.h = 32;
 	_dst.x = 180;
@@ -57,20 +57,51 @@ void Mine::init()
 }
 
 void Mine::update()
-{
+{//96 X 96
+	if (_isTouched)
+	{
+		_src.w = _src.h = 96;
+		bool endAnim = false;
+
+		if (_contador > 100)
+		{
+			if (!endAnim)
+			{
+				if (_src.x < _src.w * 12)
+				{
+					_src.x += _src.w;
+				}
+				else
+				{
+					endAnim = true;
+				}
+			}
+			_contador = 0;
+		}
+
+	}
 }
 
 void Mine::render()
 {
-	VIDEO->renderGraphic(_img, _src, _dst);
+	if (_isTouched)
+	{
+		VIDEO->renderGraphic(_img, _src, _dst);
+	}
+	else
+	{
+		VIDEO->renderGraphic(_imgExplosion, _src, _dst);
+	}
+
 }
 
 void Mine::checkMapLimits()
 {
 }
 
-void Mine::checkPlayerCollision(SDL_Rect rectPlayer)
+bool Mine::checkPlayerCollision(SDL_Rect rectPlayer)
 {
+
 	if (
 		_dst.x < rectPlayer.x + (rectPlayer.w - 20) &&
 		rectPlayer.x < _dst.x + _dst.w &&
@@ -78,6 +109,10 @@ void Mine::checkPlayerCollision(SDL_Rect rectPlayer)
 		rectPlayer.y < _dst.y + _dst.h
 		)
 	{
-		std::cout << "colision con jugador" << "\n";
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

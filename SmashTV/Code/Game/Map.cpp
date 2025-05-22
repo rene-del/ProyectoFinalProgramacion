@@ -12,7 +12,7 @@ extern Video* VIDEO;
 
 extern Player PLAYER;
 extern Grunt* GRUNT;
-extern Mine
+
 
 
 

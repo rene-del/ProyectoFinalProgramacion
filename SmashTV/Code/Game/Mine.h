@@ -8,7 +8,7 @@ class Mine
 {
 private:
 	int _img;
-	int _imgDead;
+	int _imgExplosion;
 	int _currSprite;
 	int _speed;
 	int _contador;
@@ -30,7 +30,7 @@ public:
 	void render();
 
 	void checkMapLimits();
-	void checkPlayerCollision(SDL_Rect rectPlayer);
+	bool checkPlayerCollision(SDL_Rect rectPlayer);
 
 
 	void setImg(int id) { _img = id; };
