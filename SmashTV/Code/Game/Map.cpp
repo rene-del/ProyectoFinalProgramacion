@@ -11,7 +11,6 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
 extern Player PLAYER;
-extern Grunt* GRUNT;
 
 
 
