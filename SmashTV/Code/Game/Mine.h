@@ -47,5 +47,8 @@ public:
 	int getMineX() { return _dst.x; };
 	int getMineY() { return _dst.y; };
 
+	void setIsTouched(bool val) { _isTouched = val; };
+
+	bool getIsTouched() { return _isTouched; };
 };
 

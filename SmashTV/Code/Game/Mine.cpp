@@ -115,19 +115,9 @@ bool Mine::checkCollision(SDL_Rect object)
 		(_dst.y < object.y + object.h) &&
 		(object.y < _dst.y + _dst.h))
 	{
-
-		if (!_isTouched)
-		{
-			_cooldownCollision = true;
-		}
 		_isTouched = true;
-	
-		return true;
-	}
-	else
-	{
-		return false;
+		return _isTouched;
 	}
 
-	return false;
+	return _isTouched;
 }

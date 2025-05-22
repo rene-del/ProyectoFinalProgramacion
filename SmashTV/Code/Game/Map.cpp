@@ -80,7 +80,6 @@ void Map::update()
     _blob->update();
 
     _mine->update();
-    _mine->checkPlayerCollision(PLAYER.getPlayerRect());
     
     _grunt->update();
 
@@ -133,24 +132,12 @@ void Map::update()
 
     if (collide)
     {
-        PLAYER.setLifes(PLAYER.getLifes() - 1);
-    }
-
-
-    //CHECK COLLISION WITH ENEMIES
-    if (_mine->getCooldownCollision())
-    {
-  
-        PLAYER.setLifes(PLAYER.getLifes() - 1);
-        _mine->setCooldownCollision(false);
-    }
-        std::cout << "vidas: " << PLAYER.getLifes() << "\n";
-
-        if (_mine->getEndAnim())
+        if (!_mine->getIsTouched())
         {
-            delete _mine;
+            _mine->setIsTouched(true);
+            PLAYER.setLifes(PLAYER.getLifes() - 1);
         }
-    
+    }    
 
     // ENEMIES COLLISION WITH PLAYER BULLETS
 
@@ -185,14 +172,17 @@ void Map::update()
     // MINE
     for (int i = 0; i < playerBullets.size(); i++)
     {
-        collide = _mine->checkCollision(playerBullets[i]->getRect());
-
-        if (collide)
+        if (!_mine->getIsTouched())
         {
-            delete playerBullets[i];
-            playerBullets.erase(playerBullets.begin() + i);
-            PLAYER.setBulletsVector(playerBullets);
-            i--;
+            collide = _mine->checkCollision(playerBullets[i]->getRect());
+
+            if (collide)
+            {
+                delete playerBullets[i];
+                playerBullets.erase(playerBullets.begin() + i);
+                PLAYER.setBulletsVector(playerBullets);
+                i--;
+            }
         }
     }
 }

@@ -713,13 +713,13 @@ bool Player::checkCollision(SDL_Rect object)
 void Player::checkMapLimits()
 {
 	// X
-	if (_dst.x < 0)
+	if (_dst.x < 10)
 	{
-		_dst.x = 0;
+		_dst.x = 10;
 	}
-	else if ((_dst.x + _dst.w) >= SCREEN_WIDTH)
+	else if (_dst.x >= (SCREEN_WIDTH - _dst.w - 10))
 	{
-		_dst.x = SCREEN_WIDTH - _dst.w;
+		_dst.x = SCREEN_WIDTH - _dst.w - 10;
 	}
 
 	// Y
@@ -727,8 +727,8 @@ void Player::checkMapLimits()
 	{
 		_dst.y = 10;
 	}
-	else if ((_dst.y + _dst.h) >= SCREEN_HEIGHT)
+	else if (_dst.y >= (SCREEN_HEIGHT - _dst.h - 30))
 	{
-		_dst.y = SCREEN_HEIGHT - _dst.h;
+		_dst.y = SCREEN_HEIGHT - _dst.h - 30;
 	}
 }
