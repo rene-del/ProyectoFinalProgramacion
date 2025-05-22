@@ -27,7 +27,7 @@ private:
 	STATES _actualAttackingState;
 
 	std::vector<Bullet*> _bullets;
-	Grunt* _Grunt;
+	
 
 public:
 	Player();

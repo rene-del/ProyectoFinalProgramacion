@@ -40,7 +40,6 @@ public:
 	void render();
 
 	bool checkCollisionBullet(SDL_Rect object);
-	void checkMapLimits();
 	void checkPlayerCollision(SDL_Rect rectPlayer);
 
 	void setImg(int id) { _img = id; };

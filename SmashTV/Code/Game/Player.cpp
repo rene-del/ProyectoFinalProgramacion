@@ -37,7 +37,7 @@ Player::Player()
 
 	_bullets.clear();
 
-	_Grunt = nullptr;
+	
 }
 
 Player::~Player()

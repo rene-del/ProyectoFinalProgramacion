@@ -102,10 +102,27 @@ void Map::update()
     _mummy->update();
 
     _mine->update();
-
+    _mine->checkPlayerCollision(PLAYER.getPlayerRect());
+    
     _grunt->update();
 
     _grunt->checkPlayerCollision(PLAYER.getPlayerRect());
+
+
+    //CHECK COLLISION WITH ENEMIES
+    if (_mine->getCooldownCollision())
+    {
+  
+        PLAYER.setLifes(PLAYER.getLifes() - 1);
+        _mine->setCooldownCollision(false);
+    }
+        std::cout << "vidas: " << PLAYER.getLifes() << "\n";
+
+        if (_mine->getEndAnim())
+        {
+            delete _mine;
+        }
+    
 
     // ENEMIES COLLISION WITH PLAYER BULLETS
     for (int i = 0; i < playerBullets.size(); i++)
@@ -163,6 +180,7 @@ void Map::render()
     _grunt->render();
     _tinyGrunt->render();
     _mummy->render();
+    
     _mine->render();
     _grunt->render();
 }
