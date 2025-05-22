@@ -110,6 +110,7 @@ void Map::update()
     // ENEMIES COLLISION WITH PLAYER BULLETS
     for (int i = 0; i < playerBullets.size(); i++)
     {
+        // BLOB
         bool collide = _blob->checkCollisionBullet(playerBullets[i]->getRect());
 
         if (collide)
