@@ -12,8 +12,11 @@ private:
 	int _currSprite;
 	int _speed;
 	int _contador;
+	bool _endAnim;
+	bool _isNotExploted;
 
 	bool _isTouched;
+	bool _cooldownCollision;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -35,6 +38,11 @@ public:
 	
 	void setMineX(int val) { _dst.x = val; };
 	void setMineY(int val) { _dst.y = val; };
+
+	bool getEndAnim() { return _endAnim; };
+
+	bool getCooldownCollision() { return _cooldownCollision; };
+	void setCooldownCollision(bool value) { _cooldownCollision = value; }
 
 	int getMineX() { return _dst.x; };
 	int getMineY() { return _dst.y; };

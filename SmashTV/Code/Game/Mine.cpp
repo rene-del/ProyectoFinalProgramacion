@@ -19,7 +19,10 @@ Mine::Mine()
 	_speed = 0;
 	_contador = 0;
 
-	_isTouched = true;
+	_isTouched = false;
+	_endAnim = false;
+	_cooldownCollision = false;
+	_isNotExploted = true;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -58,22 +61,29 @@ void Mine::init()
 
 void Mine::update()
 {//96 X 96
+
+	_contador++;
+
+	
 	if (_isTouched)
 	{
 		_src.w = _src.h = 96;
-		bool endAnim = false;
+		_dst.w = _dst.h = 64;
+		
+		_endAnim = false;
 
-		if (_contador > 100)
+		if (_contador > 10)
 		{
-			if (!endAnim)
+			if (!_endAnim)
 			{
-				if (_src.x < _src.w * 12)
+				if (_src.x < _src.w * 13)
 				{
 					_src.x += _src.w;
 				}
 				else
 				{
-					endAnim = true;
+					_endAnim = true;
+					_isNotExploted = false;
 				}
 			}
 			_contador = 0;
@@ -84,13 +94,16 @@ void Mine::update()
 
 void Mine::render()
 {
-	if (_isTouched)
+	if (_isNotExploted)
 	{
-		VIDEO->renderGraphic(_img, _src, _dst);
-	}
-	else
-	{
-		VIDEO->renderGraphic(_imgExplosion, _src, _dst);
+		if (!_isTouched)
+		{
+			VIDEO->renderGraphic(_img, _src, _dst);
+		}
+		else
+		{
+			VIDEO->renderGraphic(_imgExplosion, _src, _dst);
+		}
 	}
 
 }
@@ -102,8 +115,18 @@ bool Mine::checkCollision(SDL_Rect object)
 		(_dst.y < object.y + object.h) &&
 		(object.y < _dst.y + _dst.h))
 	{
+
+		if (!_isTouched)
+		{
+			_cooldownCollision = true;
+		}
 		_isTouched = true;
-		return _isTouched;
+	
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 
 	return false;

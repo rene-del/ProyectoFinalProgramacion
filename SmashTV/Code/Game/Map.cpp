@@ -80,7 +80,8 @@ void Map::update()
     _blob->update();
 
     _mine->update();
-
+    _mine->checkPlayerCollision(PLAYER.getPlayerRect());
+    
     _grunt->update();
 
     // PLAYER COLLISION WITH BLOB BULLETS
@@ -134,6 +135,22 @@ void Map::update()
     {
         PLAYER.setLifes(PLAYER.getLifes() - 1);
     }
+
+
+    //CHECK COLLISION WITH ENEMIES
+    if (_mine->getCooldownCollision())
+    {
+  
+        PLAYER.setLifes(PLAYER.getLifes() - 1);
+        _mine->setCooldownCollision(false);
+    }
+        std::cout << "vidas: " << PLAYER.getLifes() << "\n";
+
+        if (_mine->getEndAnim())
+        {
+            delete _mine;
+        }
+    
 
     // ENEMIES COLLISION WITH PLAYER BULLETS
 
@@ -219,7 +236,6 @@ void Map::render()
     _blob->render();
     _grunt->render();
     _mine->render();
-    _grunt->render();
 }
 
 int Map::loadMap(const char* filename)
