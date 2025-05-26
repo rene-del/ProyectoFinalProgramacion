@@ -4,17 +4,13 @@
 #include "../Engine/Video.h"
 #include "../Engine/InputManager.h"
 
-#include "Player.h"
-
 #include <iostream>
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-extern Player PLAYER;
-
-Blob::Blob(int x, int y, int dir)
+Blob::Blob(int x, int y)
 {
 	_bullets.resize(0);
 
@@ -22,10 +18,21 @@ Blob::Blob(int x, int y, int dir)
 	_currSprite = 0;
 	_speed = 0;
 
+	_randomDirectionTimer = 0;
+	_preferX = false;
+
+	_dirX = 0.0f;
+	_dirY = 0.0f;
+
 	_src.x = 0;
 	_src.y = 0;
 	_src.w = 0;
 	_src.h = 0;
+
+	_dstSmooth.x = x;
+	_dstSmooth.y = y;
+	_dstSmooth.h = 0;
+	_dstSmooth.w = 0;
 
 	_dst.x = x;
 	_dst.y = y;
@@ -61,6 +68,9 @@ void Blob::init()
 	_dst.w = 64;
 	_dst.h = 128;
 
+	_dstSmooth.w = 64.0f;
+	_dstSmooth.h = 128.0f;
+
 	_src.w = 52;
 	_src.h = 75;
 	_src.x = 0;
@@ -72,14 +82,14 @@ void Blob::init()
 	_isDead = false;
 }
 
-void Blob::update()
+void Blob::update(Player* player)
 {
 	// CHECK BULLETS LIMIT
 	if (_bullets.size() > 0)
 	{
 		for (int i = 0; i < _bullets.size(); i++)
 		{
-			_bullets[i]->update();
+			_bullets[i]->update(player);
 
 			if (_bullets[i]->getLimit() > 150)
 			{
@@ -96,7 +106,55 @@ void Blob::update()
 	//JUMP (0-1-2-1-0)
 	if (_actualMovementState == ST_B_ALIVE)
 	{
-		//MOVEMENT
+		// MOVEMENT TOWARDS THE PLAYER
+		_randomDirectionTimer++;
+
+		if (_randomDirectionTimer > 60)
+		{
+			_preferX = (rand() % 2 == 0);
+			_randomDirectionTimer = 0;
+		}
+
+		float dx = static_cast<float>(player->getPlayerX()) - _dstSmooth.x;
+		float dy = static_cast<float>(player->getPlayerY()) - _dstSmooth.y;
+
+		const float epsilon = 1.0f;
+
+		if (_preferX)
+		{
+			if (std::abs(dx) > epsilon)
+			{
+				_dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dirY = 0.0f;
+				_dstSmooth.x += _dirX * _speed;
+			}
+			else if (std::abs(dy) > epsilon)
+			{
+				_dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dirX = 0.0f;
+				_dstSmooth.y += _dirY * _speed;
+			}
+		}
+		else
+		{
+			if (std::abs(dy) > epsilon)
+			{
+				_dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dirX = 0.0f;
+				_dstSmooth.y += _dirY * _speed;
+			}
+			else if (std::abs(dx) > epsilon)
+			{
+				_dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dirY = 0.0f;
+				_dstSmooth.x += _dirX * _speed;
+			}
+		}
+
+		_dst.x = static_cast<int>(_dstSmooth.x);
+		_dst.y = static_cast<int>(_dstSmooth.y);
+
+		// SPRITES
 		if (_contador > 20)
 		{
 			if (!_reverse)
@@ -106,7 +164,11 @@ void Blob::update()
 					_reverse = true;
 
 					BlobBullet* bullet = new BlobBullet();
-					bullet->init(_dst.x, _dst.y, _dst.w, _dst.h);
+
+					int dirX = static_cast<int>(_dirX);
+					int dirY = static_cast<int>(_dirY);
+
+					bullet->init(_dst.x, _dst.y, _dst.w, _dst.h, dirX, dirY);
 					_bullets.push_back(bullet);
 				}
 				else
@@ -131,16 +193,10 @@ void Blob::update()
 			_nextSpriteCount++;
 			_contador = 0;
 		}
-
-		//DIRECTIONS
-		if (true)
-		{
-			//_dst.x --;
-		}
 	}
 
 	//DEAD
-	if (_actualMovementState == ST_B_DEAD)
+	else if (_actualMovementState == ST_B_DEAD)
 	{
 		bool endAnim = false;
 
@@ -166,7 +222,14 @@ void Blob::update()
 
 void Blob::render()
 {
-	VIDEO->renderGraphic(_img, _src, _dst);
+	if (!_isDead)
+	{
+		VIDEO->renderGraphic(_img, _src, _dst);
+	}
+	else
+	{
+		VIDEO->renderGraphicSmooth(_img, _src, _dstSmooth);
+	}
 
 	if (_bullets.size() > 0)
 	{

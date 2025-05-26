@@ -8,14 +8,10 @@
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 
-extern Player PLAYER;
+extern Player* PLAYER;
 
 Map::Map()
 {
-    _blob = nullptr;
-    _grunt = nullptr;
-    _mine = nullptr;
-
     _enemies.resize(0);
 
     _width = 0;
@@ -42,10 +38,6 @@ Map::Map()
 
 Map::~Map()
 {
-    delete _blob;
-    delete _grunt;
-    delete _mine;
-
     for (int i = 0; i < _enemies.size(); i++)
     {
         delete _enemies[i];
@@ -62,30 +54,13 @@ void Map::init()
     _enemyCooldown = 500;
 
     // PLAYER
-    PLAYER.init();
-
-    // ---
-
-    _blob = new Blob(0, 0);
-    _blob->init();
-
-    _grunt = new Grunt(0, 0);
-    _grunt->init();
-
-    _mine = new Mine(0, 0);
-    _mine->init();
-
-    // ---
+    PLAYER->init();
 
     _reInit = false;
 }
 
 void Map::reinit()
 {
-    delete _blob;
-    delete _grunt;
-    delete _mine;
-
     for (int i = 0; i < _enemies.size(); i++)
     {
         delete _enemies[i];
@@ -98,16 +73,10 @@ void Map::reinit()
 
 void Map::update()
 {    
-    PLAYER.update();
+    PLAYER->update();
 
     std::vector<Bullet*> playerBullets;
-    playerBullets = PLAYER.getBullets();
-
-    _blob->update();
-
-    _mine->update();
-    
-    _grunt->update();
+    playerBullets = PLAYER->getBullets();
 
     // ENEMIES
     if (_enemies.size() < 10)
@@ -117,38 +86,37 @@ void Map::update()
             _enemyCooldown = 0;
 
             int randNum = rand() % 4;
-            int dir = randNum;
 
-            int x = 0;
-            int y = 0;
+            float x = 0.0f;
+            float y = 0.0f;
 
             switch (randNum)
             {
             // TOP
             case 0:
-                x = SCREEN_WIDTH / 2;
-                y = 40;
+                x = static_cast<float>(SCREEN_WIDTH / 2.0f);
+                y = 40.0f;
 
                 break;
 
             // BOTTOM
             case 1:
-                x = SCREEN_WIDTH / 2;
-                y = SCREEN_HEIGHT - 40;
+                x = static_cast<float>(SCREEN_WIDTH / 2.0f);
+                y = static_cast<float>(SCREEN_HEIGHT - 40.0f);
 
                 break;
 
             // LEFT
             case 2:
-                x = 40;
-                y = SCREEN_HEIGHT / 2;
+                x = 40.0f;
+                y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
 
                 break;
 
             // RIGHT
             case 3:
-                x = SCREEN_WIDTH - 40;
-                y = SCREEN_HEIGHT / 2;
+                x = static_cast<float>(SCREEN_WIDTH - 40.0f);
+                y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
 
                 break;
             default:
@@ -159,19 +127,19 @@ void Map::update()
 
             if (randNum == 0)
             {
-                Blob* blob = new Blob(x, y, dir);
+                Blob* blob = new Blob(x, y);
                 blob->init();
                 _enemies.push_back(blob);
             }
             else if (randNum == 1)
             {
-                Grunt* grunt = new Grunt(x, y, dir);
+                Grunt* grunt = new Grunt(x, y);
                 grunt->init();
                 _enemies.push_back(grunt);
             }
             else
             {
-                Mine* mine = new Mine(x, y, dir);
+                Mine* mine = new Mine(x, y);
                 mine->init();
                 _enemies.push_back(mine);
             }
@@ -180,107 +148,41 @@ void Map::update()
 
     for (int i = 0; i < _enemies.size(); i++)
     {
-        _enemies[i]->update();
-    }
-
-    // PLAYER COLLISION WITH BLOB BULLETS
-    bool collide = false;
-    std::vector<BlobBullet*> blobBullets;
-    blobBullets = _blob->getBullets();
-
-    for (int i = 0; i < blobBullets.size(); i++)
-    {
-        collide = PLAYER.checkCollision(blobBullets[i]->getRect());
-
-        if (collide)
-        {
-            delete blobBullets[i];
-            blobBullets.erase(blobBullets.begin() + i);
-            _blob->setBulletsVector(blobBullets);
-            i--;
-        }
+        _enemies[i]->update(PLAYER);
     }
 
     // ENEMIES COLLISION WITH PLAYER
 
-    // BLOB
-    collide = _blob->checkCollision(PLAYER.getPlayerRect());
+    bool collide = false;
 
-    if (collide)
+    for (auto& enemy : _enemies)
     {
-        if (!_blob->getIsDead())
+        collide = enemy->checkCollision(PLAYER->getPlayerRect());
+
+        if (collide)
         {
-            _blob->setIsDead(true);
-            PLAYER.setLifes(PLAYER.getLifes() - 1);
+            if (!enemy->getIsDead())
+            {
+                enemy->setIsDead(true);
+                PLAYER->setLifes(PLAYER->getLifes() - 1);
+            }
         }
-    }
-
-    // GRUNT
-    collide = _grunt->checkCollision(PLAYER.getPlayerRect());
-
-    if (collide)
-    {
-        if (!_grunt->getIsDead())
-        {
-            _grunt->setIsDead(true);
-            PLAYER.setLifes(PLAYER.getLifes() - 1);
-        }
-    }
-
-    // MINE
-    collide = _mine->checkCollision(PLAYER.getPlayerRect());
-
-    if (collide)
-    {
-        if (!_mine->getIsTouched())
-        {
-            _mine->setIsTouched(true);
-            PLAYER.setLifes(PLAYER.getLifes() - 1);
-        }
-    }    
+    }   
 
     // ENEMIES COLLISION WITH PLAYER BULLETS
 
-    // BLOB
     for (int i = 0; i < playerBullets.size(); i++)
     {
-        collide = _blob->checkCollision(playerBullets[i]->getRect());
-
-        if (collide)
+        for (auto& enemy : _enemies)
         {
-            delete playerBullets[i];
-            playerBullets.erase(playerBullets.begin() + i);
-            PLAYER.setBulletsVector(playerBullets);
-            i--;
-        }        
-    }
-
-    // GRUNT
-    for (int i = 0; i < playerBullets.size(); i++)
-    {
-        collide = _grunt->checkCollision(playerBullets[i]->getRect());
-
-        if (collide)
-        {
-            delete playerBullets[i];
-            playerBullets.erase(playerBullets.begin() + i);
-            PLAYER.setBulletsVector(playerBullets);
-            i--;
-        }
-    }
-
-    // MINE
-    for (int i = 0; i < playerBullets.size(); i++)
-    {
-        if (!_mine->getIsTouched())
-        {
-            collide = _mine->checkCollision(playerBullets[i]->getRect());
+            collide = enemy->checkCollision(playerBullets[i]->getRect());
 
             if (collide)
             {
                 delete playerBullets[i];
                 playerBullets.erase(playerBullets.begin() + i);
-                PLAYER.setBulletsVector(playerBullets);
+                PLAYER->setBulletsVector(playerBullets);
+                enemy->setIsDead(true);
                 i--;
             }
         }
@@ -323,11 +225,7 @@ void Map::render()
         }
     }
 
-    PLAYER.render();
-
-    _blob->render();
-    _grunt->render();
-    _mine->render();
+    PLAYER->render();
 
     for (int i = 0; i < _enemies.size(); i++)
     {

@@ -14,8 +14,6 @@ private:
 	int _contador;
 	bool _endAnim;
 	bool _isNotExploted;
-
-	bool _isTouched;
 	bool _cooldownCollision;
 
 	SDL_Rect _src;
@@ -25,14 +23,14 @@ private:
 	Uint32 _nextSpriteCount;
 
 public:
-	Mine(int x, int y, int dir);
+	Mine(int x, int y);
 	~Mine();
 
 	void init() override;
-	void update() override;
+	void update(Player* player) override;
 	void render() override;
 
-	bool checkCollision(SDL_Rect object);
+	bool checkCollision(SDL_Rect object) override;
 
 	void setImg(int id) { _img = id; };
 	
@@ -46,10 +44,6 @@ public:
 
 	int getMineX() { return _dst.x; };
 	int getMineY() { return _dst.y; };
-
-	void setIsTouched(bool val) { _isTouched = val; };
-
-	bool getIsTouched() { return _isTouched; };
 };
 
 #endif

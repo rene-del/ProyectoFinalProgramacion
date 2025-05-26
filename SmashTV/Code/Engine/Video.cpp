@@ -36,6 +36,16 @@ void Video::renderGraphic(int img, SDL_Rect src, SDL_Rect dst)
 	}
 }
 
+void Video::renderGraphicSmooth(int img, SDL_Rect src, SDL_FRect dst)
+{
+	SDL_Texture* tex = RESOURCE_MANAGER->getGraphicByID(img);
+
+	if (SDL_RenderCopyF(_gRenderer, tex, &src, &dst) < 0)
+	{
+		std::cout << "Couldn't render the texture: " << SDL_GetError();
+	}
+}
+
 void Video::renderGraphicRotated(int img, SDL_Rect src, SDL_Rect dst, double rotation)
 {
 	SDL_Texture* tex = RESOURCE_MANAGER->getGraphicByID(img);

@@ -11,7 +11,7 @@ extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
 
-Mine::Mine(int x, int y, int dir)
+Mine::Mine(int x, int y)
 {
 	_img = 0;
 	_imgExplosion = 0;
@@ -19,7 +19,7 @@ Mine::Mine(int x, int y, int dir)
 	_speed = 0;
 	_contador = 0;
 
-	_isTouched = false;
+	_isDead = false;
 	_endAnim = false;
 	_cooldownCollision = false;
 	_isNotExploted = true;
@@ -58,13 +58,13 @@ void Mine::init()
 	_src.y = 0;
 }
 
-void Mine::update()
+void Mine::update(Player* player)
 {//96 X 96
 
 	_contador++;
 
 	
-	if (_isTouched)
+	if (_isDead)
 	{
 		_src.w = _src.h = 96;
 		_dst.w = _dst.h = 64;
@@ -85,6 +85,7 @@ void Mine::update()
 					_isNotExploted = false;
 				}
 			}
+
 			_contador = 0;
 		}
 
@@ -95,7 +96,7 @@ void Mine::render()
 {
 	if (_isNotExploted)
 	{
-		if (!_isTouched)
+		if (!_isDead)
 		{
 			VIDEO->renderGraphic(_img, _src, _dst);
 		}
@@ -114,9 +115,9 @@ bool Mine::checkCollision(SDL_Rect object)
 		(_dst.y < object.y + object.h) &&
 		(object.y < _dst.y + _dst.h))
 	{
-		_isTouched = true;
-		return _isTouched;
+		_isDead = true;
+		return _isDead;
 	}
 
-	return _isTouched;
+	return _isDead;
 }

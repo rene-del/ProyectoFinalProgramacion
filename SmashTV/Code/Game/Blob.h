@@ -21,10 +21,17 @@ private:
 	int _contador;
 	
 	bool _reverse;
-	bool _isDead;
+
+	int _randomDirectionTimer;
+	bool _preferX;
+
+	float _dirX;
+	float _dirY;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
+	
+	SDL_FRect _dstSmooth;
 
 	Uint32 _spriteMaxTime;
 	Uint32 _nextSpriteCount;
@@ -33,14 +40,14 @@ private:
 	
 
 public:
-	Blob(int x, int y, int dir);
+	Blob(int x, int y);
 	~Blob();
 
 	void init() override;
-	void update() override;
+	void update(Player* player) override;
 	void render() override;
 
-	bool checkCollision(SDL_Rect object);
+	bool checkCollision(SDL_Rect object) override;
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };

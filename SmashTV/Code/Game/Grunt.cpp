@@ -5,40 +5,46 @@
 #include "../Engine/InputManager.h"
 
 #include <iostream>
+#include <math.h>
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-
-Grunt::Grunt(int x, int y, int dir)
+Grunt::Grunt(float x, float y)
 {
 	_img = 0;
 	_imgDead = 0;
 	_currSprite = 0;
-	_speed = 0;
+	_speed = 0.0f;
 	_contador = 0;
 
 	_isDead = false;
 	_endAnim = false;
 	_resetAnim = false;
 
+	_randomDirectionTimer = 0;
+	_preferX = true;
+
 	_src.x = 0;
 	_src.y = 0;
 	_src.h = 0;
 	_src.w = 0;
 
-	_dst.x = x;
-	_dst.y = y;
+	_dst.x = 0;
+	_dst.y = 0;
 	_dst.h = 0;
 	_dst.w = 0;
+
+	_dstSmooth.x = x;
+	_dstSmooth.y = y;
+	_dstSmooth.h = 0;
+	_dstSmooth.w = 0;
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
 
 	_actualMovementState = ST_G_ALIVE;
-
-
 }
 
 Grunt::~Grunt()
@@ -54,18 +60,68 @@ void Grunt::init()
 	_dst.w = 64;
 	_dst.h = 64;
 
+	_dstSmooth.w = 64.0f;
+	_dstSmooth.h = 64.0f;
+
 	_src.w = 34;
 	_src.h = 34;
 	_src.x = 0;
 	_src.y = 0;
 
+	_speed = 1.0f;
 }
 
-void Grunt::update()
+void Grunt::update(Player* player)
 {
 	_contador++;
+
 	if (!_isDead)
 	{
+		// MOVEMENT TOWARDS THE PLAYER
+		_randomDirectionTimer++;
+
+		if (_randomDirectionTimer > 60)
+		{
+			_preferX = (rand() % 2 == 0);
+			_randomDirectionTimer = 0;
+		}
+
+		float dx = static_cast<float>(player->getPlayerX()) - _dstSmooth.x;
+		float dy = static_cast<float>(player->getPlayerY()) - _dstSmooth.y;
+
+		const float epsilon = 1.0f;
+
+		if (_preferX)
+		{
+			if (std::abs(dx) > epsilon)
+			{
+				float dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dstSmooth.x += dirX * _speed;
+			}
+			else if (std::abs(dy) > epsilon)
+			{
+				float dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dstSmooth.y += dirY * _speed;
+			}
+		}
+		else
+		{
+			if (std::abs(dy) > epsilon)
+			{
+				float dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dstSmooth.y += dirY * _speed;
+			}
+			else if (std::abs(dx) > epsilon)
+			{
+				float dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dstSmooth.x += dirX * _speed;
+			}
+		}
+
+		_dst.x = static_cast<int>(_dstSmooth.x);
+		_dst.y = static_cast<int>(_dstSmooth.y);
+
+		// SPRITES
 		if (_contador > 2)
 		{
 			if (_src.x < _src.w * 7)
@@ -82,7 +138,7 @@ void Grunt::update()
 
 	//50 x 55
 
-	if (_isDead)
+	else
 	{
 		if (_src.x != 0 && !_resetAnim)
 		{
@@ -117,16 +173,12 @@ void Grunt::render()
 {
 	if (!_isDead)
 	{
-		VIDEO->renderGraphic(_img, _src, _dst);
+		VIDEO->renderGraphicSmooth(_img, _src, _dstSmooth);
 	}
-	if (_isDead)
+	else
 	{
 		VIDEO->renderGraphic(_imgDead, _src, _dst);
 	}
-}
-
-void Grunt::checkMapLimits()
-{
 }
 
 bool Grunt::checkCollision(SDL_Rect object)

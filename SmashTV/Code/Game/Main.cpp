@@ -15,11 +15,13 @@ InputManager* INPUT_MANAGER;
 TimeManager* TIME_MANAGER;
 SceneDirector* SCENE_DIRECTOR;
 
-Player PLAYER;
+Player* PLAYER;
 
 int main(int argc, char* args[])
 {
 	srand(time(NULL));
+
+	PLAYER = new Player();
 
 	// INIT
 	RESOURCE_MANAGER = ResourceManager::getInstance();
@@ -56,6 +58,14 @@ int main(int argc, char* args[])
 		// UPDATE TIME
 		TIME_MANAGER->timeControl();
 	}
+
+	delete RESOURCE_MANAGER;
+	delete VIDEO;
+	delete INPUT_MANAGER;
+	delete TIME_MANAGER;
+	delete SCENE_DIRECTOR;
+
+	delete PLAYER;
 
 	return 0;
 }

@@ -5,7 +5,7 @@
 InputManager* InputManager::_pInstance = nullptr;
 
 extern SceneDirector* SCENE_DIRECTOR;
-extern Player PLAYER;
+extern Player* PLAYER;
 
 InputManager::InputManager()
 {
@@ -50,8 +50,8 @@ void InputManager::manageInputs()
 					break;
 				}
 
-				PLAYER.setCurrSprite(3);
-				PLAYER.setNextSpriteCount(PLAYER.getSpriteMaxTime());
+				PLAYER->setCurrSprite(3);
+				PLAYER->setNextSpriteCount(PLAYER->getSpriteMaxTime());
 			}
 
 			switch (_testEvent.key.keysym.sym)

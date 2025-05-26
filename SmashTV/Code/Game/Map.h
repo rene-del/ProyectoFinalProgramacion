@@ -26,10 +26,6 @@ using namespace std;
 class Map : public Scene
 {
 private:
-	Blob* _blob;
-	Grunt* _grunt;
-	Mine* _mine;
-
 	std::vector<Enemy*> _enemies;
 
 	int _width;
