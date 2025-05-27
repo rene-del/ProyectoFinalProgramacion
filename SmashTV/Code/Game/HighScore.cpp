@@ -99,20 +99,23 @@ void HighScore::writeFile()
 	_score = PLAYER->getPoints();
 	_name = PLAYER->getName();
 
-	if (_name.length() > 5)
+	if (_score != 0 || _name != "")
 	{
-		//LIMIT NAME IS 5
-		_name = _name.substr(0, 5);
-	}
-	//NAME MUST BE 5
-	_name.resize(5, ' ');
-	std::streampos size;
-	std::fstream file(_path, std::ios::out | std::ios::app | std::ios::binary);
+		if (_name.length() > 5)
+		{
+			//LIMIT NAME IS 5
+			_name = _name.substr(0, 5);
+		}
+		//NAME MUST BE 5
+		_name.resize(5, ' ');
+		std::streampos size;
+		std::fstream file(_path, std::ios::out | std::ios::app | std::ios::binary);
 
-	file.write(_name.c_str(), 5);
-	file.write(&_endstr, sizeof(_endstr));	
-	file.write(reinterpret_cast<const char*>(&_score), sizeof(_score));
-	file.close();
+		file.write(_name.c_str(), 5);
+		file.write(&_endstr, sizeof(_endstr));
+		file.write(reinterpret_cast<const char*>(&_score), sizeof(_score));
+		file.close();
+	}
 }
 
 void HighScore::readFile()
