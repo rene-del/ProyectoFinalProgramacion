@@ -168,10 +168,19 @@ void HighScore::readFile()
 		if (swapped == false)
 			break;
 	};
-
-	for (size_t i = 0; i < totalEntries; i++)
+	if (totalEntries < 11)
 	{
-		std::cout << "NAME: " << _playerRanking[i]._name << "POINTS: " << _playerRanking[i]._points << "\n";
+		for (size_t i = 0; i < totalEntries; i++)
+		{
+			std::cout << "NAME: " << _playerRanking[i]._name << "POINTS: " << _playerRanking[i]._points << "\n";
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < 10; i++)
+		{
+			std::cout << "NAME: " << _playerRanking[i]._name << "POINTS: " << _playerRanking[i]._points << "\n";
+		}
 	}
 
 
