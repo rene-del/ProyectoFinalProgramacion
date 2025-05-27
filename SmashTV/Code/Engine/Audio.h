@@ -20,7 +20,7 @@ public:
 	void channels();
 
 	// Play Audio
-	void playAudio(int channel, int chunkID, int loops);
+	int playAudio(int channel, int chunkID, int loops);
 
 	// Pause Audio
 	void pauseAudio(int channel);

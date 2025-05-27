@@ -5,13 +5,11 @@
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
-#include "../Game/SceneDirector.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
-extern SceneDirector* SCENE_DIRECTOR;
 
 Player::Player()
 {
@@ -22,7 +20,9 @@ Player::Player()
 	_currSprite = 0;
 	_speed = 0;
 	_shootingCooldown = 0;
-	_lifes = 3;
+	_lifes = 0;
+
+	_endAnim = false;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -41,6 +41,8 @@ Player::Player()
 	_actualAttackingState = ST_NOT_ATTACKING;
 
 	_bullets.clear();
+
+	_lastDir = DIR_DOWN;
 }
 
 Player::~Player()
@@ -63,6 +65,9 @@ void Player::init()
 	_currSprite = 0;
 	_speed = 2;
 	_shootingCooldown = 0;
+	_lifes = 3;
+
+	_endAnim = false;
 
 	_dst.w = 80;
 	_dst.h = 80;
@@ -80,13 +85,14 @@ void Player::init()
 	_actualMovementState = ST_STILL;
 	_actualAttackingState = ST_NOT_ATTACKING;
 
-	INPUT_MANAGER->resetLastDir();
+	resetLastDir();
 }
 
 void Player::update()
 {
 	// CURRENT DIRECTION
-	InputManager::DIRECTION actualDir = INPUT_MANAGER->getCurrentDirection();
+	updateDirectionStack();
+	DIRECTION actualDir = getCurrentDirection();
 
 	// CONTROL KEYS
 	bool space = INPUT_MANAGER->getKeyState(SDL_SCANCODE_SPACE);
@@ -110,7 +116,7 @@ void Player::update()
 	if (_actualMovementState != ST_DEAD)
 	{
 		// MOVEMENT STATE
-		if (actualDir != InputManager::DIR_NONE)
+		if (actualDir != DIR_NONE)
 		{
 			_actualMovementState = ST_MOVING;
 
@@ -118,32 +124,32 @@ void Player::update()
 			switch (actualDir)
 			{
 			// RIGHT
-			case InputManager::DIR_RIGHT:
-				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_LEFT)
+			case DIR_RIGHT:
+				if (getPrevDirection() != DIR_LEFT)
 				{
 					_dst.x += _speed;
 				}
 				break;
 
 			// LEFT
-			case InputManager::DIR_LEFT:
-				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_RIGHT)
+			case DIR_LEFT:
+				if (getPrevDirection() != DIR_RIGHT)
 				{
 					_dst.x -= _speed;
 				}
 				break;
 
 			// DOWN
-			case InputManager::DIR_DOWN:
-				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_UP)
+			case DIR_DOWN:
+				if (getPrevDirection() != DIR_UP)
 				{
 					_dst.y += _speed;
 				}
 				break;
 
 			// UP
-			case InputManager::DIR_UP:
-				if (INPUT_MANAGER->getPrevDirection() != InputManager::DIR_DOWN)
+			case DIR_UP:
+				if (getPrevDirection() != DIR_DOWN)
 				{
 					_dst.y -= _speed;
 				}
@@ -155,42 +161,42 @@ void Player::update()
 			// STILL IF OPPOSITE DIRECTION IS PRESSED
 
 			// RIGHT - LEFT
-			if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_RIGHT)
+			if (getCurrentDirection() == DIR_RIGHT)
 			{
-				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_LEFT)
+				if (getPrevDirection() == DIR_LEFT)
 				{
 					_actualMovementState = ST_STILL;
-					actualDir = InputManager::DIR_LEFT;
+					actualDir = DIR_LEFT;
 				}
 			}
 
 			// LEFT - RIGHT
-			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_LEFT)
+			else if (getCurrentDirection() == DIR_LEFT)
 			{
-				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_RIGHT)
+				if (getPrevDirection() == DIR_RIGHT)
 				{
 					_actualMovementState = ST_STILL;
-					actualDir = InputManager::DIR_RIGHT;
+					actualDir = DIR_RIGHT;
 				}
 			}
 
 			// UP - DOWN
-			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_UP)
+			else if (getCurrentDirection() == DIR_UP)
 			{
-				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_DOWN)
+				if (getPrevDirection() == DIR_DOWN)
 				{
 					_actualMovementState = ST_STILL;
-					actualDir = InputManager::DIR_DOWN;
+					actualDir = DIR_DOWN;
 				}
 			}
 
 			// DOWN - UP
-			else if (INPUT_MANAGER->getCurrentDirection() == InputManager::DIR_DOWN)
+			else if (getCurrentDirection() == DIR_DOWN)
 			{
-				if (INPUT_MANAGER->getPrevDirection() == InputManager::DIR_UP)
+				if (getPrevDirection() == DIR_UP)
 				{
 					_actualMovementState = ST_STILL;
-					actualDir = InputManager::DIR_UP;
+					actualDir = DIR_UP;
 				}
 			}
 		}
@@ -219,13 +225,13 @@ void Player::update()
 			// BULLET DIRECTION
 			for (auto& bullet : _bullets)
 			{
-				if (INPUT_MANAGER->getCurrentDirection() != InputManager::DIR_NONE)
+				if (getCurrentDirection() != DIR_NONE)
 				{
-					bullet->isShoting(INPUT_MANAGER->getCurrentDirection(), _dst.x, _dst.y);
+					bullet->isShoting(getCurrentDirection(), _dst.x, _dst.y);
 				}
 				else
 				{
-					bullet->isShoting(INPUT_MANAGER->getLastDir(), _dst.x, _dst.y);
+					bullet->isShoting(getLastDir(), _dst.x, _dst.y);
 				}
 			}
 		}
@@ -252,12 +258,12 @@ void Player::update()
 	if (_actualMovementState != ST_DEAD)
 	{
 		// NO DIR
-		if (actualDir == InputManager::DIR_NONE)
+		if (actualDir == DIR_NONE)
 		{
-			switch (INPUT_MANAGER->getLastDir())
+			switch (getLastDir())
 			{
 			// LEFT
-			case InputManager::DIR_LEFT:
+			case DIR_LEFT:
 				_src.y = _src.h * 2;
 
 				// NOT ATTACKING
@@ -275,7 +281,7 @@ void Player::update()
 				break;
 
 			// RIGHT
-			case InputManager::DIR_RIGHT:
+			case DIR_RIGHT:
 				_src.y = _src.h * 3;
 
 				// NOT ATTACKING
@@ -293,7 +299,7 @@ void Player::update()
 				break;
 
 			// UP
-			case InputManager::DIR_UP:
+			case DIR_UP:
 				_src.y = 0;
 
 				// NOT ATTACKING
@@ -311,7 +317,7 @@ void Player::update()
 				break;
 
 			// DOWN
-			case InputManager::DIR_DOWN:
+			case DIR_DOWN:
 				_src.y = _src.h;
 
 				// NOT ATTACKING
@@ -333,7 +339,7 @@ void Player::update()
 		}
 
 		// UP
-		else if (actualDir == InputManager::DIR_UP)
+		else if (actualDir == DIR_UP)
 		{
 			_src.y = 0;
 
@@ -418,7 +424,7 @@ void Player::update()
 		}
 
 		// DOWN
-		else if (actualDir == InputManager::DIR_DOWN)
+		else if (actualDir == DIR_DOWN)
 		{
 			_src.y = _src.h;
 
@@ -503,7 +509,7 @@ void Player::update()
 		}
 
 		// LEFT
-		else if (actualDir == InputManager::DIR_LEFT)
+		else if (actualDir == DIR_LEFT)
 		{
 			_src.y = _src.h * 2;
 
@@ -588,7 +594,7 @@ void Player::update()
 		}
 
 		// RIGHT
-		else if (actualDir == InputManager::DIR_RIGHT)
+		else if (actualDir == DIR_RIGHT)
 		{
 			_src.y = _src.h * 3;
 
@@ -683,7 +689,7 @@ void Player::update()
 
 		if (_src.x == RESOURCE_MANAGER->getGraphicWidth(_img) + _src.w)
 		{
-			SCENE_DIRECTOR->changeScene(SceneEnum::GAMEOVER, false);
+			_endAnim = true;
 		}
 	}
 
@@ -726,4 +732,89 @@ void Player::checkMapLimits()
 	{
 		_dst.y = SCREEN_HEIGHT - _dst.h - 30;
 	}
+}
+
+Player::DIRECTION Player::getCurrentDirection()
+{
+	if (!_directionStack.empty())
+	{
+		return _directionStack.back();
+	}
+
+	return DIR_NONE;
+}
+
+Player::DIRECTION Player::getLastDir()
+{
+	return _lastDir;
+}
+
+Player::DIRECTION Player::getPrevDirection()
+{
+	if (!_directionStack.empty())
+	{
+		if (_directionStack.size() > 2)
+		{
+			return _directionStack[_directionStack.size() - 2];
+		}
+		else
+		{
+			return _directionStack[0];
+		}
+	}
+
+	return DIR_NONE;
+}
+
+void Player::updateDirectionStack()
+{
+	std::vector<std::pair<DIRECTION, SDL_Scancode>> keyMap = {
+		{DIR_UP, SDL_SCANCODE_UP},
+		{DIR_DOWN, SDL_SCANCODE_DOWN},
+		{DIR_LEFT, SDL_SCANCODE_LEFT},
+		{DIR_RIGHT, SDL_SCANCODE_RIGHT}
+	};
+
+	for (const auto& pair : keyMap)
+	{
+		Player::DIRECTION dir = pair.first;
+		SDL_Scancode key = pair.second;
+
+		if (INPUT_MANAGER->getKeyState(key))
+		{
+			if (std::find(_directionStack.begin(), _directionStack.end(), dir) == _directionStack.end())
+				_directionStack.push_back(dir);
+		}
+	}
+
+	for (auto it = _directionStack.begin(); it != _directionStack.end();)
+	{
+		SDL_Scancode scancode = SDL_SCANCODE_UNKNOWN;
+
+		switch (*it)
+		{
+		case DIR_UP: 
+			scancode = SDL_SCANCODE_UP;
+			break;
+		case DIR_DOWN:
+			scancode = SDL_SCANCODE_DOWN;
+			break;
+		case DIR_LEFT:
+			scancode = SDL_SCANCODE_LEFT;
+			break;
+		case DIR_RIGHT:
+			scancode = SDL_SCANCODE_RIGHT;
+			break;
+		default:
+			break;
+		}
+
+		if (!INPUT_MANAGER->getKeyState(scancode))
+			it = _directionStack.erase(it);
+		else
+			++it;
+	}
+
+	if (!_directionStack.empty())
+		_lastDir = _directionStack.back();
 }

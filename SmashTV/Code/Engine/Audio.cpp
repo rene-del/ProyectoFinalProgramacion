@@ -29,15 +29,27 @@ void Audio::channels()
 	Mix_AllocateChannels(128);
 }
 
-void Audio::playAudio(int channel, int chunkID, int loops)
+int Audio::playAudio(int channel, int chunkID, int loops)
 {
+	int chanelPlayed;
+
 	if ((chunkID > -1) && (chunkID < RESOURCE_MANAGER->getAudiosvectorSize()))
 	{
-		if (Mix_PlayChannel(channel, RESOURCE_MANAGER->getAudioByID(chunkID), loops) == -1)
+		chanelPlayed = Mix_PlayChannel(channel, RESOURCE_MANAGER->getAudioByID(chunkID), loops);
+
+		if (chanelPlayed == -1)
 		{
-			std::cout << Mix_GetError();
+			std::cout << Mix_GetError() << std::endl;
 		}
+
+		return chanelPlayed;
 	}
+	else
+	{
+		std::cout << "Invalid chunkID: " << chunkID << std::endl;
+	}
+
+	return -1;
 }
 
 void Audio::pauseAudio(int channel)
@@ -52,6 +64,10 @@ void Audio::resumeAudio(int channel)
 
 void Audio::stopAudio(int channel)
 {
+	if (channel != -1)
+	{
+		Mix_HaltChannel(channel);
+	}
 }
 
 void Audio::audioVolume(int channel, int volume)

@@ -29,8 +29,13 @@ public:
 	void setReInit(bool loaded = true) { _reInit = loaded; };
 	bool mustReInit() { return _reInit; };
 
+	int getMusicID() { return _channel; };
+
 protected:
 	bool _reInit; /*!<  Reload when returning to scene*/
+
+	int _music;
+	int _channel;
 };
 
 #endif

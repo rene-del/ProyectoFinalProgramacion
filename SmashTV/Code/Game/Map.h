@@ -26,6 +26,7 @@ using namespace std;
 class Map : public Scene
 {
 private:
+	Player* _player;
 	std::vector<Enemy*> _enemies;
 
 	int _width;
@@ -41,8 +42,6 @@ private:
 	int _firstGId;
 
 	int _enemyCooldown;
-
-	int _music;
 
 	vector<int> Layers[NUM_CAPAS];
 

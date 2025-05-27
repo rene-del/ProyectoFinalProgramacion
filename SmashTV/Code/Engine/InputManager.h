@@ -7,8 +7,6 @@
 class InputManager
 {
 public:
-	enum DIRECTION { DIR_NONE, DIR_RIGHT, DIR_LEFT, DIR_DOWN, DIR_UP };
-
 	~InputManager();
 
 	void manageInputs();
@@ -16,15 +14,9 @@ public:
 	bool getEndGame() { return _endGame; };
 	bool getKeyState(SDL_Scancode key) { return _keyStates[key]; };
 
-	void resetLastDir() { _lastDir = DIR_DOWN; };
-	DIRECTION getLastDir() { return _lastDir; };
-
 	static InputManager* getInstance();
 
 	SDL_Event _testEvent;
-
-	DIRECTION getCurrentDirection();
-	DIRECTION getPrevDirection();
 
 private:
 	static InputManager* _pInstance;
@@ -33,13 +25,6 @@ private:
 
 	bool _keyStates[SDL_NUM_SCANCODES];
 	bool _endGame;
-
-	DIRECTION _lastDir;
-
-	std::vector<DIRECTION> _directionStack;
-
-	void pushDirection(DIRECTION dir);
-	void popDirection(DIRECTION dir);
 };
 
 #endif

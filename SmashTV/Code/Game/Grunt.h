@@ -16,7 +16,6 @@ private:
 
 	float _speed;
 
-	bool _endAnim;
 	bool _resetAnim;
 
 	int _randomDirectionTimer;
@@ -31,9 +30,6 @@ private:
 	Uint32 _nextSpriteCount;
 
 	STATES_GRUNT _actualMovementState;
-
-	
-
 
 public:
 
@@ -59,8 +55,6 @@ public:
 	Uint32 getSpriteMaxTime() { return _spriteMaxTime; };
 
 	STATES_GRUNT getMovementState() { return _actualMovementState; };
-
-	void setIsDead(bool val) { _isDead = val; };
 };
 
 #endif

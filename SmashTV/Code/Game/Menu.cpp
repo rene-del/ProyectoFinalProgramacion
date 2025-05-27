@@ -2,11 +2,13 @@
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
 #include "../Game/SceneDirector.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
 
@@ -23,6 +25,10 @@ Menu::Menu()
 	_dst.y = 0;
 
 	_reInit = true;
+
+	_texId = 0;
+	_music = 0;
+	_channel = 0;
 }
 
 Menu::~Menu()
@@ -32,6 +38,9 @@ Menu::~Menu()
 void Menu::init()
 {
 	_texId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Scenes/menu.png");
+	_music = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/menu.wav");
+
+	_channel = AUDIO->playAudio(-1, _music, -1);
 
 	_src.x = 0;
 	_src.y = 0;
@@ -48,7 +57,7 @@ void Menu::init()
 
 void Menu::reinit()
 {
-	_reInit = true;
+	init();
 }
 
 void Menu::update()

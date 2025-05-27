@@ -15,6 +15,7 @@ Blob::Blob(int x, int y)
 	_bullets.resize(0);
 
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Blob.png");
+	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/blobDeath.wav");
 
 	_currSprite = 0;
 	_speed = 0;
@@ -46,8 +47,10 @@ Blob::Blob(int x, int y)
 	_actualMovementState = ST_B_ALIVE;
 
 	_contador = 0;
+
 	_reverse = false;
 	_isDead = false;
+	_animFinished = false;
 }
 
 Blob::~Blob()
@@ -198,11 +201,9 @@ void Blob::update(Player* player)
 	//DEAD
 	else if (_actualMovementState == ST_B_DEAD)
 	{
-		bool endAnim = false;
-
 		if (_contador > 50)
 		{
-			if (!endAnim)
+			if (!_animFinished)
 			{
 				//312
 				if (_src.x < _src.w * 5)
@@ -211,7 +212,7 @@ void Blob::update(Player* player)
 				}
 				else
 				{
-					endAnim = true;
+					_animFinished = true;
 				}
 			}
 

@@ -1,10 +1,14 @@
 #include "SceneDirector.h"
 
+#include "../Engine/Audio.h"
+
 #include "Menu.h"
 #include "Map.h"
 #include "GameOver.h"
 
 SceneDirector* SceneDirector::pInstance = NULL;
+
+extern Audio* AUDIO;
 
 SceneDirector* SceneDirector::getInstance()
 {
@@ -40,14 +44,20 @@ void SceneDirector::init()
 	mVectorScenes[MAP] = map;
 	mVectorScenes[GAMEOVER] = gameOver;
 
-	menu->init();
-	gameOver->init();
-
 	mCurrScene = MENU;
+	mVectorScenes[mCurrScene]->init();
 }
 
 void SceneDirector::changeScene(SceneEnum next_scene, bool reinit)
 {
+	pauseCurrentSceneAudio();
+
 	mVectorScenes[next_scene]->setReInit(reinit);
 	mCurrScene = next_scene;
+}
+
+void SceneDirector::pauseCurrentSceneAudio()
+{
+	Scene* currentScene = mVectorScenes[mCurrScene];
+	AUDIO->stopAudio(currentScene->getMusicID());
 }

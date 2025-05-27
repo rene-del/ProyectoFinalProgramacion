@@ -69,6 +69,10 @@ int ResourceManager::loadAndGetAudioID(const char* file)
 
 		return val;
 	}
+	else
+	{
+		return it->second;
+	}
 }
 
 std::string ResourceManager::getGraphicPathByID(Sint32 ID)
@@ -204,9 +208,6 @@ Sint32 ResourceManager::addGraphic(const char* file)
 			_graphicsVector.push_back(tex);
 			return _graphicsVector.size() - 1;
 		}
-
-		_graphicsVector.push_back(tex);
-		return _graphicsVector.size() - 1;
 	}
 }
 
@@ -233,9 +234,6 @@ int ResourceManager::addAudio(const char* file)
 			_audiosVector.push_back(sound);
 			return _audiosVector.size() - 1;
 		}
-
-		_audiosVector.push_back(sound);
-		return _audiosVector.size() - 1;
 	}
 }
 

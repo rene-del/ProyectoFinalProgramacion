@@ -20,7 +20,7 @@ Mine::Mine(int x, int y)
 	_contador = 0;
 
 	_isDead = false;
-	_endAnim = false;
+	_animFinished = false;
 	_cooldownCollision = false;
 	_isNotExploted = true;
 
@@ -71,12 +71,10 @@ void Mine::update(Player* player)
 	{
 		_src.w = _src.h = 96;
 		_dst.w = _dst.h = 64;
-		
-		_endAnim = false;
 
 		if (_contador > 10)
 		{
-			if (!_endAnim)
+			if (!_animFinished)
 			{
 				if (_src.x < _src.w * 13)
 				{
@@ -84,7 +82,7 @@ void Mine::update(Player* player)
 				}
 				else
 				{
-					_endAnim = true;
+					_animFinished = true;
 					_isNotExploted = false;
 				}
 			}
@@ -118,9 +116,8 @@ bool Mine::checkCollision(SDL_Rect object)
 		(_dst.y < object.y + object.h) &&
 		(object.y < _dst.y + _dst.h))
 	{
-		_isDead = true;
-		return _isDead;
+		return true;
 	}
 
-	return _isDead;
+	return false;
 }

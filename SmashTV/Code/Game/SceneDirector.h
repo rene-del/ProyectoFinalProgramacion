@@ -21,6 +21,8 @@ public:
 		
 	void changeScene(SceneEnum next_scene, bool reinit = true);
 
+	void pauseCurrentSceneAudio();
+
 	SceneEnum getCurrSceneEnum() { return mCurrScene; };
 
 	Scene* getCurrentScene() { return mVectorScenes[mCurrScene]; };

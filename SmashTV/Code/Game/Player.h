@@ -6,11 +6,12 @@
 #include "Bullet.h"
 #include <vector>
 
-enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
-
 class Player
 {
 private:
+	enum STATES { ST_STILL, ST_MOVING, ST_NOT_ATTACKING, ST_ATTACKING, ST_DEAD };
+	enum DIRECTION { DIR_NONE, DIR_RIGHT, DIR_LEFT, DIR_DOWN, DIR_UP };
+
 	int _img;
 	int _currSprite;
 	int _speed;
@@ -19,6 +20,8 @@ private:
 
 	int _audioGun;
 	int _audioHurt;
+
+	bool _endAnim;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -30,6 +33,12 @@ private:
 	STATES _actualAttackingState;
 
 	std::vector<Bullet*> _bullets;
+
+	std::vector<DIRECTION> _directionStack;
+	DIRECTION _lastDir;
+
+	DIRECTION getLastDir();
+	void updateDirectionStack();
 
 public:
 	Player();
@@ -56,6 +65,8 @@ public:
 	int getLifes() { return _lifes; };
 	int getAudioHurt() { return _audioHurt; };
 
+	bool getEndAnim() { return _endAnim; };
+
 	SDL_Rect getPlayerRect() { return _dst; };
 
 	Uint32 getNextSpriteCount() { return _nextSpriteCount; };
@@ -65,6 +76,12 @@ public:
 	STATES getAttackingState() { return _actualAttackingState; };
 
 	std::vector<Bullet*> getBullets() { return _bullets; };
+
+	DIRECTION getCurrentDirection();
+	DIRECTION getPrevDirection();
+
+	DIRECTION getLastDir() const { return _lastDir; }
+	void resetLastDir() { _lastDir = DIR_DOWN; }
 };
 
 #endif

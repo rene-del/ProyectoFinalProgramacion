@@ -17,9 +17,10 @@ public:
 
 	virtual bool checkCollision(SDL_Rect);
 
-	bool getIsDead() { return _isDead; };
-
 	int getAudioDead() { return _audioDead; };
+
+	bool getIsDead() { return _isDead; };
+	bool getAnimFinished() { return _animFinished; };
 
 	void setIsDead(bool val) { _isDead = val; };
 
@@ -27,6 +28,7 @@ protected:
 	int _audioDead;
 
 	bool _isDead;
+	bool _animFinished;
 };
 
 #endif

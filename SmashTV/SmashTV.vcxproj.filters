@@ -232,5 +232,17 @@
     <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\blobDeath.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\highscore.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\menu.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\song.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -23,7 +23,8 @@ Grunt::Grunt(float x, float y)
 	_audioDead = 0;
 
 	_isDead = false;
-	_endAnim = false;
+	_animFinished = false;
+
 	_resetAnim = false;
 
 	_randomDirectionTimer = 0;
@@ -153,10 +154,9 @@ void Grunt::update(Player* player)
 		_src.w = _src.h = 96;
 		_dst.w = _dst.h = 64;
 
-		_endAnim = false;
 		if (_contador > 10)
 		{
-			if (!_endAnim)
+			if (!_animFinished)
 			{
 				if (_src.x < _src.w * 13)
 				{
@@ -164,7 +164,7 @@ void Grunt::update(Player* player)
 				}
 				else
 				{
-					_endAnim = true;
+					_animFinished = true;
 				}
 			}
 			_contador = 0;

@@ -2,17 +2,21 @@
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
 #include "../Game/SceneDirector.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
 
 GameOver::GameOver()
 {
 	_texId = 0;
+	_channel = 0;
+	_music = 0;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -34,6 +38,9 @@ GameOver::~GameOver()
 void GameOver::init()
 {
 	_texId = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Scenes/gameOver.png");
+	_music = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/highscore.wav");
+
+	_channel = AUDIO->playAudio(-1, _music, -1);
 
 	_src.x = 0;
 	_src.y = 0;
@@ -50,7 +57,7 @@ void GameOver::init()
 
 void GameOver::reinit()
 {
-	_reInit = true;
+	init();
 }
 
 void GameOver::update()
@@ -61,7 +68,7 @@ void GameOver::update()
 	// GO MENU
 	if (enter)
 	{
-		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
+		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
 	}
 }
 
