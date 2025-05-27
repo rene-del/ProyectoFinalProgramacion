@@ -235,9 +235,6 @@
     <CopyFileToFolders Include="Assets\Enemies\Mine.png">
       <Filter>Resource Files\Assets\Enemies</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav" />
-    <CopyFileToFolders Include="Assets\Audios\gunShot.wav" />
-    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav" />
     <CopyFileToFolders Include="Assets\Highscore.bin">
       <Filter>Resource Files\Assets</Filter>
     </CopyFileToFolders>
@@ -260,6 +257,15 @@
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Audios\song.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\gunShot.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
   </ItemGroup>
