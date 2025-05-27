@@ -1,5 +1,6 @@
 #include "../../Code/Engine/ResourceManager.h"
 #include "../../Code/Engine/Video.h"
+#include "../../Code/Engine/Audio.h"
 #include "../../Code/Engine/InputManager.h"
 #include "../../Code/Engine/TimeManager.h"
 #include "../../Code/Game/SceneDirector.h"
@@ -11,6 +12,7 @@
 
 ResourceManager* RESOURCE_MANAGER;
 Video* VIDEO;
+Audio* AUDIO;
 InputManager* INPUT_MANAGER;
 TimeManager* TIME_MANAGER;
 SceneDirector* SCENE_DIRECTOR;
@@ -26,6 +28,7 @@ int main(int argc, char* args[])
 	// INIT
 	RESOURCE_MANAGER = ResourceManager::getInstance();
 	VIDEO = Video::getInstance();
+	AUDIO = Audio::getInstance();
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
@@ -61,6 +64,7 @@ int main(int argc, char* args[])
 
 	delete RESOURCE_MANAGER;
 	delete VIDEO;
+	delete AUDIO;
 	delete INPUT_MANAGER;
 	delete TIME_MANAGER;
 	delete SCENE_DIRECTOR;

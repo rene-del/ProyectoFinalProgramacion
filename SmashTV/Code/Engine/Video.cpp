@@ -15,6 +15,11 @@ Video::Video()
 		std::cout << "Couldn't init video: " << SDL_GetError() << std::endl;
 	}
 
+	if (IMG_Init(IMG_INIT_PNG) == 0)
+	{
+		std::cout << "Couldn't init image: " << IMG_GetError() << std::endl;
+	}
+
 	_gWindow = SDL_CreateWindow("SDL Game", SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
@@ -24,6 +29,10 @@ Video::Video()
 
 Video::~Video()
 {
+	SDL_DestroyWindow(_gWindow);
+	_gWindow = nullptr;
+
+	SDL_Quit();
 }
 
 void Video::renderGraphic(int img, SDL_Rect src, SDL_Rect dst)

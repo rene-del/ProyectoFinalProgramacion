@@ -10,11 +10,11 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-
 Mine::Mine(int x, int y)
 {
 	_img = 0;
 	_imgExplosion = 0;
+
 	_currSprite = 0;
 	_speed = 0;
 	_contador = 0;
@@ -24,6 +24,7 @@ Mine::Mine(int x, int y)
 	_cooldownCollision = false;
 	_isNotExploted = true;
 
+	_audioDead = 0;
 
 	_src.x = 0;
 	_src.y = 0;
@@ -46,9 +47,11 @@ Mine::~Mine()
 
 void Mine::init()
 {
-
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Mine.png");
 	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
+
+	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
+
 	_dst.w = 32;
 	_dst.h = 32;
 

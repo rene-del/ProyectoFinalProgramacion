@@ -12,8 +12,6 @@ extern SceneDirector* SCENE_DIRECTOR;
 
 Menu::Menu()
 {
-	_texId = 0;
-
 	_src.x = 0;
 	_src.y = 0;
 	_src.w = 0;

@@ -15,9 +15,12 @@ Grunt::Grunt(float x, float y)
 {
 	_img = 0;
 	_imgDead = 0;
+
 	_currSprite = 0;
 	_speed = 0.0f;
 	_contador = 0;
+
+	_audioDead = 0;
 
 	_isDead = false;
 	_endAnim = false;
@@ -53,9 +56,10 @@ Grunt::~Grunt()
 
 void Grunt::init()
 {
-
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/EnemyBlade.png");
 	_imgDead = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
+
+	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
 
 	_dst.w = 64;
 	_dst.h = 64;

@@ -19,9 +19,13 @@ public:
 
 	bool getIsDead() { return _isDead; };
 
+	int getAudioDead() { return _audioDead; };
+
 	void setIsDead(bool val) { _isDead = val; };
 
 protected:
+	int _audioDead;
+
 	bool _isDead;
 };
 

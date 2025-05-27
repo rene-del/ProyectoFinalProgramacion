@@ -3,17 +3,22 @@
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
 #include "../Game/SceneDirector.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
 
 Player::Player()
 {
 	_img = 0;
+	_audioGun = 0;
+	_audioHurt = 0;
+
 	_currSprite = 0;
 	_speed = 0;
 	_shootingCooldown = 0;
@@ -52,6 +57,9 @@ Player::~Player()
 void Player::init()
 {
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Player/PlayerTileset.png");
+	_audioGun = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/gunShot.wav");
+	_audioHurt = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/playerHurt.wav");
+
 	_currSprite = 0;
 	_speed = 2;
 	_shootingCooldown = 0;
@@ -204,6 +212,7 @@ void Player::update()
 				Bullet* bullet = new Bullet();
 				bullet->init();
 				_bullets.push_back(bullet);
+				AUDIO->playAudio(-1, _audioGun, 0);
 				_shootingCooldown = 0;
 			}
 
@@ -694,20 +703,6 @@ void Player::render()
 			bullet->render();
 		}
 	}
-}
-
-bool Player::checkCollision(SDL_Rect object)
-{
-	if ((_dst.x + 20 < object.x + object.w) &&
-		(object.x + 20 < _dst.x + _dst.w) &&
-		(_dst.y < object.y + object.h) &&
-		(object.y < _dst.y + _dst.h))
-	{
-		_lifes--;
-		return true;
-	}
-
-	return false;
 }
 
 void Player::checkMapLimits()

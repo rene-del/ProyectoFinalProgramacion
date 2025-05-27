@@ -14,7 +14,8 @@ Blob::Blob(int x, int y)
 {
 	_bullets.resize(0);
 
-	_img = 0;
+	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Blob.png");
+
 	_currSprite = 0;
 	_speed = 0;
 
@@ -62,7 +63,6 @@ Blob::~Blob()
 
 void Blob::init()
 {
-	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Blob.png");
 	_speed = 1;
 	
 	_dst.w = 64;

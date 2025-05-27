@@ -2,11 +2,13 @@
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Engine/Audio.h"
 
 #include "Player.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+extern Audio* AUDIO;
 
 extern Player* PLAYER;
 
@@ -27,6 +29,8 @@ Map::Map()
     _firstGId = 0;
 
     _enemyCooldown = 0;
+
+    _music = 0;
 
     for (size_t i = 0; i < NUM_CAPAS; i++)
     {
@@ -164,7 +168,9 @@ void Map::update()
             if (!enemy->getIsDead())
             {
                 enemy->setIsDead(true);
+                AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
                 PLAYER->setLifes(PLAYER->getLifes() - 1);
+                AUDIO->playAudio(-1, PLAYER->getAudioHurt(), 0);
             }
         }
     }   
@@ -183,6 +189,7 @@ void Map::update()
                 playerBullets.erase(playerBullets.begin() + i);
                 PLAYER->setBulletsVector(playerBullets);
                 enemy->setIsDead(true);
+                AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
                 i--;
             }
         }

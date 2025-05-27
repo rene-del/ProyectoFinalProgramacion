@@ -2,9 +2,11 @@
 
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
+#include "../Engine/Audio.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
+extern Audio* AUDIO;
 
 BlobBullet::BlobBullet()
 {
@@ -20,6 +22,10 @@ BlobBullet::BlobBullet()
 	_dst.y = 0;
 	_dst.w = 0;
 	_dst.h = 0;
+
+	_dirX = 0;
+	_dirY = 0;
+	_speed = 0;
 }
 
 BlobBullet::~BlobBullet()
@@ -61,6 +67,7 @@ void BlobBullet::update(Player* player)
 	if (collide)
 	{
 		_limit = 151;
+		AUDIO->playAudio(-1, player->getAudioHurt(), 0);
 		player->setLifes(player->getLifes() - 1);
 	}
 }

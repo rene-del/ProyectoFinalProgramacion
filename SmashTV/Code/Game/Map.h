@@ -42,6 +42,8 @@ private:
 
 	int _enemyCooldown;
 
+	int _music;
+
 	vector<int> Layers[NUM_CAPAS];
 
 public:

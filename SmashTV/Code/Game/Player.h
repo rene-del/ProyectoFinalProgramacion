@@ -17,6 +17,9 @@ private:
 	int _shootingCooldown;
 	int _lifes;
 
+	int _audioGun;
+	int _audioHurt;
+
 	SDL_Rect _src;
 	SDL_Rect _dst;
 
@@ -36,7 +39,6 @@ public:
 	void update();
 	void render();
 
-	bool checkCollision(SDL_Rect object);
 	void checkMapLimits();
 
 	void setImg(int id) { _img = id; };
@@ -52,6 +54,7 @@ public:
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
 	int getLifes() { return _lifes; };
+	int getAudioHurt() { return _audioHurt; };
 
 	SDL_Rect getPlayerRect() { return _dst; };
 
