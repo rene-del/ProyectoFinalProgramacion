@@ -64,11 +64,17 @@ void Menu::update()
 {
 	// CONTROL KEY
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+	bool highScore = INPUT_MANAGER->getKeyState(SDL_SCANCODE_H);
 
 	// START GAME
 	if (enter)
 	{
 		SCENE_DIRECTOR->changeScene(SceneEnum::MAP, true);
+	}
+	// HIGH SCORE
+	if (highScore)
+	{
+		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
 	}
 }
 

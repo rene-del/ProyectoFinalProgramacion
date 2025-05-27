@@ -55,9 +55,10 @@
     <ClCompile Include="Code\Game\BlobBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Code\Engine\Audio.cpp">
+    <ClCompile Include="Code\Game\HighScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Game\Bullet.h">
@@ -111,9 +112,10 @@
     <ClInclude Include="Code\Game\BlobBullet.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
-    <ClInclude Include="Code\Engine\Audio.h">
+    <ClInclude Include="Code\Game\HighScore.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Engine\Audio.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header FIles">
@@ -145,9 +147,6 @@
     </Filter>
     <Filter Include="Resource Files\Assets\PowerUps">
       <UniqueIdentifier>{88cf75fe-f8bd-48dc-a9e2-56930df2c486}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Assets\Audios">
-      <UniqueIdentifier>{4486540b-784c-4b49-918d-7aac4e7e58ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -244,5 +243,11 @@
     <CopyFileToFolders Include="Assets\Audios\song.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav" />
+    <CopyFileToFolders Include="Assets\Audios\gunShot.wav" />
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Highscore.bin" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@
 #include "Menu.h"
 #include "Map.h"
 #include "GameOver.h"
+#include "HighScore.h"
 
 SceneDirector* SceneDirector::pInstance = NULL;
 
@@ -30,6 +31,7 @@ SceneDirector::~SceneDirector()
 	delete mVectorScenes[MENU];
 	delete mVectorScenes[MAP];
 	delete mVectorScenes[GAMEOVER];
+	delete mVectorScenes[HIGHSCORE];
 }
 
 void SceneDirector::init()
@@ -39,10 +41,12 @@ void SceneDirector::init()
 	Menu* menu = new Menu();
 	Map* map = new Map();
 	GameOver* gameOver = new GameOver();
+	HighScore* highscore = new HighScore();
 
 	mVectorScenes[MENU] = menu;
 	mVectorScenes[MAP] = map;
 	mVectorScenes[GAMEOVER] = gameOver;
+	mVectorScenes[HIGHSCORE] = highscore;
 
 	mCurrScene = MENU;
 	mVectorScenes[mCurrScene]->init();

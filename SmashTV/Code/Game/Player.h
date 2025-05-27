@@ -5,6 +5,7 @@
 
 #include "Bullet.h"
 #include <vector>
+#include <string>
 
 class Player
 {
@@ -22,6 +23,8 @@ private:
 	int _audioHurt;
 
 	bool _endAnim;
+	int _points;
+	std::string _name;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -60,6 +63,11 @@ public:
 	void setPlayerX(int val) { _dst.x = val; };
 	void setPlayerY(int val) { _dst.y = val; };
 
+	void setPoints(int val) {_points = val;};
+	void setName(std::string val) { _name = val; };
+
+	std::string getName() { return _name; };
+	int getPoints() { return _points; };
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
 	int getLifes() { return _lifes; };

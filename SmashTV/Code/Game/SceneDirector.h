@@ -7,7 +7,7 @@
 //! Enum Scenes.
 /*! All the Scenes in the game. */
 enum SceneEnum {
-		MENU, MAP, GAMEOVER, /*SAVE_LOAD,*/
+		MENU, MAP, GAMEOVER, HIGHSCORE, /*SAVE_LOAD,*/
 		_LASTSCENE};
 
 #define NUM_SCENES _LASTSCENE

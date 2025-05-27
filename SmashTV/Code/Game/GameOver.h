@@ -18,6 +18,8 @@ public:
 private:
 	int _texId;
 
+	bool _nameSet;
+
 	SDL_Rect _src;
 	SDL_Rect _dst;
 };
