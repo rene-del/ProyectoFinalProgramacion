@@ -3,9 +3,8 @@
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
 #include "../Engine/InputManager.h"
-#include "../Game/SceneDirector.h"
-
-#include "Player.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 #include <iostream>
 
@@ -13,11 +12,11 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
-
-extern Player* PLAYER;
+extern GameState* GAME_STATE;
 
 HighScore::HighScore()
 {
+	_texId = 0;
 	_name = "";
 	_score = 0;
 	_top10P.resize(0);
@@ -27,6 +26,15 @@ HighScore::HighScore()
 	_reInit = true;
 	_hasExecuted = false;
 	
+	_src.x = 0;
+	_src.y = 0;
+	_src.w = 0;
+	_src.h = 0;
+
+	_dst.x = 0;
+	_dst.y = 0;
+	_dst.w = 0;
+	_dst.h = 0;
 }
 
 HighScore::~HighScore()
@@ -56,7 +64,7 @@ void HighScore::update()
 
 	if (!_hasExecuted)
 	{
-		setPath("Highscore.bin");
+		setPath("Assets/Highscore.bin");
 		writeFile();
 		readFile();
 		topRanking();
@@ -67,11 +75,7 @@ void HighScore::update()
 	if (enter)
 	{
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
-	}
-	
-
-	//CHARACTER LIMIT 5
-	
+	}	
 }
 
 void HighScore::render()
@@ -96,8 +100,8 @@ void HighScore::topRanking()
 void HighScore::writeFile()
 {
 
-	_score = PLAYER->getPoints();
-	_name = PLAYER->getName();
+	_score = GAME_STATE->getPoints();
+	_name = GAME_STATE->getName();
 
 	if (_score != 0 || _name != "")
 	{
@@ -145,9 +149,6 @@ void HighScore::readFile()
 
 		_playerRanking.at(i)._name = nameBuffer;
 		_playerRanking.at(i)._points = readPoints;
-		
-
-	//	std::cout << nameBuffer << " - " << readPoints << "\n";
 	}
 
 	file.close();

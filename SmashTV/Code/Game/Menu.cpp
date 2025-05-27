@@ -4,13 +4,15 @@
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
-#include "../Game/SceneDirector.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
+extern GameState* GAME_STATE;
 
 Menu::Menu()
 {
@@ -53,6 +55,8 @@ void Menu::init()
 	_dst.h = 832;
 
 	_reInit = false;
+
+	GAME_STATE->setPoints(0);
 }
 
 void Menu::reinit()

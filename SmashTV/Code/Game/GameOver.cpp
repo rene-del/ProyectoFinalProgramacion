@@ -4,9 +4,8 @@
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
-#include "../Game/SceneDirector.h"
-
-#include "Player.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 #include <string>
 
@@ -15,8 +14,7 @@ extern Video* VIDEO;
 extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
-
-extern Player* PLAYER;
+extern GameState* GAME_STATE;
 
 GameOver::GameOver()
 {
@@ -74,7 +72,7 @@ void GameOver::update()
 		std::string name;
 		std::cout << "INSERT NAME \n";
 		std::getline(std::cin, name);
-		PLAYER->setName(name);
+		GAME_STATE->setName(name);
 		_nameSet = true;
 	}
 

@@ -3,12 +3,14 @@
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
-#include "../Game/SceneDirector.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern Audio* AUDIO;
 extern SceneDirector* SCENE_DIRECTOR;
+extern GameState* GAME_STATE;
 
 Map::Map()
 {
@@ -100,15 +102,11 @@ void Map::update()
 
     if (_player->getLifes() > -1)
     {
-        // ENEMIES COLLISION WITH PLAYER
-
-        bool collide = false;
+        std::vector<Bullet*> playerBullets;
+        playerBullets = _player->getBullets();
 
         for (auto& enemy : _enemies)
         {
-            std::vector<Bullet*> playerBullets;
-            playerBullets = _player->getBullets();
-
             // CHECK IF ENEMY NEEDS TO BE DELETED
             for (int i = 0; i < _enemies.size(); i++)
             {
@@ -116,17 +114,99 @@ void Map::update()
                 {
                     delete _enemies[i];
                     _enemies.erase(_enemies.begin() + i);
-                    enemy->setIsDead(true);
-                    AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
-                    PLAYER->setLifes(PLAYER->getLifes() - 1);
-                    AUDIO->playAudio(-1, PLAYER->getAudioHurt(), 0);
-                
-                    //SCORE
-                    PLAYER->setPoints(PLAYER->getPoints() - 1);
-                    
+                    i--;
                 }
             }
-        }   
+        }
+
+        // ENEMIES
+        if (_enemies.size() < 10)
+        {
+            if (_enemyCooldown > 150)
+            {
+                _enemyCooldown = 0;
+
+                int randNum = rand() % 4;
+
+                float x = 0.0f;
+                float y = 0.0f;
+
+                switch (randNum)
+                {
+                    // TOP
+                case 0:
+                    x = static_cast<float>(SCREEN_WIDTH / 2.0f);
+                    y = 40.0f;
+
+                    break;
+
+                    // BOTTOM
+                case 1:
+                    x = static_cast<float>(SCREEN_WIDTH / 2.0f);
+                    y = static_cast<float>(SCREEN_HEIGHT - 40.0f);
+
+                    break;
+
+                    // LEFT
+                case 2:
+                    x = 40.0f;
+                    y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
+
+                    break;
+
+                    // RIGHT
+                case 3:
+                    x = static_cast<float>(SCREEN_WIDTH - 40.0f);
+                    y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
+
+                    break;
+                default:
+                    break;
+                }
+
+                randNum = rand() % 3;
+
+                if (randNum == 0)
+                {
+                    Blob* blob = new Blob(x, y);
+                    blob->init();
+                    _enemies.push_back(blob);
+                }
+                else if (randNum == 1)
+                {
+                    Grunt* grunt = new Grunt(x, y);
+                    grunt->init();
+                    _enemies.push_back(grunt);
+                }
+                else
+                {
+                    Mine* mine = new Mine(x, y);
+                    mine->init();
+                    _enemies.push_back(mine);
+                }
+            }
+        }
+
+        // ENEMIES COLLISION WITH PLAYER
+
+        bool collide = false;
+
+        for (auto& enemy : _enemies)
+        {
+            collide = enemy->checkCollision(_player->getPlayerRect());
+
+            if (collide)
+            {
+                if (!enemy->getIsDead())
+                {
+                    AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
+                    enemy->setIsDead(true);
+                    _player->setLifes(_player->getLifes() - 1);
+                    AUDIO->playAudio(-1, _player->getAudioHurt(), 0);
+                    break;
+                }
+            }
+        }
 
         // ENEMIES COLLISION WITH PLAYER BULLETS
 
@@ -138,133 +218,24 @@ void Map::update()
 
                 if (collide)
                 {
-                    delete playerBullets[i];
-                    playerBullets.erase(playerBullets.begin() + i);
-                    PLAYER->setBulletsVector(playerBullets);
-                    enemy->setIsDead(true);
-                    AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
-                    i--;
-
-                    //SCORE
-                    PLAYER->setPoints(PLAYER->getPoints() +10);
-
-                }
-            }
-
-            // ENEMIES
-            if (_enemies.size() < 10)
-            {
-                if (_enemyCooldown > 200)
-                {
-                    _enemyCooldown = 0;
-
-                    int randNum = rand() % 4;
-
-                    float x = 0.0f;
-                    float y = 0.0f;
-
-                    switch (randNum)
-                    {
-                        // TOP
-                    case 0:
-                        x = static_cast<float>(SCREEN_WIDTH / 2.0f);
-                        y = 40.0f;
-
-                        break;
-
-                        // BOTTOM
-                    case 1:
-                        x = static_cast<float>(SCREEN_WIDTH / 2.0f);
-                        y = static_cast<float>(SCREEN_HEIGHT - 40.0f);
-
-                        break;
-
-                        // LEFT
-                    case 2:
-                        x = 40.0f;
-                        y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
-
-                        break;
-
-                        // RIGHT
-                    case 3:
-                        x = static_cast<float>(SCREEN_WIDTH - 40.0f);
-                        y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
-
-                        break;
-                    default:
-                        break;
-                    }
-
-                    randNum = rand() % 3;
-
-                    if (randNum == 0)
-                    {
-                        Blob* blob = new Blob(x, y);
-                        blob->init();
-                        _enemies.push_back(blob);
-                    }
-                    else if (randNum == 1)
-                    {
-                        Grunt* grunt = new Grunt(x, y);
-                        grunt->init();
-                        _enemies.push_back(grunt);
-                    }
-                    else
-                    {
-                        Mine* mine = new Mine(x, y);
-                        mine->init();
-                        _enemies.push_back(mine);
-                    }
-                }
-            }
-
-            // ENEMIES COLLISION WITH PLAYER
-
-            bool collide = false;
-
-            for (auto& enemy : _enemies)
-            {
-                collide = enemy->checkCollision(_player->getPlayerRect());
-
-                if (collide)
-                {
                     if (!enemy->getIsDead())
                     {
-                        AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
                         enemy->setIsDead(true);
-                        _player->setLifes(_player->getLifes() - 1);
-                        AUDIO->playAudio(-1, _player->getAudioHurt(), 0);
+                        AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
+                        delete playerBullets[i];
+                        playerBullets.erase(playerBullets.begin() + i);
+                        _player->setBulletsVector(playerBullets);
+
+                        //SCORE
+                        GAME_STATE->setPoints(GAME_STATE->getPoints() + 10);
+
                         break;
                     }
                 }
             }
-
-            // ENEMIES COLLISION WITH PLAYER BULLETS
-
-            for (int i = 0; i < playerBullets.size(); i++)
-            {
-                for (auto& enemy : _enemies)
-                {
-                    collide = enemy->checkCollision(playerBullets[i]->getRect());
-
-                    if (collide)
-                    {
-                        if (!enemy->getIsDead())
-                        {
-                            enemy->setIsDead(true);
-                            AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
-                            delete playerBullets[i];
-                            playerBullets.erase(playerBullets.begin() + i);
-                            _player->setBulletsVector(playerBullets);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            _enemyCooldown++;
         }
+
+        _enemyCooldown++;
     }
 
     if (_player->getEndAnim())
