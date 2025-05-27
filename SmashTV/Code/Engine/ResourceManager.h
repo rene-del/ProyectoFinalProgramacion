@@ -27,6 +27,12 @@ public:
 	*/
 	void removeGraphic(const char* file);
 
+	//! Deletes an audio from the ResourceManager map
+	/*!
+		\param file Filepath to the audio
+	*/
+	void removeAudio(const char* file);
+
 
 	//! Gets the graphic ID from file name. Use addGraphic if it needs to load image from disc
 	/*!

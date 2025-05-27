@@ -1,10 +1,10 @@
-#pragma once
+#ifndef MINE_H
+#define MINE_H
 
-#include "Blob.h"
+#include "SDL.h"
+#include "Enemy.h"
 
-
-
-class Mine
+class Mine : public Enemy
 {
 private:
 	int _img;
@@ -14,8 +14,6 @@ private:
 	int _contador;
 	bool _endAnim;
 	bool _isNotExploted;
-
-	bool _isTouched;
 	bool _cooldownCollision;
 
 	SDL_Rect _src;
@@ -25,14 +23,14 @@ private:
 	Uint32 _nextSpriteCount;
 
 public:
-	Mine();
+	Mine(int x, int y);
 	~Mine();
 
-	void init();
-	void update();
-	void render();
+	void init() override;
+	void update(Player* player) override;
+	void render() override;
 
-	bool checkCollision(SDL_Rect object);
+	bool checkCollision(SDL_Rect object) override;
 
 	void setImg(int id) { _img = id; };
 	
@@ -46,6 +44,7 @@ public:
 
 	int getMineX() { return _dst.x; };
 	int getMineY() { return _dst.y; };
-
 };
+
+#endif
 

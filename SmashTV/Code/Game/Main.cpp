@@ -1,24 +1,34 @@
 #include "../../Code/Engine/ResourceManager.h"
 #include "../../Code/Engine/Video.h"
+#include "../../Code/Engine/Audio.h"
 #include "../../Code/Engine/InputManager.h"
 #include "../../Code/Engine/TimeManager.h"
 #include "../../Code/Game/SceneDirector.h"
 
 #include "../../Code/Game/Player.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 ResourceManager* RESOURCE_MANAGER;
 Video* VIDEO;
+Audio* AUDIO;
 InputManager* INPUT_MANAGER;
 TimeManager* TIME_MANAGER;
 SceneDirector* SCENE_DIRECTOR;
 
-Player PLAYER;
+Player* PLAYER;
 
 int main(int argc, char* args[])
 {
+	srand(time(NULL));
+
+	PLAYER = new Player();
+
 	// INIT
 	RESOURCE_MANAGER = ResourceManager::getInstance();
 	VIDEO = Video::getInstance();
+	AUDIO = Audio::getInstance();
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
@@ -51,6 +61,15 @@ int main(int argc, char* args[])
 		// UPDATE TIME
 		TIME_MANAGER->timeControl();
 	}
+
+	delete RESOURCE_MANAGER;
+	delete VIDEO;
+	delete AUDIO;
+	delete INPUT_MANAGER;
+	delete TIME_MANAGER;
+	delete SCENE_DIRECTOR;
+
+	delete PLAYER;
 
 	return 0;
 }

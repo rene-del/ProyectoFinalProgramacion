@@ -1,6 +1,5 @@
 #include "TimeManager.h"
 
-
 TimeManager* TimeManager::_pInstance = nullptr;
 
 TimeManager::TimeManager()

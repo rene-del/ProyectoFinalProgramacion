@@ -10,28 +10,29 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-
-Mine::Mine()
+Mine::Mine(int x, int y)
 {
 	_img = 0;
 	_imgExplosion = 0;
+
 	_currSprite = 0;
 	_speed = 0;
 	_contador = 0;
 
-	_isTouched = false;
+	_isDead = false;
 	_endAnim = false;
 	_cooldownCollision = false;
 	_isNotExploted = true;
 
+	_audioDead = 0;
 
 	_src.x = 0;
 	_src.y = 0;
 	_src.h = 0;
 	_src.w = 0;
 
-	_dst.x = 0;
-	_dst.y = 0;
+	_dst.x = x;
+	_dst.y = y;
 	_dst.h = 0;
 	_dst.w = 0;
 
@@ -46,13 +47,13 @@ Mine::~Mine()
 
 void Mine::init()
 {
-
 	_img = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Mine.png");
 	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
+
+	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
+
 	_dst.w = 32;
 	_dst.h = 32;
-	_dst.x = 180;
-	_dst.y = 90;
 
 	_src.w = 14;
 	_src.h = 12;
@@ -60,13 +61,13 @@ void Mine::init()
 	_src.y = 0;
 }
 
-void Mine::update()
+void Mine::update(Player* player)
 {//96 X 96
 
 	_contador++;
 
 	
-	if (_isTouched)
+	if (_isDead)
 	{
 		_src.w = _src.h = 96;
 		_dst.w = _dst.h = 64;
@@ -87,6 +88,7 @@ void Mine::update()
 					_isNotExploted = false;
 				}
 			}
+
 			_contador = 0;
 		}
 
@@ -97,7 +99,7 @@ void Mine::render()
 {
 	if (_isNotExploted)
 	{
-		if (!_isTouched)
+		if (!_isDead)
 		{
 			VIDEO->renderGraphic(_img, _src, _dst);
 		}
@@ -116,19 +118,9 @@ bool Mine::checkCollision(SDL_Rect object)
 		(_dst.y < object.y + object.h) &&
 		(object.y < _dst.y + _dst.h))
 	{
-
-		if (!_isTouched)
-		{
-			_cooldownCollision = true;
-		}
-		_isTouched = true;
-	
-		return true;
-	}
-	else
-	{
-		return false;
+		_isDead = true;
+		return _isDead;
 	}
 
-	return false;
+	return _isDead;
 }

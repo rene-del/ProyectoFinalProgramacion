@@ -21,6 +21,18 @@ void ResourceManager::removeGraphic(const char* file)
 	}
 }
 
+void ResourceManager::removeAudio(const char* file)
+{
+	std::map<std::string, Sint32>::iterator it = _idAudiosMap.find(file);
+
+	if (it != _idAudiosMap.end())
+	{
+		Mix_FreeChunk(_audiosVector[it->second]);
+		_audiosVector[it->second] = nullptr;
+		_idAudiosMap.erase(it);
+	}
+}
+
 Sint32 ResourceManager::loadAndGetGraphicID(const char* file)
 {
 	std::map<std::string, Sint32>::iterator it = _idGraphicsMap.find(file);

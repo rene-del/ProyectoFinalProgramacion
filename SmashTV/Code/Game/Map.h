@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAP_H
+#define MAP_H
 
 #define NUM_CAPAS 3
 
@@ -7,8 +8,11 @@ using namespace std;
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 #include "Scene.h"
+#include "Enemy.h"
 
 #include "Bullet.h"
 #include "BlobBullet.h"
@@ -22,9 +26,7 @@ using namespace std;
 class Map : public Scene
 {
 private:
-	Blob* _blob;
-	Grunt* _grunt;
-	Mine* _mine;
+	std::vector<Enemy*> _enemies;
 
 	int _width;
 	int _height;
@@ -37,6 +39,10 @@ private:
 
 	int _mapId;
 	int _firstGId;
+
+	int _enemyCooldown;
+
+	int _music;
 
 	vector<int> Layers[NUM_CAPAS];
 
@@ -57,4 +63,6 @@ public:
 	int getMapWidth() { return _mapWidth; };
 	int getMapHeight() { return _mapHeight; };
 };
+
+#endif
 

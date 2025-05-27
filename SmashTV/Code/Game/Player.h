@@ -16,7 +16,9 @@ private:
 	int _speed;
 	int _shootingCooldown;
 	int _lifes;
-	int _points;
+
+	int _audioGun;
+	int _audioHurt;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
@@ -37,14 +39,12 @@ public:
 	void update();
 	void render();
 
-	bool checkCollision(SDL_Rect object);
 	void checkMapLimits();
 
 	void setImg(int id) { _img = id; };
 	void setCurrSprite(int val) { _currSprite = val; };
 	void setLifes(int val) { _lifes = val; };
 	void setNextSpriteCount(Uint32 time) { _nextSpriteCount = time; };
-	void setPoints(int val) { _points = _points; };
 
 	void setBulletsVector(std::vector<Bullet*> val) { _bullets = val; };
 
@@ -54,7 +54,7 @@ public:
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
 	int getLifes() { return _lifes; };
-	int getPoints() { return _points; };
+	int getAudioHurt() { return _audioHurt; };
 
 	SDL_Rect getPlayerRect() { return _dst; };
 

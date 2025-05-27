@@ -1,4 +1,5 @@
 #include "Audio.h"
+#include "ResourceManager.h"
 
 Audio* Audio::pInstance = nullptr;
 
@@ -6,10 +7,13 @@ extern ResourceManager* RESOURCE_MANAGER;
 
 Audio::Audio()
 {
+	open();
+	channels();
 }
 
 Audio::~Audio()
 {
+	close();
 }
 
 void Audio::open()

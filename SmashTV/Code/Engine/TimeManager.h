@@ -23,6 +23,8 @@ public:
 	void waitTime(int ms);
 	void timeControl();
 
+	unsigned int getDeltaTime() { return _deltaTime; };
+
 	static TimeManager* getInstance();
 };
 

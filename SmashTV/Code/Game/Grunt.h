@@ -1,26 +1,31 @@
-#pragma once
+#ifndef GRUNT_H
+#define GRUNT_H
 
 #include "SDL.h"
+#include "Enemy.h"
+
 enum STATES_GRUNT { ST_G_STILL, ST_G_MOVING, ST_G_DEAD, ST_G_ALIVE };
-//enemies
 
-
-
-class Grunt
+class Grunt : public Enemy
 {
 private:
 	int _img;
 	int _imgDead;
 	int _currSprite;
-	int _speed;
 	int _contador;
 
-	bool _isDead;
+	float _speed;
+
 	bool _endAnim;
 	bool _resetAnim;
 
+	int _randomDirectionTimer;
+	bool _preferX;
+
 	SDL_Rect _src;
 	SDL_Rect _dst;
+
+	SDL_FRect _dstSmooth;
 
 	Uint32 _spriteMaxTime;
 	Uint32 _nextSpriteCount;
@@ -32,15 +37,14 @@ private:
 
 public:
 
-	Grunt();
+	Grunt(float x, float y);
 	~Grunt();
 
-	void init();
-	void update();
-	void render();
+	void init() override;
+	void update(Player* player) override;
+	void render() override;
 
-	void checkMapLimits();
-	bool checkCollision(SDL_Rect object);
+	bool checkCollision(SDL_Rect object) override;
 
 	void setImg(int id) { _img = id; };
 	void setCurrentSprite(int val) { _currSprite = val; };
@@ -57,7 +61,7 @@ public:
 	STATES_GRUNT getMovementState() { return _actualMovementState; };
 
 	void setIsDead(bool val) { _isDead = val; };
-
-	bool getIsDead() { return _isDead; };
 };
+
+#endif
 
