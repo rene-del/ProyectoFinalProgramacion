@@ -65,6 +65,7 @@ int main(int argc, char* args[])
 	delete INPUT_MANAGER;
 	delete TIME_MANAGER;
 	delete SCENE_DIRECTOR;
+	delete GAME_STATE;
 
 	return 0;
 }
