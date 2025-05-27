@@ -19,6 +19,9 @@ Player::Player()
 	_audioGun = 0;
 	_audioHurt = 0;
 
+	_points = 0;
+	_name = "";
+
 	_currSprite = 0;
 	_speed = 0;
 	_shootingCooldown = 0;

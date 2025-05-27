@@ -21,13 +21,15 @@ using namespace std;
 #include "Grunt.h"
 #include "Mine.h"
 
+#include "HighScore.h"
+
 #include "tinyxml2.h"
 
 class Map : public Scene
 {
 private:
 	std::vector<Enemy*> _enemies;
-
+	HighScore _scoreTrack;
 	int _width;
 	int _height;
 

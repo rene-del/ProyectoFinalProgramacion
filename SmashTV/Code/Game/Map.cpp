@@ -159,6 +159,9 @@ void Map::update()
 
     bool collide = false;
 
+  //  std::cout << "score: " << PLAYER->getPoints() << "\n";
+    ;
+
     for (auto& enemy : _enemies)
     {
         collide = enemy->checkCollision(PLAYER->getPlayerRect());
@@ -171,6 +174,10 @@ void Map::update()
                 AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
                 PLAYER->setLifes(PLAYER->getLifes() - 1);
                 AUDIO->playAudio(-1, PLAYER->getAudioHurt(), 0);
+            
+                //SCORE
+                PLAYER->setPoints(PLAYER->getPoints() - 1);
+                
             }
         }
     }   
@@ -191,6 +198,10 @@ void Map::update()
                 enemy->setIsDead(true);
                 AUDIO->playAudio(-1, enemy->getAudioDead(), 0);
                 i--;
+
+                //SCORE
+                PLAYER->setPoints(PLAYER->getPoints() +10);
+
             }
         }
     }

@@ -58,6 +58,7 @@
     <ClCompile Include="Code\Game\HighScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Game\Bullet.h">
@@ -114,6 +115,7 @@
     <ClInclude Include="Code\Game\HighScore.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Engine\Audio.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header FIles">
@@ -220,5 +222,11 @@
     <CopyFileToFolders Include="Assets\Enemies\Mine.png">
       <Filter>Resource Files\Assets\Enemies</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav" />
+    <CopyFileToFolders Include="Assets\Audios\gunShot.wav" />
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Highscore.bin" />
   </ItemGroup>
 </Project>

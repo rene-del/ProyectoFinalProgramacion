@@ -5,10 +5,16 @@
 #include "../Engine/InputManager.h"
 #include "../Game/SceneDirector.h"
 
+#include "Player.h"
+
+#include <string>
+
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
+
+extern Player* PLAYER;
 
 GameOver::GameOver()
 {
@@ -23,6 +29,8 @@ GameOver::GameOver()
 	_dst.y = 0;
 	_dst.x = 0;
 	_dst.y = 0;
+
+	_nameSet = false;
 
 	_reInit = true;
 }
@@ -55,13 +63,27 @@ void GameOver::reinit()
 
 void GameOver::update()
 {
+	if (!_nameSet) {
+		std::string name;
+		std::cout << "INSERT NAME \n";
+		std::getline(std::cin, name);
+		PLAYER->setName(name);
+		_nameSet = true;
+	}
+
 	// CONTROL KEY
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+	bool highScore = INPUT_MANAGER->getKeyState(SDL_SCANCODE_H);
 
 	// GO MENU
 	if (enter)
 	{
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
+	}
+	// HIGH SCORE
+	if (highScore)
+	{
+		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
 	}
 }
 
