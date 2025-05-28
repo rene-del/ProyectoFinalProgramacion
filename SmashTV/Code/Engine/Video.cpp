@@ -27,7 +27,6 @@ Video::Video()
 	SDL_SetRenderDrawColor(_gRenderer, 0x00, 0x00, 0x00, 0x00);
 
 	//FONT
-
 	if (TTF_Init() == -1)
 	{
 		std::cout << "Couldn't init SDL_ttf: " << TTF_GetError() << std::endl;
