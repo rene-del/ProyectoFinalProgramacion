@@ -30,10 +30,7 @@ public:
 
 	TTF_Font* getFont() const { return _font; }
 
-
-
 	void renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize = 24);
-
 
 	SDL_Renderer* _gRenderer;
 	SDL_Window* _gWindow;

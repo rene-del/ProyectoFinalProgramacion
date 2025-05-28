@@ -56,10 +56,8 @@ void HighScore::reinit()
 
 void HighScore::update()
 {
-	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
-	bool w = INPUT_MANAGER->getKeyState(SDL_SCANCODE_W);
 	bool r = INPUT_MANAGER->getKeyState(SDL_SCANCODE_R);
-
+	
 
 	if (!_hasExecuted)
 	{
@@ -71,7 +69,7 @@ void HighScore::update()
 	}
 
 	//RETURN MENU
-	if (enter)
+	if (r)
 	{
 		_hasExecuted = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
@@ -107,6 +105,9 @@ void HighScore::render()
 			VIDEO->renderText(line, startX, startY + i * spacingY, white);
 		}
 	}
+
+	std::string line = "PRESS \"\R\" TO RETURN TO THE MENU";
+	VIDEO->renderText(line, SCREEN_WIDTH / 2 - 360, SCREEN_WIDTH / 2 + 100, white, 38);
 	VIDEO->updateScreen();
 }
 

@@ -118,11 +118,23 @@ Video* Video::getInstance()
 
 void Video::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize)
 {
-	if (text.empty()) return; 
+	if (text.empty()) return;
 
-	SDL_Surface* surface = TTF_RenderText_Solid(_font, text.c_str(), color);
+	TTF_Font* fontToUse = _font;
+
+	if (fontSize != 24)
+	{
+		fontToUse = TTF_OpenFont("Assets/Fonts/Minecraft.ttf", fontSize);
+		if (!fontToUse) {
+			std::cout << "Error cargando fuente con tamaño " << fontSize << ": " << TTF_GetError() << std::endl;
+			return;
+		}
+	}
+
+	SDL_Surface* surface = TTF_RenderText_Solid(fontToUse, text.c_str(), color);
 	if (!surface) {
 		std::cout << "Error renderizando texto: " << TTF_GetError() << std::endl;
+		if (fontToUse != _font) TTF_CloseFont(fontToUse);
 		return;
 	}
 
@@ -132,5 +144,10 @@ void Video::renderText(const std::string& text, int x, int y, SDL_Color color, i
 
 	SDL_FreeSurface(surface);
 	SDL_DestroyTexture(texture);
+
+	if (fontToUse != _font) {
+		TTF_CloseFont(fontToUse);
+	}
 }
+
 

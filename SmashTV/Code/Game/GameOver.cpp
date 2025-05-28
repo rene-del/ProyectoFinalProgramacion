@@ -144,5 +144,5 @@ void GameOver::render()
 	VIDEO->renderGraphic(_texId, _src, _dst);
 
 	SDL_Color white = { 255, 255, 255 };
-	VIDEO->renderText(_nameBuffer, 100, 700, white);
+	VIDEO->renderText(_nameBuffer, SCREEN_WIDTH / 2, 700, white);
 }
