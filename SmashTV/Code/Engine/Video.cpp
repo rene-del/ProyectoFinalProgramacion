@@ -25,6 +25,21 @@ Video::Video()
 
 	_gRenderer = SDL_CreateRenderer(_gWindow, -1, SDL_RENDERER_ACCELERATED);
 	SDL_SetRenderDrawColor(_gRenderer, 0x00, 0x00, 0x00, 0x00);
+
+	//FONT
+
+	if (TTF_Init() == -1)
+	{
+		std::cout << "Couldn't init SDL_ttf: " << TTF_GetError() << std::endl;
+	}
+
+	_font = TTF_OpenFont("Assets/Fonts/Minecraft.ttf", 24);
+	if (!_font)
+	{
+		std::cout << "Couldn't load font: " << TTF_GetError() << std::endl;
+	}
+
+
 }
 
 Video::~Video()
@@ -32,7 +47,20 @@ Video::~Video()
 	SDL_DestroyWindow(_gWindow);
 	_gWindow = nullptr;
 
+	if (_font)
+	{
+		TTF_CloseFont(_font);
+		_font = nullptr;
+	}
+	TTF_Quit();
+
+	SDL_DestroyWindow(_gWindow);
+
+
 	SDL_Quit();
+
+
+
 }
 
 void Video::renderGraphic(int img, SDL_Rect src, SDL_Rect dst)
@@ -87,3 +115,22 @@ Video* Video::getInstance()
 
 	return _pInstance;
 }
+
+void Video::renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize)
+{
+	if (text.empty()) return; 
+
+	SDL_Surface* surface = TTF_RenderText_Solid(_font, text.c_str(), color);
+	if (!surface) {
+		std::cout << "Error renderizando texto: " << TTF_GetError() << std::endl;
+		return;
+	}
+
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(_gRenderer, surface);
+	SDL_Rect dstRect = { x, y, surface->w, surface->h };
+	SDL_RenderCopy(_gRenderer, texture, NULL, &dstRect);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+}
+

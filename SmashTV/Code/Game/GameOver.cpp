@@ -35,6 +35,11 @@ GameOver::GameOver()
 	_nameSet = false;
 
 	_reInit = true;
+
+	_nameBuffer = "";
+
+	_keyHeld[SDL_NUM_SCANCODES] = { false };
+
 }
 
 GameOver::~GameOver()
@@ -59,6 +64,11 @@ void GameOver::init()
 	_dst.h = 832;
 
 	_reInit = false;
+
+	
+	
+	SDL_StartTextInput();
+
 }
 
 void GameOver::reinit()
@@ -68,33 +78,79 @@ void GameOver::reinit()
 
 void GameOver::update()
 {
-	if (!_nameSet) {
-		std::string name;
-		std::cout << "INSERT NAME \n";
-		std::getline(std::cin, name);
-		GAME_STATE->setName(name);
-		_nameSet = true;
+	
+	for (int i = SDL_SCANCODE_A; i <= SDL_SCANCODE_Z; ++i)
+	{
+		if (INPUT_MANAGER->getKeyState((SDL_Scancode)i))
+		{
+			if (!_keyHeld[i] && _nameBuffer.length() < 5)
+			{
+				_nameBuffer += static_cast<char>('A' + (i - SDL_SCANCODE_A));
+				_keyHeld[i] = true;
+			}
+		}
+		else
+		{
+			_keyHeld[i] = false;
+		}
 	}
+
+	// BACKSPACE
+	if (INPUT_MANAGER->getKeyState(SDL_SCANCODE_BACKSPACE))
+	{
+		if (!_keyHeld[SDL_SCANCODE_BACKSPACE] && !_nameBuffer.empty())
+		{
+			_nameBuffer.pop_back();
+			_keyHeld[SDL_SCANCODE_BACKSPACE] = true;
+		}
+	}
+	else
+	{
+		_keyHeld[SDL_SCANCODE_BACKSPACE] = false;
+	}
+
+
+		// Ejemplo de confirmación con Enter
+		if (INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN))
+		{
+			GAME_STATE->setName(_nameBuffer);
+			_nameSet = true;
+			SDL_StopTextInput();
+		//	SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
+		}
+	
 
 	// CONTROL KEY
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
 	bool highScore = INPUT_MANAGER->getKeyState(SDL_SCANCODE_H);
 
 	// GO MENU
+	
+	
 	if (enter)
 	{
 		_nameSet = false;
+		GAME_STATE->setName(_nameBuffer);
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
+		SDL_StopTextInput();
+
 	}
+	
+	
 	// HIGH SCORE
-	if (highScore)
+	if (false)
 	{
 		_nameSet = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
+		SDL_StopTextInput();
+
 	}
 }
 
 void GameOver::render()
 {
 	VIDEO->renderGraphic(_texId, _src, _dst);
+
+	SDL_Color white = { 255, 255, 255 };
+	VIDEO->renderText(_nameBuffer, 100, 700, white);
 }

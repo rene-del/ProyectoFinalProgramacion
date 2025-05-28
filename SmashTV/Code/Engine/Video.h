@@ -5,6 +5,9 @@
 #define SCREEN_HEIGHT 832
 
 #include "SDL.h"
+#include "SDL_ttf.h"
+#include <string>
+
 
 class Video
 {
@@ -25,8 +28,18 @@ public:
 
 	static Video* getInstance();
 
+	TTF_Font* getFont() const { return _font; }
+
+
+
+	void renderText(const std::string& text, int x, int y, SDL_Color color, int fontSize = 24);
+
+
 	SDL_Renderer* _gRenderer;
 	SDL_Window* _gWindow;
+
+	TTF_Font* _font; 
+
 };
 
 #endif
