@@ -80,12 +80,12 @@ void HighScore::render()
 {
 	
 	
-	SDL_Color white = { 255, 255, 255, 255 };
+	SDL_Color textColor = { 255, 255, 255, 255 };
 
-	int startX = 100;  // Coordenada X donde empieza el texto
-	int startY = 100;  // Coordenada Y inicial
-	int spacingY = 40; // Espacio entre líneas
-
+	int startX = SCREEN_HEIGHT / 2 - 80;  
+	int startY = 100;  
+	int spacingY = 40; 
+	int textSize = 24;
 
 	int entries = _playerRanking.size();
 
@@ -94,7 +94,38 @@ void HighScore::render()
 		for (size_t i = 0; i < entries; i++)
 		{
 			std::string line = std::to_string(i + 1) + ". " + _playerRanking[i]._name + "  " + std::to_string(_playerRanking[i]._points);
-			VIDEO->renderText(line, startX, startY + i * spacingY, white);
+			if (i == 0)
+			{
+				textColor = { 255, 255, 0, 255 };
+				textSize = 50;
+				startX -= 50;
+				spacingY += 20;
+			}
+			if (i == 1)
+			{
+				textColor = { 138, 149, 151, 255 };
+				textSize = 40;
+				startX -= 40;
+				spacingY += 20;
+			}
+			if (i == 2)
+			{
+
+				textColor = { 205, 127, 50, 255 };
+				textSize = 30;
+				startX -= 30;
+				spacingY += 20;
+			}
+			if (i > 2)
+			{
+
+				textColor = { 255, 255, 255, 255 };
+				textSize = 20;
+				startY = 150;
+			}
+			VIDEO->renderText(line, startX, startY + i * spacingY, textColor, textSize);
+			startX = SCREEN_HEIGHT / 2 - 80;
+			spacingY = 40;
 		}
 	}
 	else
@@ -102,12 +133,43 @@ void HighScore::render()
 		for (size_t i = 0; i < 6; i++)
 		{
 			std::string line = std::to_string(i + 1) + ". " + _playerRanking[i]._name + "  " + std::to_string(_playerRanking[i]._points);
-			VIDEO->renderText(line, startX, startY + i * spacingY, white);
+			if (i == 0)
+			{
+				textColor = { 255, 255, 0, 255 };
+				textSize = 50;
+				startX -= 50;
+				spacingY += 20;
+			}
+			if (i == 1)
+			{
+				textColor = { 138, 149, 151, 255 };
+				textSize = 40;
+				startX -= 40;
+				spacingY += 20;
+			}
+			if (i == 2)
+			{
+
+				textColor = { 205, 127, 50, 255 };
+				textSize = 30;
+				startX -= 30;
+				spacingY += 20;
+			}
+			if (i > 2)
+			{
+
+				textColor = { 255, 255, 255, 255 };
+				textSize = 20;
+				startY = 150;
+			}
+			VIDEO->renderText(line, startX, startY + i * spacingY, textColor, textSize);
+			startX = SCREEN_HEIGHT / 2 - 80;
+			spacingY = 40;
 		}
 	}
 
 	std::string line = "PRESS \"\R\" TO RETURN TO THE MENU";
-	VIDEO->renderText(line, SCREEN_WIDTH / 2 - 360, SCREEN_WIDTH / 2 + 100, white, 38);
+	VIDEO->renderText(line, SCREEN_WIDTH / 2 - 360, SCREEN_WIDTH / 2 + 100, textColor, 38);
 	VIDEO->updateScreen();
 }
 
