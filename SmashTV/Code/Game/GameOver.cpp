@@ -83,11 +83,13 @@ void GameOver::update()
 	// GO MENU
 	if (enter)
 	{
+		_nameSet = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
 	}
 	// HIGH SCORE
 	if (highScore)
 	{
+		_nameSet = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
 	}
 }

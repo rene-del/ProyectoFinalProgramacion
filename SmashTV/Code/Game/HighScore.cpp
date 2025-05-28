@@ -74,6 +74,7 @@ void HighScore::update()
 	//RETURN MENU
 	if (enter)
 	{
+		_hasExecuted = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
 	}	
 }
