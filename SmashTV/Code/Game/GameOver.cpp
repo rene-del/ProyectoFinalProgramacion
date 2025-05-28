@@ -78,7 +78,8 @@ void GameOver::reinit()
 
 void GameOver::update()
 {
-	
+	std::cout << GAME_STATE->getPoints() << "\n";
+
 	for (int i = SDL_SCANCODE_A; i <= SDL_SCANCODE_Z; ++i)
 	{
 		if (INPUT_MANAGER->getKeyState((SDL_Scancode)i))
@@ -110,13 +111,11 @@ void GameOver::update()
 	}
 
 
-		// Ejemplo de confirmación con Enter
 		if (INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN))
 		{
 			GAME_STATE->setName(_nameBuffer);
 			_nameSet = true;
 			SDL_StopTextInput();
-		//	SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
 		}
 	
 
@@ -131,20 +130,13 @@ void GameOver::update()
 	{
 		_nameSet = false;
 		GAME_STATE->setName(_nameBuffer);
-		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
-		SDL_StopTextInput();
 
-	}
-	
-	
-	// HIGH SCORE
-	if (false)
-	{
-		_nameSet = false;
 		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
 		SDL_StopTextInput();
 
 	}
+	
+	
 }
 
 void GameOver::render()

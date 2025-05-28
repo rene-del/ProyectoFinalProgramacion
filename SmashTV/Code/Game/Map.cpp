@@ -229,6 +229,8 @@ void Map::update()
                         //SCORE
                         GAME_STATE->setPoints(GAME_STATE->getPoints() + 10);
 
+                        std::cout << GAME_STATE->getPoints() << "\n";
+
                         break;
                     }
                 }

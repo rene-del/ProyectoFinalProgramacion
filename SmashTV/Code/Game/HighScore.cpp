@@ -45,14 +45,13 @@ void HighScore::init()
 {
 	_endstr = '\0';
 	_reInit = false;
-
 	_score = 0;
 
 }
 
 void HighScore::reinit()
 {
-	_reInit = true;
+	init();
 }
 
 void HighScore::update()
@@ -81,6 +80,34 @@ void HighScore::update()
 
 void HighScore::render()
 {
+	
+	
+	SDL_Color white = { 255, 255, 255, 255 };
+
+	int startX = 100;  // Coordenada X donde empieza el texto
+	int startY = 100;  // Coordenada Y inicial
+	int spacingY = 40; // Espacio entre líneas
+
+
+	int entries = _playerRanking.size();
+
+	if (entries < 6)
+	{
+		for (size_t i = 0; i < entries; i++)
+		{
+			std::string line = std::to_string(i + 1) + ". " + _playerRanking[i]._name + "  " + std::to_string(_playerRanking[i]._points);
+			VIDEO->renderText(line, startX, startY + i * spacingY, white);
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < 6; i++)
+		{
+			std::string line = std::to_string(i + 1) + ". " + _playerRanking[i]._name + "  " + std::to_string(_playerRanking[i]._points);
+			VIDEO->renderText(line, startX, startY + i * spacingY, white);
+		}
+	}
+	VIDEO->updateScreen();
 }
 
 void HighScore::registerName(std::string name)
@@ -95,7 +122,7 @@ void HighScore::registerScore(int score)
 
 void HighScore::topRanking()
 {
-	//bubble sort
+	
 }
 
 void HighScore::writeFile()
@@ -125,6 +152,8 @@ void HighScore::writeFile()
 
 void HighScore::readFile()
 {
+	std::cout << GAME_STATE->getPoints() << "\n";
+
 	std::streampos size;
 	char readNom[6]; // 6 bytes
 	int readPoints;  // 4 bytes
@@ -170,20 +199,12 @@ void HighScore::readFile()
 		if (swapped == false)
 			break;
 	};
-	if (totalEntries < 11)
-	{
+	
 		for (size_t i = 0; i < totalEntries; i++)
 		{
 			std::cout << "NAME: " << _playerRanking[i]._name << "POINTS: " << _playerRanking[i]._points << "\n";
 		}
-	}
-	else
-	{
-		for (size_t i = 0; i < 10; i++)
-		{
-			std::cout << "NAME: " << _playerRanking[i]._name << "POINTS: " << _playerRanking[i]._points << "\n";
-		}
-	}
+	
 
 
 }
