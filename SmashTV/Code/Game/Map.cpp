@@ -3,12 +3,14 @@
 #include "../Engine/ResourceManager.h"
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
-#include "../Game/SceneDirector.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern Audio* AUDIO;
 extern SceneDirector* SCENE_DIRECTOR;
+extern GameState* GAME_STATE;
 
 Map::Map()
 {
@@ -103,21 +105,24 @@ void Map::update()
         std::vector<Bullet*> playerBullets;
         playerBullets = _player->getBullets();
 
-        // CHECK IF ENEMY NEEDS TO BE DELETED
-        for (int i = 0; i < _enemies.size(); i++)
+        for (auto& enemy : _enemies)
         {
-            if (_enemies[i]->getAnimFinished())
+            // CHECK IF ENEMY NEEDS TO BE DELETED
+            for (int i = 0; i < _enemies.size(); i++)
             {
-                delete _enemies[i];
-                _enemies.erase(_enemies.begin() + i);
-                i--;
+                if (_enemies[i]->getAnimFinished())
+                {
+                    delete _enemies[i];
+                    _enemies.erase(_enemies.begin() + i);
+                    i--;
+                }
             }
         }
 
         // ENEMIES
         if (_enemies.size() < 10)
         {
-            if (_enemyCooldown > 200)
+            if (_enemyCooldown > 150)
             {
                 _enemyCooldown = 0;
 
@@ -220,6 +225,10 @@ void Map::update()
                         delete playerBullets[i];
                         playerBullets.erase(playerBullets.begin() + i);
                         _player->setBulletsVector(playerBullets);
+
+                        //SCORE
+                        GAME_STATE->setPoints(GAME_STATE->getPoints() + 10);
+
                         break;
                     }
                 }

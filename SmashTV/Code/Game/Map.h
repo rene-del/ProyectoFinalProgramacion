@@ -21,6 +21,8 @@ using namespace std;
 #include "Grunt.h"
 #include "Mine.h"
 
+#include "HighScore.h"
+
 #include "tinyxml2.h"
 
 class Map : public Scene
@@ -28,7 +30,7 @@ class Map : public Scene
 private:
 	Player* _player;
 	std::vector<Enemy*> _enemies;
-
+	HighScore _scoreTrack;
 	int _width;
 	int _height;
 

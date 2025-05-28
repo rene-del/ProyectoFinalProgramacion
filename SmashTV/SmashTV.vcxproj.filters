@@ -55,7 +55,13 @@
     <ClCompile Include="Code\Game\BlobBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Game\HighScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Code\Engine\Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Game\GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,7 +117,13 @@
     <ClInclude Include="Code\Game\BlobBullet.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Game\HighScore.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
     <ClInclude Include="Code\Engine\Audio.h">
+      <Filter>Header FIles</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Game\GameState.h">
       <Filter>Header FIles</Filter>
     </ClInclude>
   </ItemGroup>
@@ -147,7 +159,7 @@
       <UniqueIdentifier>{88cf75fe-f8bd-48dc-a9e2-56930df2c486}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Assets\Audios">
-      <UniqueIdentifier>{4486540b-784c-4b49-918d-7aac4e7e58ba}</UniqueIdentifier>
+      <UniqueIdentifier>{a4046e08-1537-44d3-86d7-6d59be6bf871}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,16 +235,16 @@
     <CopyFileToFolders Include="Assets\Enemies\Mine.png">
       <Filter>Resource Files\Assets\Enemies</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Highscore.bin">
+      <Filter>Resource Files\Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\blobDeath.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Audios\gunShot.wav">
-      <Filter>Resource Files\Assets\Audios</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
-      <Filter>Resource Files\Assets\Audios</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Audios\blobDeath.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Audios\highscore.wav">
@@ -241,7 +253,19 @@
     <CopyFileToFolders Include="Assets\Audios\menu.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Audios\song.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\gunShot.wav">
+      <Filter>Resource Files\Assets\Audios</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
   </ItemGroup>

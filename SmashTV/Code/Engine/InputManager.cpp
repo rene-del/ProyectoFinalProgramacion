@@ -30,8 +30,21 @@ void InputManager::manageInputs()
 			{
 				_endGame = true;
 			}
-
-			_keyStates[_testEvent.key.keysym.scancode] = true;
+			else if (_testEvent.key.keysym.sym == SDLK_RETURN)
+			{
+				if (_testEvent.key.repeat == 0)
+				{
+					_keyStates[_testEvent.key.keysym.scancode] = true;
+				}
+				else
+				{
+					_keyStates[_testEvent.key.keysym.scancode] = false;
+				}
+			}
+			else
+			{
+				_keyStates[_testEvent.key.keysym.scancode] = true;
+			}
 
 			break;
 		case SDL_KEYUP:

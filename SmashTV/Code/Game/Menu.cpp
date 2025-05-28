@@ -4,13 +4,15 @@
 #include "../Engine/Video.h"
 #include "../Engine/Audio.h"
 #include "../Engine/InputManager.h"
-#include "../Game/SceneDirector.h"
+#include "SceneDirector.h"
+#include "GameState.h"
 
 extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern Audio* AUDIO;
 extern InputManager* INPUT_MANAGER;
 extern SceneDirector* SCENE_DIRECTOR;
+extern GameState* GAME_STATE;
 
 Menu::Menu()
 {
@@ -29,6 +31,8 @@ Menu::Menu()
 	_texId = 0;
 	_music = 0;
 	_channel = 0;
+
+	_counter = 0;
 }
 
 Menu::~Menu()
@@ -52,7 +56,11 @@ void Menu::init()
 	_dst.w = 832;
 	_dst.h = 832;
 
+	_counter = 0;
+
 	_reInit = false;
+
+	GAME_STATE->setPoints(0);
 }
 
 void Menu::reinit()
@@ -64,11 +72,25 @@ void Menu::update()
 {
 	// CONTROL KEY
 	bool enter = INPUT_MANAGER->getKeyState(SDL_SCANCODE_RETURN);
+	bool highScore = INPUT_MANAGER->getKeyState(SDL_SCANCODE_H);
 
 	// START GAME
-	if (enter)
+	if (_counter > 30)
 	{
-		SCENE_DIRECTOR->changeScene(SceneEnum::MAP, true);
+		if (enter)
+		{
+			SCENE_DIRECTOR->changeScene(SceneEnum::MAP, true);
+		}
+	}
+	else
+	{
+		_counter++;
+	}
+
+	// HIGH SCORE
+	if (highScore)
+	{
+		SCENE_DIRECTOR->changeScene(SceneEnum::HIGHSCORE, true);
 	}
 }
 

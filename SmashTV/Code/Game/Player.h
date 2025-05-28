@@ -5,6 +5,7 @@
 
 #include "Bullet.h"
 #include <vector>
+#include <string>
 
 class Player
 {
@@ -62,6 +63,7 @@ public:
 
 	int getPlayerX() { return _dst.x; };
 	int getPlayerY() { return _dst.y; };
+
 	int getLifes() { return _lifes; };
 	int getAudioHurt() { return _audioHurt; };
 

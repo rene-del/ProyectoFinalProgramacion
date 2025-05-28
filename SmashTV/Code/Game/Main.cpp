@@ -1,9 +1,10 @@
-#include "../../Code/Engine/ResourceManager.h"
-#include "../../Code/Engine/Video.h"
-#include "../../Code/Engine/Audio.h"
-#include "../../Code/Engine/InputManager.h"
-#include "../../Code/Engine/TimeManager.h"
-#include "../../Code/Game/SceneDirector.h"
+#include "../Engine/ResourceManager.h"
+#include "../Engine/Video.h"
+#include "../Engine/Audio.h"
+#include "../Engine/InputManager.h"
+#include "../Engine/TimeManager.h"
+#include "../Game/GameState.h"
+#include "../Game/SceneDirector.h"
 
 #include <stdlib.h>
 #include <time.h>
@@ -13,6 +14,7 @@ Video* VIDEO;
 Audio* AUDIO;
 InputManager* INPUT_MANAGER;
 TimeManager* TIME_MANAGER;
+GameState* GAME_STATE;
 SceneDirector* SCENE_DIRECTOR;
 
 int main(int argc, char* args[])
@@ -25,6 +27,7 @@ int main(int argc, char* args[])
 	AUDIO = Audio::getInstance();
 	INPUT_MANAGER = InputManager::getInstance();
 	TIME_MANAGER = TimeManager::getInstance();
+	GAME_STATE = GameState::getInstance();
 	SCENE_DIRECTOR = SceneDirector::getInstance();
 	
 	while (!INPUT_MANAGER->getEndGame())
@@ -62,6 +65,7 @@ int main(int argc, char* args[])
 	delete INPUT_MANAGER;
 	delete TIME_MANAGER;
 	delete SCENE_DIRECTOR;
+	delete GAME_STATE;
 
 	return 0;
 }

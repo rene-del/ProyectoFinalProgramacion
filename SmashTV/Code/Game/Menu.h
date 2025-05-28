@@ -17,6 +17,7 @@ public:
 
 private:
 	int _texId;
+	int _counter;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;

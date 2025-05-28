@@ -29,7 +29,9 @@
     <ClCompile Include="Code\Game\Bullet.cpp" />
     <ClCompile Include="Code\Game\Enemy.cpp" />
     <ClCompile Include="Code\Game\GameOver.cpp" />
+    <ClCompile Include="Code\Game\GameState.cpp" />
     <ClCompile Include="Code\Game\Grunt.cpp" />
+    <ClCompile Include="Code\Game\HighScore.cpp" />
     <ClCompile Include="Code\Game\Main.cpp" />
     <ClCompile Include="Code\Game\Map.cpp" />
     <ClCompile Include="Code\Game\Menu.cpp" />
@@ -50,7 +52,9 @@
     <ClInclude Include="Code\Game\Bullet.h" />
     <ClInclude Include="Code\Game\Enemy.h" />
     <ClInclude Include="Code\Game\GameOver.h" />
+    <ClInclude Include="Code\Game\GameState.h" />
     <ClInclude Include="Code\Game\Grunt.h" />
+    <ClInclude Include="Code\Game\HighScore.h" />
     <ClInclude Include="Code\Game\Map.h" />
     <ClInclude Include="Code\Game\Menu.h" />
     <ClInclude Include="Code\Game\Mine.h" />
@@ -167,20 +171,10 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav">
+    <CopyFileToFolders Include="Assets\Highscore.bin">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Audios\gunShot.wav">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios\</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios\</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
@@ -189,8 +183,6 @@
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios\</DestinationFolders>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
     <CopyFileToFolders Include="Assets\Audios\highscore.wav">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <FileType>Document</FileType>
@@ -205,6 +197,23 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios\</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Audios\enemyExplosion.wav">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\gunShot.wav">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)Assets\Audios</DestinationFolders>
     </CopyFileToFolders>
   </ItemGroup>
   <PropertyGroup Label="Globals">
