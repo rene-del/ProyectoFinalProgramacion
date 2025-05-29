@@ -24,6 +24,9 @@ Mine::Mine(int pos)
 	_cooldownCollision = false;
 	_isNotExploted = true;
 
+	_randomDirectionTimer = 0;
+	_preferX = true;
+
 	_audioDead = 0;
 
 	_src.w = 14;
@@ -31,8 +34,11 @@ Mine::Mine(int pos)
 	_src.x = 0;
 	_src.y = 0;
 
-	_dst.h = 28;
-	_dst.w = 24;
+	_dst.h = 42;
+	_dst.w = 38;
+
+	_dstSmooth.h = 28.0f;
+	_dstSmooth.w = 24.0f;
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
@@ -41,34 +47,37 @@ Mine::Mine(int pos)
 	{
 		// TOP
 	case 0:
-		_dst.x = SCREEN_WIDTH / 2 - _dst.w / 2;
-		_dst.y = 40 + _dst.h;
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = _dstSmooth.h;
 
 		break;
 
 		// BOTTOM
 	case 1:
-		_dst.x = SCREEN_WIDTH / 2 - _dst.w / 2;
-		_dst.y = SCREEN_HEIGHT - 40 - _dst.h;
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT) - 40.0f - _dstSmooth.h;
 
 		break;
 
 		// LEFT
 	case 2:
-		_dst.x = 40 + _dst.w;
-		_dst.y = SCREEN_HEIGHT / 2 - _dst.h / 2;
+		_dstSmooth.x = _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
 
 		break;
 
 		// RIGHT
 	case 3:
-		_dst.x = SCREEN_WIDTH - 40 - _dst.w;
-		_dst.y = SCREEN_HEIGHT / 2 - _dst.h / 2;
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH) - 40.0f - _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
 
 		break;
 	default:
 		break;
 	}
+
+	_dst.x = static_cast<int>(_dstSmooth.x);
+	_dst.y = static_cast<int>(_dstSmooth.y);
 }
 
 Mine::~Mine()
@@ -81,18 +90,18 @@ void Mine::init()
 	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
 
 	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
+
+	_speed = 1.0f;
 }
 
 void Mine::update(Player* player)
 {//96 X 96
 
 	_contador++;
-
 	
 	if (_isDead)
 	{
 		_src.w = _src.h = 96;
-		_dst.w = _dst.h = 64;
 
 		if (_contador > 10)
 		{
@@ -111,7 +120,52 @@ void Mine::update(Player* player)
 
 			_contador = 0;
 		}
+	}
+	else
+	{
+		// MOVEMENT TOWARDS THE PLAYER
+		_randomDirectionTimer++;
 
+		if (_randomDirectionTimer > 60)
+		{
+			_preferX = (rand() % 2 == 0);
+			_randomDirectionTimer = 0;
+		}
+
+		float dx = static_cast<float>(player->getPlayerX()) - _dstSmooth.x;
+		float dy = static_cast<float>(player->getPlayerY()) - _dstSmooth.y;
+
+		const float epsilon = 1.0f;
+
+		if (_preferX)
+		{
+			if (std::abs(dx) > epsilon)
+			{
+				float dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dstSmooth.x += dirX * _speed;
+			}
+			else if (std::abs(dy) > epsilon)
+			{
+				float dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dstSmooth.y += dirY * _speed;
+			}
+		}
+		else
+		{
+			if (std::abs(dy) > epsilon)
+			{
+				float dirY = (dy > 0) ? 1.0f : -1.0f;
+				_dstSmooth.y += dirY * _speed;
+			}
+			else if (std::abs(dx) > epsilon)
+			{
+				float dirX = (dx > 0) ? 1.0f : -1.0f;
+				_dstSmooth.x += dirX * _speed;
+			}
+		}
+
+		_dst.x = static_cast<int>(_dstSmooth.x);
+		_dst.y = static_cast<int>(_dstSmooth.y);
 	}
 }
 
@@ -121,7 +175,7 @@ void Mine::render()
 	{
 		if (!_isDead)
 		{
-			VIDEO->renderGraphic(_img, _src, _dst);
+			VIDEO->renderGraphicSmooth(_img, _src, _dstSmooth);
 		}
 		else
 		{

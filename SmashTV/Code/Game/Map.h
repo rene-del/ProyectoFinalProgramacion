@@ -31,6 +31,7 @@ private:
 	Player* _player;
 	std::vector<Enemy*> _enemies;
 	HighScore _scoreTrack;
+
 	int _width;
 	int _height;
 

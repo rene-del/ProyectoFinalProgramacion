@@ -65,7 +65,7 @@ void Player::init()
 	_currSprite = 0;
 	_speed = 2;
 	_shootingCooldown = 0;
-	_lifes = 3;
+	_lifes = 2;
 
 	_endAnim = false;
 
@@ -248,7 +248,7 @@ void Player::update()
 	if (_lifes == -1)
 	{
 		_actualMovementState = ST_DEAD;
-		_nextSpriteCount = 0;
+		_src.x = 0;
 		_lifes--;
 	}
 

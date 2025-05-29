@@ -190,13 +190,7 @@
     <CopyFileToFolders Include="Assets\Player\PlayerTileset.png">
       <Filter>Resource Files\Assets\Player</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Scenes\gameOver.png">
-      <Filter>Resource Files\Assets\Scenes</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Scenes\menu.png">
-      <Filter>Resource Files\Assets\Scenes</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Scenes\win.png">
       <Filter>Resource Files\Assets\Scenes</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Bullets\Bullet_Down.png">

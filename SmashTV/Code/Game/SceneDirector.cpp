@@ -36,6 +36,8 @@ SceneDirector::~SceneDirector()
 
 void SceneDirector::init()
 {
+	_channel = 0;
+
 	mVectorScenes.resize(NUM_SCENES);
 
 	Menu* menu = new Menu();
@@ -60,8 +62,24 @@ void SceneDirector::changeScene(SceneEnum next_scene, bool reinit)
 	mCurrScene = next_scene;
 }
 
+void SceneDirector::changeSceneC(SceneEnum next_scene, bool reinit, int channel)
+{
+	mVectorScenes[next_scene]->setReInit(reinit);
+	mCurrScene = next_scene;
+
+	_channel = channel;
+}
+
 void SceneDirector::pauseCurrentSceneAudio()
 {
 	Scene* currentScene = mVectorScenes[mCurrScene];
-	AUDIO->stopAudio(currentScene->getMusicID());
+
+	if (mCurrScene == HIGHSCORE)
+	{
+		AUDIO->stopAudio(_channel);
+	}
+	else
+	{
+		AUDIO->stopAudio(currentScene->getMusicID());
+	}
 }

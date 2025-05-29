@@ -42,7 +42,7 @@ Blob::Blob(int pos)
 		// TOP
 	case 0:
 		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
-		_dstSmooth.y = 40.0f + _dstSmooth.h;
+		_dstSmooth.y = _dstSmooth.h - 40.0f;
 
 		break;
 
@@ -55,7 +55,7 @@ Blob::Blob(int pos)
 
 		// LEFT
 	case 2:
-		_dstSmooth.x = 40.0f + _dstSmooth.w;
+		_dstSmooth.x = _dstSmooth.w;
 		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
 
 		break;

@@ -67,7 +67,7 @@ void Map::init()
     _channel = AUDIO->playAudio(-1, _music, -1);
 
     _playTime = 0;
-    _maxCooldown = 250;
+    _maxCooldown = 200;
     _enemyCooldown = _maxCooldown - 20;
 
     // PLAYER
@@ -101,22 +101,23 @@ void Map::update()
     {
     // 30 sec
     case 60 * 30:
-        _maxCooldown = 200;
+        _maxCooldown = 150;
         break;
 
     // 1 min
     case 60 * 60:
-        _maxCooldown = 150;
+        _maxCooldown = 100;
         break;
 
     // 1 min 30 sec
     case 60 * 90:
-        _maxCooldown = 100;
+        _maxCooldown = 50;
         break;
 
     // 2 min
     case 60 * 120:
-        _maxCooldown = 50;
+        _maxCooldown = 25;
+
         break;
     default:
         break;
@@ -199,6 +200,7 @@ void Map::update()
                     enemy->setIsDead(true);
                     _player->setLifes(_player->getLifes() - 1);
                     AUDIO->playAudio(-1, _player->getAudioHurt(), 0);
+
                     break;
                 }
             }
@@ -224,8 +226,6 @@ void Map::update()
 
                         //SCORE
                         GAME_STATE->setPoints(GAME_STATE->getPoints() + 10);
-
-                        std::cout << GAME_STATE->getPoints() << "\n";
 
                         break;
                     }

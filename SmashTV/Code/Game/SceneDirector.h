@@ -7,7 +7,7 @@
 //! Enum Scenes.
 /*! All the Scenes in the game. */
 enum SceneEnum {
-		MENU, MAP, GAMEOVER, HIGHSCORE, /*SAVE_LOAD,*/
+		MENU, MAP, GAMEOVER, HIGHSCORE,
 		_LASTSCENE};
 
 #define NUM_SCENES _LASTSCENE
@@ -20,6 +20,7 @@ public:
 	void init();
 		
 	void changeScene(SceneEnum next_scene, bool reinit = true);
+	void changeSceneC(SceneEnum next_scene, bool reinit = true, int channel = 0);
 
 	void pauseCurrentSceneAudio();
 
@@ -36,6 +37,8 @@ protected:
 
 	std::vector<Scene*>	mVectorScenes;
 	SceneEnum mCurrScene;
+
+	int _channel;
 };
 
 #endif

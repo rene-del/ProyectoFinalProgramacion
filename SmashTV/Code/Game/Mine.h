@@ -14,9 +14,14 @@ private:
 	int _contador;
 	bool _isNotExploted;
 	bool _cooldownCollision;
+	
+	int _randomDirectionTimer;
+	bool _preferX;
 
 	SDL_Rect _src;
 	SDL_Rect _dst;
+
+	SDL_FRect _dstSmooth;
 
 	Uint32 _spriteMaxTime;
 	Uint32 _nextSpriteCount;

@@ -72,7 +72,7 @@ void HighScore::update()
 	if (r)
 	{
 		_hasExecuted = false;
-		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, false);
+		SCENE_DIRECTOR->changeScene(SceneEnum::MENU, true);
 	}	
 }
 
@@ -215,8 +215,6 @@ void HighScore::writeFile()
 
 void HighScore::readFile()
 {
-	std::cout << GAME_STATE->getPoints() << "\n";
-
 	std::streampos size;
 	char readNom[6]; // 6 bytes
 	int readPoints;  // 4 bytes
