@@ -161,6 +161,9 @@
     <Filter Include="Resource Files\Assets\Audios">
       <UniqueIdentifier>{a4046e08-1537-44d3-86d7-6d59be6bf871}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Assets\Fonts">
+      <UniqueIdentifier>{60f659da-c14b-4b08-892c-14a0b4fa0ec5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Assets\PowerUps\Life_PowerUp.png">
@@ -264,6 +267,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="SDL2_ttf.dll">
       <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Fonts\Minecraft.ttf">
+      <Filter>Resource Files\Assets\Fonts</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>
