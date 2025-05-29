@@ -33,7 +33,7 @@ private:
 
 public:
 
-	Grunt(float x, float y);
+	Grunt(int pos);
 	~Grunt();
 
 	void init() override;

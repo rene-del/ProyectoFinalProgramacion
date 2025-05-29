@@ -268,5 +268,8 @@
     <CopyFileToFolders Include="Assets\Audios\playerHurt.wav">
       <Filter>Resource Files\Assets\Audios</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="SDL2_ttf.dll">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

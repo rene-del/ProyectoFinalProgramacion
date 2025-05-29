@@ -41,15 +41,44 @@ void BlobBullet::init(int x, int y, int w, int h, int dirX, int dirY)
 	_src.w = 16;
 	_src.h = 11;
 
-	_dst.x = x - 10 + (w / 2 - _src.w / 2);
-	_dst.y = y + (h / 2 - _src.h / 2);
+	_dirX = dirX;
+	_dirY = dirY;
+
 	_dst.w = 16;
 	_dst.h = 11;
 
-	_speed = 2;
+	switch (_dirX)
+	{
+	case -1:
+		_dst.x = x - 10 + (w / 2 - _dst.w / 2);
+		_dst.y = y + (h / 2 - _dst.h / 2);
 
-	_dirX = dirX;
-	_dirY = dirY;
+		break;
+	case 1:
+		_dst.x = x + 10 + (w / 2 + _dst.w / 2);
+		_dst.y = y + (h / 2 - _dst.h / 2);
+
+		break;
+	default:
+		break;
+	}
+
+	switch (_dirY)
+	{
+	case -1:
+		_dst.x = x + w / 2;
+		_dst.y = y - 10;
+
+		break;
+	case 1:
+		_dst.x = x + (w / 2 + _dst.w / 2);
+		_dst.y = y + h;
+		break;
+	default:
+		break;
+	}
+
+	_speed = 2;
 }
 
 void BlobBullet::update(Player* player)

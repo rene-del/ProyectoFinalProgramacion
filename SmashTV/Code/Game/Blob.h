@@ -40,7 +40,7 @@ private:
 	
 
 public:
-	Blob(int x, int y);
+	Blob(int pos);
 	~Blob();
 
 	void init() override;

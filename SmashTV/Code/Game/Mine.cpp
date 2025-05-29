@@ -10,7 +10,7 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-Mine::Mine(int x, int y)
+Mine::Mine(int pos)
 {
 	_img = 0;
 	_imgExplosion = 0;
@@ -26,19 +26,49 @@ Mine::Mine(int x, int y)
 
 	_audioDead = 0;
 
+	_src.w = 14;
+	_src.h = 12;
 	_src.x = 0;
 	_src.y = 0;
-	_src.h = 0;
-	_src.w = 0;
 
-	_dst.x = x;
-	_dst.y = y;
-	_dst.h = 0;
-	_dst.w = 0;
+	_dst.h = 28;
+	_dst.w = 24;
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
 
+	switch (pos)
+	{
+		// TOP
+	case 0:
+		_dst.x = SCREEN_WIDTH / 2 - _dst.w / 2;
+		_dst.y = 40 + _dst.h;
+
+		break;
+
+		// BOTTOM
+	case 1:
+		_dst.x = SCREEN_WIDTH / 2 - _dst.w / 2;
+		_dst.y = SCREEN_HEIGHT - 40 - _dst.h;
+
+		break;
+
+		// LEFT
+	case 2:
+		_dst.x = 40 + _dst.w;
+		_dst.y = SCREEN_HEIGHT / 2 - _dst.h / 2;
+
+		break;
+
+		// RIGHT
+	case 3:
+		_dst.x = SCREEN_WIDTH - 40 - _dst.w;
+		_dst.y = SCREEN_HEIGHT / 2 - _dst.h / 2;
+
+		break;
+	default:
+		break;
+	}
 }
 
 Mine::~Mine()
@@ -51,14 +81,6 @@ void Mine::init()
 	_imgExplosion = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
 
 	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
-
-	_dst.w = 32;
-	_dst.h = 32;
-
-	_src.w = 14;
-	_src.h = 12;
-	_src.x = 0;
-	_src.y = 0;
 }
 
 void Mine::update(Player* player)

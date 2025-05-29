@@ -43,6 +43,8 @@ private:
 	int _mapId;
 	int _firstGId;
 
+	int _playTime;
+	int _maxCooldown;
 	int _enemyCooldown;
 
 	vector<int> Layers[NUM_CAPAS];

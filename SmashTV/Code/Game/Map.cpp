@@ -28,6 +28,8 @@ Map::Map()
     _mapId = 0;
     _firstGId = 0;
 
+    _playTime = 0;
+    _maxCooldown = 0;
     _enemyCooldown = 0;
 
     _music = 0;
@@ -64,7 +66,9 @@ void Map::init()
 
     _channel = AUDIO->playAudio(-1, _music, -1);
 
-    _enemyCooldown = 500;
+    _playTime = 0;
+    _maxCooldown = 250;
+    _enemyCooldown = _maxCooldown - 20;
 
     // PLAYER
     _player = new Player();
@@ -89,6 +93,35 @@ void Map::reinit()
 
 void Map::update()
 {
+    // PLAY TIME
+    _playTime++;
+
+    // THE MORE PLAY TIME, THE MORE ENEMIES APPEAR
+    switch (_playTime)
+    {
+    // 30 sec
+    case 60 * 30:
+        _maxCooldown = 200;
+        break;
+
+    // 1 min
+    case 60 * 60:
+        _maxCooldown = 150;
+        break;
+
+    // 1 min 30 sec
+    case 60 * 90:
+        _maxCooldown = 100;
+        break;
+
+    // 2 min
+    case 60 * 120:
+        _maxCooldown = 50;
+        break;
+    default:
+        break;
+    }
+
     // PLAYER
     _player->update();
 
@@ -120,67 +153,30 @@ void Map::update()
         }
 
         // ENEMIES
-        if (_enemies.size() < 10)
+        if (_enemies.size() < 20)
         {
-            if (_enemyCooldown > 150)
+            if (_enemyCooldown > _maxCooldown)
             {
                 _enemyCooldown = 0;
 
                 int randNum = rand() % 4;
+                int enemyRand = rand() % 3;
 
-                float x = 0.0f;
-                float y = 0.0f;
-
-                switch (randNum)
+                if (enemyRand == 0)
                 {
-                    // TOP
-                case 0:
-                    x = static_cast<float>(SCREEN_WIDTH / 2.0f);
-                    y = 40.0f;
-
-                    break;
-
-                    // BOTTOM
-                case 1:
-                    x = static_cast<float>(SCREEN_WIDTH / 2.0f);
-                    y = static_cast<float>(SCREEN_HEIGHT - 40.0f);
-
-                    break;
-
-                    // LEFT
-                case 2:
-                    x = 40.0f;
-                    y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
-
-                    break;
-
-                    // RIGHT
-                case 3:
-                    x = static_cast<float>(SCREEN_WIDTH - 40.0f);
-                    y = static_cast<float>(SCREEN_HEIGHT / 2.0f);
-
-                    break;
-                default:
-                    break;
-                }
-
-                randNum = rand() % 3;
-
-                if (randNum == 0)
-                {
-                    Blob* blob = new Blob(x, y);
+                    Blob* blob = new Blob(randNum);
                     blob->init();
                     _enemies.push_back(blob);
                 }
-                else if (randNum == 1)
+                else if (enemyRand == 1)
                 {
-                    Grunt* grunt = new Grunt(x, y);
+                    Grunt* grunt = new Grunt(randNum);
                     grunt->init();
                     _enemies.push_back(grunt);
                 }
                 else
                 {
-                    Mine* mine = new Mine(x, y);
+                    Mine* mine = new Mine(randNum);
                     mine->init();
                     _enemies.push_back(mine);
                 }

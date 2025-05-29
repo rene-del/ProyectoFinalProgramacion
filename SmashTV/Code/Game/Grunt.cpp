@@ -11,7 +11,7 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-Grunt::Grunt(float x, float y)
+Grunt::Grunt(int pos)
 {
 	_img = 0;
 	_imgDead = 0;
@@ -30,20 +30,52 @@ Grunt::Grunt(float x, float y)
 	_randomDirectionTimer = 0;
 	_preferX = true;
 
+	_dst.w = 64;
+	_dst.h = 64;
+
+	_dstSmooth.w = 64.0f;
+	_dstSmooth.h = 64.0f;
+
+	_src.w = 34;
+	_src.h = 34;
 	_src.x = 0;
 	_src.y = 0;
-	_src.h = 0;
-	_src.w = 0;
 
-	_dst.x = 0;
-	_dst.y = 0;
-	_dst.h = 0;
-	_dst.w = 0;
+	switch (pos)
+	{
+		// TOP
+	case 0:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = 40.0f + _dstSmooth.h;
 
-	_dstSmooth.x = x;
-	_dstSmooth.y = y;
-	_dstSmooth.h = 0;
-	_dstSmooth.w = 0;
+		break;
+
+		// BOTTOM
+	case 1:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT) - 40.0f - _dstSmooth.h;
+
+		break;
+
+		// LEFT
+	case 2:
+		_dstSmooth.x = 40.0f + _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
+
+		break;
+
+		// RIGHT
+	case 3:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH) - 40.0f - _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
+
+		break;
+	default:
+		break;
+	}
+
+	_dst.x = static_cast<int>(_dstSmooth.x);
+	_dst.y = static_cast<int>(_dstSmooth.y);
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
@@ -61,17 +93,6 @@ void Grunt::init()
 	_imgDead = RESOURCE_MANAGER->loadAndGetGraphicID("Assets/Enemies/Explosion.png");
 
 	_audioDead = RESOURCE_MANAGER->loadAndGetAudioID("Assets/Audios/enemyExplosion.wav");
-
-	_dst.w = 64;
-	_dst.h = 64;
-
-	_dstSmooth.w = 64.0f;
-	_dstSmooth.h = 64.0f;
-
-	_src.w = 34;
-	_src.h = 34;
-	_src.x = 0;
-	_src.y = 0;
 
 	_speed = 1.0f;
 }

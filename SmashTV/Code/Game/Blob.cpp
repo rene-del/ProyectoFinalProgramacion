@@ -10,7 +10,7 @@ extern ResourceManager* RESOURCE_MANAGER;
 extern Video* VIDEO;
 extern InputManager* INPUT_MANAGER;
 
-Blob::Blob(int x, int y)
+Blob::Blob(int pos)
 {
 	_bullets.resize(0);
 
@@ -26,20 +26,52 @@ Blob::Blob(int x, int y)
 	_dirX = 0.0f;
 	_dirY = 0.0f;
 
+	_dst.w = 64;
+	_dst.h = 128;
+
+	_dstSmooth.w = 64.0f;
+	_dstSmooth.h = 128.0f;
+
+	_src.w = 52;
+	_src.h = 75;
 	_src.x = 0;
 	_src.y = 0;
-	_src.w = 0;
-	_src.h = 0;
 
-	_dstSmooth.x = x;
-	_dstSmooth.y = y;
-	_dstSmooth.h = 0;
-	_dstSmooth.w = 0;
+	switch (pos)
+	{
+		// TOP
+	case 0:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = 40.0f + _dstSmooth.h;
 
-	_dst.x = x;
-	_dst.y = y;
-	_dst.w = 0;
-	_dst.h = 0;
+		break;
+
+		// BOTTOM
+	case 1:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH / 2.0f) - _dstSmooth.w / 2.0f;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT) - 40.0f - _dstSmooth.h;
+
+		break;
+
+		// LEFT
+	case 2:
+		_dstSmooth.x = 40.0f + _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
+
+		break;
+
+		// RIGHT
+	case 3:
+		_dstSmooth.x = static_cast<float>(SCREEN_WIDTH) - 40.0f - _dstSmooth.w;
+		_dstSmooth.y = static_cast<float>(SCREEN_HEIGHT / 2.0f) - _dstSmooth.h / 2.0f;
+
+		break;
+	default:
+		break;
+	}
+
+	_dst.x = static_cast<int>(_dstSmooth.x);
+	_dst.y = static_cast<int>(_dstSmooth.y);
 
 	_spriteMaxTime = 0;
 	_nextSpriteCount = 0;
@@ -67,17 +99,6 @@ Blob::~Blob()
 void Blob::init()
 {
 	_speed = 1;
-	
-	_dst.w = 64;
-	_dst.h = 128;
-
-	_dstSmooth.w = 64.0f;
-	_dstSmooth.h = 128.0f;
-
-	_src.w = 52;
-	_src.h = 75;
-	_src.x = 0;
-	_src.y = 0;
 
 	_spriteMaxTime = 150;
 	_nextSpriteCount = 0;

@@ -22,7 +22,7 @@ private:
 	Uint32 _nextSpriteCount;
 
 public:
-	Mine(int x, int y);
+	Mine(int pos);
 	~Mine();
 
 	void init() override;
